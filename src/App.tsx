@@ -22,7 +22,7 @@ export const App = (props: AppPropsType) => {
                 <Navigation navBarNavLinks={props.state.navBarNavLinks}/>
                 <div className="profile">
                     <Routes>
-                        <Route path={'/profile'} element={<Profile/>}/>
+                        <Route path={'/profile'} element={<Profile postData={props.state.profilePage.postData}/>}/>
                         <Route path={'/messages/*'} element={<Messages dialogs={props.state.Message.dialogs}
                                                                        messages={props.state.Message.messages}/>}/>
                         <Route path={'/news'} element={<News/>}/>

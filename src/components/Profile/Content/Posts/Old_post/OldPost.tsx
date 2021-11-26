@@ -7,7 +7,7 @@ type propsType = {
     comment: number
 }
 
-export const Old_Post = (props: propsType) => {
+export const OldPost = (props: propsType) => {
     return (
         <div className={s.content}>
             <img alt={'@'} className={s.avatar}
