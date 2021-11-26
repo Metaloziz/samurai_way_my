@@ -1,0 +1,24 @@
+.app-wrapper {
+    display: grid;
+    width: 1000px;
+    margin: 10px auto;
+    /*padding: 10px;*/
+    /*border-radius: 10px;*/
+
+
+    grid-template-areas:
+            "header header"
+            "navigation content";
+    grid-template-rows: 100px 1fr;
+    grid-template-columns: 150px 1fr;
+    grid-gap: 10px;
+    /*background-color: #70757f;*/
+    
+}
+
+/*.profile {*/
+/*    background-color: dimgrey;*/
+/*    padding: 0.5%;*/
+/*}*/
+
+

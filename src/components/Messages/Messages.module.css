@@ -1,0 +1,30 @@
+
+.dialogs {
+
+    display: flex;
+    flex-direction: row;
+    background-color: darkslategrey;
+    height: 350px;
+    padding: 10px;
+    color: beige;
+    /*margin: 0.5%;*/
+
+}
+
+.dialogItems {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    /*margin: 1%;*/
+    background-color: #7cb89c;
+
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 100%;
+    margin-left: 1%;
+    background-color: #7cb89c;
+}

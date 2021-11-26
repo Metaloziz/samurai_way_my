@@ -1,0 +1,16 @@
+.content {
+    background-color: darkcyan;
+    padding: 1%;
+    margin: 0.5%;
+    width: auto;
+    border-radius: 10px;
+}
+
+.avatar {
+    width: 50px;
+    border-radius: 100px;
+}
+
+.item {
+    color: beige;
+}

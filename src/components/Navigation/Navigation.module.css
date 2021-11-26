@@ -1,0 +1,27 @@
+.navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    grid-area: navigation;
+    background-color: #191f2d;
+    padding: 10px;
+    height: 350px;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #7cb89c;
+}
+.navigation a.active {
+    /*text-decoration: none;*/
+    color: cornsilk;
+    font-size: 110%;
+}
+
+.item {
+    /*background-color: dimgrey;*/
+    /*border-radius: 10px 0 10px 0;*/
+    color: aliceblue;
+    text-align: left;
+    padding-left: 25%;
+}

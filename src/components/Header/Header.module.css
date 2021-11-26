@@ -1,0 +1,17 @@
+
+.header {
+    grid-area: header;
+    background-color: #191f2d;
+    padding: 10px;
+    color: beige;
+}
+
+.header img {
+    height: 50px;
+    padding-left: 3%;
+
+}
+
+.header div {
+    padding-left: 3.5%;
+}
