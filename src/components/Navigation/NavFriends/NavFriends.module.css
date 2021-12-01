@@ -1,0 +1,9 @@
+.navFriends {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    grid-area: navigation;
+    background-color: #191f2d;
+    padding: 10px;
+    margin-top: 10px;
+}

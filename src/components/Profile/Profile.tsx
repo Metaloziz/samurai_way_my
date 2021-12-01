@@ -7,7 +7,7 @@ export const Profile = (props : ProfileMiddle) => {
     return (
         <div>
             <ContentHeader/>
-            <AreaPosts postData={props.postData}/>
+            <AreaPosts postData={props.postData} addPost={props.addPost}/>
         </div>
     )
 }

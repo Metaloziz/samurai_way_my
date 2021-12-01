@@ -6,8 +6,13 @@ import {ConversationsPropsType} from "../../redux/state";
 
 export let Messages = (props: ConversationsPropsType) => {
 
-    let dialogsDataItems = props.dialogs.map((x) => <DialogItem id={x.id} name={x.name}/>)
+    let dialogsDataItems = props.dialogs.map((x) => <DialogItem id={x.id} name={x.name} ava={x.ava}/>)
     let messagesDataItems = props.messages.map((x) => <MessagesItem id={x.id} text={x.text}/>)
+
+    let newMessageRef = React.createRef<HTMLTextAreaElement>()
+
+    let addNewMessage = () => console.log(newMessageRef.current?.value)
+
 
     return (
         <div className={s.dialogs}>
@@ -16,6 +21,9 @@ export let Messages = (props: ConversationsPropsType) => {
             </div>
             <div className={s.messages}>
                 {messagesDataItems}
+                <textarea ref={newMessageRef}>text</textarea>
+                <button onClick={addNewMessage}>Add</button>
             </div>
+
         </div>)
 }

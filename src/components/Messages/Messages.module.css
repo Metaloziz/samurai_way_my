@@ -21,9 +21,9 @@
 }
 
 .messages {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: start;*/
     width: 100%;
     margin-left: 1%;
     background-color: #7cb89c;

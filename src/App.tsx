@@ -1,6 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import './App.css';
+import {Route, Routes} from "react-router-dom";
 import {Header} from "./components/Header/Header";
 import {Profile} from "./components/Profile/Profile";
 import {Navigation} from "./components/Navigation/Navigation";
@@ -8,30 +7,33 @@ import {Messages} from "./components/Messages/Messages";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
+import './App.css';
 import {AppPropsType} from "./redux/state";
+
 
 // type AppPropsType = navBarNavLinkPropsType & ConversationsPropsType
 
-export const App = (props: AppPropsType) => {
+export const App = ({state}: AppPropsType) => {
 
 
     return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <Header logo={'logo'}/>
-                <Navigation navBarNavLinks={props.state.navBarNavLinks}/>
-                <div className="profile">
-                    <Routes>
-                        <Route path={'/profile'} element={<Profile postData={props.state.profilePage.postData}/>}/>
-                        <Route path={'/messages/*'} element={<Messages dialogs={props.state.Message.dialogs}
-                                                                       messages={props.state.Message.messages}/>}/>
-                        <Route path={'/news'} element={<News/>}/>
-                        <Route path={'/music'} element={<Music/>}/>
-                        <Route path={'/settings'} element={<Settings/>}/>
-                    </Routes>
-                </div>
+        <div className='app-wrapper'>
+            <Header logo={'logo'}/>
+            <Navigation sidebar={state.sidebar}/>
+
+            <div>
+                <Routes>
+                    <Route path={'/profile'} element={<Profile postData={state.profilePage.postData}
+                                                               addPost={state.profilePage.addPost}/>}/>
+                    <Route path={'/messages/*'} element={<Messages dialogs={state.dialogsPage.dialogs}
+                                                                   messages={state.dialogsPage.messages}/>}/>
+                    <Route path={'/news'} element={<News/>}/>
+                    <Route path={'/music'} element={<Music/>}/>
+                    <Route path={'/settings'} element={<Settings/>}/>
+                </Routes>
             </div>
-        </BrowserRouter>
+        </div>
+
     );
 }
 

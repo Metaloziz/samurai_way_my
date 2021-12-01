@@ -10,7 +10,7 @@
             "header header"
             "navigation content";
     grid-template-rows: 100px 1fr;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 150px 1fr;
     grid-gap: 10px;
     /*background-color: #70757f;*/
     
