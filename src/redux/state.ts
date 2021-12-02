@@ -1,3 +1,4 @@
+import {renderEntireTree} from "../render";
 
 let avaPhoto = [
     {ava: 'https://wl-adme.cf.tsp.li/resize/728x/jpg/828/489/b2756c5cdd8b6216f063d69448.jpg'},
@@ -7,7 +8,7 @@ let avaPhoto = [
     {ava: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGxVCtR7JN6dLYj0xMPGyB0n-cSqxx7DQpLrf34ZuJHv4UhUeJlf5TCgyBg4IwWroZIFE&usqp=CAU'}
 ]
 
-export let state: navBarNavLinkPropsType & MessageType & profilePagePropsType = {
+export let state: sidebarPT & profilePagePT & dialogsPagePT = {
     sidebar: [
         {path: '/profile', title: 'Profile'},
         {path: '/messages', title: 'Messages'},
@@ -20,16 +21,7 @@ export let state: navBarNavLinkPropsType & MessageType & profilePagePropsType = 
             {id: 1, message: 'Kiss me hard before you go Summertime sadness', like: 2, comment: 4},
             {id: 2, message: 'I just wanted you to know That baby you\'re the best', like: 7, comment: 8}
         ],
-        addPost: (message: string) => {
-            // debugger
-            let newPost = {
-                id: 2,
-                message: message,
-                like: 7,
-                comment: 8
-            }
-            state.profilePage.postData.push(newPost)
-        }
+        newPostText: 'You Can type some'
     },
     dialogsPage: {
         dialogs: [
@@ -37,7 +29,8 @@ export let state: navBarNavLinkPropsType & MessageType & profilePagePropsType = 
             {id: 2, name: 'Olga', ava: avaPhoto[1].ava},
             {id: 3, name: 'Anna', ava: avaPhoto[2].ava},
             {id: 4, name: 'Yra', ava: avaPhoto[3].ava},
-            {id: 5, name: 'Mary', ava: avaPhoto[4].ava}
+            {id: 5, name: 'Mary', ava: avaPhoto[4].ava},
+
         ],
         messages: [
             {id: 1, text: 'Hi'},
@@ -50,68 +43,82 @@ export let state: navBarNavLinkPropsType & MessageType & profilePagePropsType = 
 }
 
 
-// export let addPost = (message: string) => {
-//
-//     let newPost = {
-//         id: 2,
-//         message: message,
-//         like: 7,
-//         comment: 8}
-//
-//     state.profilePage.postData.push(newPost)
-// }
+export let addPostFromState = () => {
 
-
-export type profilePagePropsType = {
-    profilePage: ProfileMiddle
+    console.log('state')
+    let newPost = {
+        id: 2,
+        message: state.profilePage.newPostText,
+        like: 7,
+        comment: 8
+    }
+    state.profilePage.postData.unshift(newPost)
+    state.profilePage.newPostText = ''
+    renderEntireTree(state)
+}
+export let updateNewPostText = (props: string) => {
+    state.profilePage.newPostText = (props)
+    renderEntireTree(state)
 }
 
-export type ProfileMiddle = {
-    postData: Array<PostDataItemPropsType>
-    addPost: (message: string) => void
 
+// AppPT-----------------------------------------
+export type AppPT = {
+    props: sidebarPT & profilePagePT & dialogsPagePT
+    addPost: () => void
+    updateText: (message: string) => void
 }
 
-export type PostDataItemPropsType = {
+// sidebarPT--------------------------------------
+export type sidebarPT = {
+    sidebar: Array<ItemPT>
+}
+type ItemPT = {
+    path: string
+    title: string
+}
+
+// profilePagePT -----------------------------------
+export type profilePagePT = {
+    profilePage: ProfileItemsPT
+}
+export type ProfileItemsPT = {
+    postData: Array<PostDataPT>
+    newPostText: string
+}
+export type PostDataPT = {
     id: number
     message: string
     like: number
     comment: number
 }
-
-export type NewPostPropsType = {
-    addPost: (message: string) => void
+export type addPostFromStatePT = { // ?????????????? Can I do it easier ????????????
+    addPost: () => void
+}
+export type updateNewPostTextPT = { // ?????????????? Can I do it easier ????????????
+    updateText: (message: string) => void
 }
 
-// App-----------------------------------------
-export type AppPropsType = {
-    state: navBarNavLinkPropsType & MessageType & profilePagePropsType
-
-}
-
-// NavBar--------------------------------------
-export type navBarNavLinkPropsType = {
-    sidebar: Array<ItemPropsType>
-}
-type ItemPropsType = {
-    path: string
-    title: string
-}
-
-// Messages------------------------------------
-export type MessageType = {
-    dialogsPage: ConversationsPropsType
+// dialogsPagePT------------------------------------
+export type dialogsPagePT = {
+    dialogsPage: dialogsItemsPT
 };
-export type ConversationsPropsType = {
-    dialogs: Array<DialogPropsType>
-    messages: Array<MessagePropsType>
+export type dialogsItemsPT = {
+    dialogs: Array<DialogPT>
+    messages: Array<MessagePT>
 }
-export type DialogPropsType = {
+export type DialogPT = {
     id: number
     name: string
     ava: string
 }
-export type MessagePropsType = {
+export type MessagePT = {
     id: number
     text: string
 }
+
+
+
+
+
+

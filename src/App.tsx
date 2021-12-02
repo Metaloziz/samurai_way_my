@@ -8,25 +8,24 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import './App.css';
-import {AppPropsType} from "./redux/state";
+import {AppPT} from "./redux/state";
 
 
-// type AppPropsType = navBarNavLinkPropsType & ConversationsPropsType
-
-export const App = ({state}: AppPropsType) => {
-
+export const App = ({props, addPost, updateText}: AppPT) => {
 
     return (
         <div className='app-wrapper'>
             <Header logo={'logo'}/>
-            <Navigation sidebar={state.sidebar}/>
+            <Navigation sidebar={props.sidebar}/>
 
             <div>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile postData={state.profilePage.postData}
-                                                               addPost={state.profilePage.addPost}/>}/>
-                    <Route path={'/messages/*'} element={<Messages dialogs={state.dialogsPage.dialogs}
-                                                                   messages={state.dialogsPage.messages}/>}/>
+                    <Route path={'/profile'} element={<Profile postData={props.profilePage.postData}
+                                                               addPost={addPost}
+                                                               newPostText={props.profilePage.newPostText}
+                                                               updateText={updateText}/>}/>
+                    <Route path={'/messages/*'} element={<Messages dialogs={props.dialogsPage.dialogs}
+                                                                   messages={props.dialogsPage.messages}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>

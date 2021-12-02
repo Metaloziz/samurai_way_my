@@ -1,9 +1,9 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './Navigation.module.css'
-import {navBarNavLinkPropsType} from "../../redux/state";
+import {sidebarPT} from "../../redux/state";
 
-export const Navigation = (props: navBarNavLinkPropsType) =>
+export const Navigation = (props: sidebarPT) =>
     <div>
         <nav className={s.navigation}>
             {props.sidebar.map((x) =>

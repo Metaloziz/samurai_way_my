@@ -2,11 +2,11 @@ import React from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessagesItem} from "./MessagesItem/MessagesItem";
 import s from './Messages.module.css'
-import {ConversationsPropsType} from "../../redux/state";
+import {dialogsItemsPT} from "../../redux/state";
 
-export let Messages = (props: ConversationsPropsType) => {
+export let Messages = (props: dialogsItemsPT) => {
 
-    let dialogsDataItems = props.dialogs.map((x) => <DialogItem id={x.id} name={x.name} ava={x.ava}/>)
+    let dialogsDataItems = props.dialogs.map((x) => <DialogItem  id={x.id} name={x.name} ava={x.ava}/>)
     let messagesDataItems = props.messages.map((x) => <MessagesItem id={x.id} text={x.text}/>)
 
     let newMessageRef = React.createRef<HTMLTextAreaElement>()

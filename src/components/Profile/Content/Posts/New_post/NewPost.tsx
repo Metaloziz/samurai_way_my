@@ -1,17 +1,20 @@
 import React from "react";
 import s from './New_Post.module.css'
-import {NewPostPropsType} from "../../../../../redux/state";
+import {addPostFromStatePT, ProfileItemsPT, updateNewPostTextPT} from "../../../../../redux/state";
 
 
-export const NewPost = (props: NewPostPropsType) => {
+export const NewPost = ({addPost, newPostText, updateText}: addPostFromStatePT & ProfileItemsPT & updateNewPostTextPT) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     let addNewPost = () => {
-        // debugger
+            addPost()
+    }
+
+    let onPostChange = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value
-            props.addPost(text)
+            updateText(text)
             console.log(text)
         }
     }
@@ -20,7 +23,9 @@ export const NewPost = (props: NewPostPropsType) => {
         <div className={s.item}>
             New Post
             <div>
-                <textarea ref={newPostElement}>some text</textarea>
+                <textarea onChange={onPostChange}
+                          ref={newPostElement}
+                          value={newPostText}/>
                 <div>
                     <button onClick={addNewPost}>Add post</button>
                 </div>
