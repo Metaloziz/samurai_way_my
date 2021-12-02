@@ -1,9 +1,9 @@
 import React from "react";
 import s from './New_Post.module.css'
-import {addPostFromStatePT, ProfileItemsPT, updateNewPostTextPT} from "../../../../../redux/state";
+import {addPostPT, ProfileItemsPT, updatePostPT} from "../../../../../redux/state";
 
 
-export const NewPost = ({addPost, newPostText, updateText}: addPostFromStatePT & ProfileItemsPT & updateNewPostTextPT) => {
+export const NewPost = ({addPost, newPostText, updatePost}: addPostPT & ProfileItemsPT & updatePostPT) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
@@ -14,7 +14,7 @@ export const NewPost = ({addPost, newPostText, updateText}: addPostFromStatePT &
     let onPostChange = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value
-            updateText(text)
+            updatePost(text)
             console.log(text)
         }
     }

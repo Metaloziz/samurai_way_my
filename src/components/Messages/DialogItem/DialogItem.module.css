@@ -3,14 +3,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    padding: 1em 0 0 1em;
+    padding: 1em 0 1em 1em;
 }
 
 .dialog img {
     margin-right: 0.5em;
     width: 50px;
-    height: 50px;
+    height: 65px;
     border-radius: 20px;
 }
 

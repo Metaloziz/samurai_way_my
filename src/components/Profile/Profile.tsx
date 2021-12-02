@@ -1,16 +1,16 @@
 import React from "react";
 import {AreaPosts} from "./Content/Posts/AreaPosts";
 import {ContentHeader} from "./Content/Content_header/ContentHeader";
-import {addPostFromStatePT, ProfileItemsPT, updateNewPostTextPT} from "../../redux/state";
+import {addPostPT, ProfileItemsPT, updatePostPT} from "../../redux/state";
 
-export const Profile = (props: ProfileItemsPT & addPostFromStatePT & updateNewPostTextPT) => {
+export const Profile = (props: ProfileItemsPT & addPostPT & updatePostPT) => {
     return (
         <div>
             <ContentHeader/>
             <AreaPosts postData={props.postData}
                        addPost={props.addPost}
                        newPostText={props.newPostText}
-                       updateText={props.updateText}/>
+                       updatePost={props.updatePost}/>
 
         </div>
     )

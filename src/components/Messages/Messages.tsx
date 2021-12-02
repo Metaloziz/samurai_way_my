@@ -2,16 +2,24 @@ import React from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessagesItem} from "./MessagesItem/MessagesItem";
 import s from './Messages.module.css'
-import {dialogsItemsPT} from "../../redux/state";
+import {addTextPT, dialogsItemsPT, updateTextPT} from "../../redux/state";
 
-export let Messages = (props: dialogsItemsPT) => {
+export let Messages = (props: dialogsItemsPT & updateTextPT & addTextPT) => {
 
-    let dialogsDataItems = props.dialogs.map((x) => <DialogItem  id={x.id} name={x.name} ava={x.ava}/>)
+    let dialogsDataItems = props.dialogs.map((x) => <DialogItem id={x.id} name={x.name} ava={x.ava}/>)
     let messagesDataItems = props.messages.map((x) => <MessagesItem id={x.id} text={x.text}/>)
 
+    //---------------------------ref-------------------------
     let newMessageRef = React.createRef<HTMLTextAreaElement>()
+    let addNewMessage = () => props.addText()
+    //-------------------------------------------------------
 
-    let addNewMessage = () => console.log(newMessageRef.current?.value)
+
+    const changeText = () => {
+        if (newMessageRef.current) {
+            props.updateText(newMessageRef.current.value)
+        }
+    }
 
 
     return (
@@ -21,7 +29,7 @@ export let Messages = (props: dialogsItemsPT) => {
             </div>
             <div className={s.messages}>
                 {messagesDataItems}
-                <textarea ref={newMessageRef}>text</textarea>
+                <textarea onChange={changeText} ref={newMessageRef} value={props.newText}/>
                 <button onClick={addNewMessage}>Add</button>
             </div>
 

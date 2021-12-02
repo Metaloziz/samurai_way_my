@@ -3,8 +3,8 @@ import {renderEntireTree} from "../render";
 let avaPhoto = [
     {ava: 'https://wl-adme.cf.tsp.li/resize/728x/jpg/828/489/b2756c5cdd8b6216f063d69448.jpg'},
     {ava: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRyOavUGIwOOX3ETRRyYRX5i6cckfejkOGGZuuzC49v3Kn9fts9Af4l3JsKYc1SxZb3VU&usqp=CAU'},
-    {ava: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXUp7S2yzKpCP0JvK8sPtM2k2zMnWkzR3lHqM-ZuB9LEAY5dSWkon7kUZodMT3mGNpz1I&usqp=CAU'},
-    {ava: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFBKAsw4akJd15QfG3nfgvnWlMoTswMy-BEFrZ6az3B7V0N52cC7WHbo-QTAw0Tv_5QfU&usqp=CAU'},
+    {ava: 'https://www.meme-arsenal.com/memes/45e5d421b1445a06da4d6850fcafdb1a.jpg'},
+    {ava: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Arnold_Schwarzenegger_by_Gage_Skidmore_3.jpg/250px-Arnold_Schwarzenegger_by_Gage_Skidmore_3.jpg'},
     {ava: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGxVCtR7JN6dLYj0xMPGyB0n-cSqxx7DQpLrf34ZuJHv4UhUeJlf5TCgyBg4IwWroZIFE&usqp=CAU'}
 ]
 
@@ -29,7 +29,7 @@ export let state: sidebarPT & profilePagePT & dialogsPagePT = {
             {id: 2, name: 'Olga', ava: avaPhoto[1].ava},
             {id: 3, name: 'Anna', ava: avaPhoto[2].ava},
             {id: 4, name: 'Yra', ava: avaPhoto[3].ava},
-            {id: 5, name: 'Mary', ava: avaPhoto[4].ava},
+            {id: 5, name: 'Mary', ava: avaPhoto[4].ava}
 
         ],
         messages: [
@@ -38,12 +38,14 @@ export let state: sidebarPT & profilePagePT & dialogsPagePT = {
             {id: 3, text: 'Good'},
             {id: 4, text: 'Yo'},
             {id: 5, text: 'Yo'}
-        ]
+
+        ],
+        newText: 'Some text from State'
     }
 }
 
-
-export let addPostFromState = () => {
+//--------------------------------1
+export let addPost = () => {
 
     console.log('state')
     let newPost = {
@@ -56,16 +58,36 @@ export let addPostFromState = () => {
     state.profilePage.newPostText = ''
     renderEntireTree(state)
 }
-export let updateNewPostText = (props: string) => {
+export let updateAddPost = (props: string) => {
     state.profilePage.newPostText = (props)
     renderEntireTree(state)
 }
+//--------------------------------2
+export let addTextMessage = () => {
+
+    let newPost = {
+        id: 2,
+        text: state.dialogsPage.newText,
+    }
+    state.dialogsPage.messages.unshift(newPost)
+    state.dialogsPage.newText = ''
+    renderEntireTree(state)
+}
+
+export let updateTextMessage = (props: string) => {
+    state.dialogsPage.newText = (props)
+    console.log(props)
+    renderEntireTree(state)
+}
+
 
 
 // AppPT-----------------------------------------
 export type AppPT = {
     props: sidebarPT & profilePagePT & dialogsPagePT
     addPost: () => void
+    updatePost: (message: string) => void
+    addText: () => void
     updateText: (message: string) => void
 }
 
@@ -92,10 +114,16 @@ export type PostDataPT = {
     like: number
     comment: number
 }
-export type addPostFromStatePT = { // ?????????????? Can I do it easier ????????????
+export type addPostPT = { // ?????????????? Can I do it easier ????????????
     addPost: () => void
 }
-export type updateNewPostTextPT = { // ?????????????? Can I do it easier ????????????
+export type updatePostPT = { // ?????????????? Can I do it easier ????????????
+    updatePost: (message: string) => void
+}
+export type addTextPT = { // ?????????????? Can I do it easier ????????????
+    addText: () => void
+}
+export type updateTextPT = { // ?????????????? Can I do it easier ????????????
     updateText: (message: string) => void
 }
 
@@ -106,6 +134,7 @@ export type dialogsPagePT = {
 export type dialogsItemsPT = {
     dialogs: Array<DialogPT>
     messages: Array<MessagePT>
+    newText: string
 }
 export type DialogPT = {
     id: number

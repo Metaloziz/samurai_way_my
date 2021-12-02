@@ -11,7 +11,7 @@ import './App.css';
 import {AppPT} from "./redux/state";
 
 
-export const App = ({props, addPost, updateText}: AppPT) => {
+export const App = ({props, addPost, updatePost, updateText, addText}: AppPT) => {
 
     return (
         <div className='app-wrapper'>
@@ -21,11 +21,14 @@ export const App = ({props, addPost, updateText}: AppPT) => {
             <div>
                 <Routes>
                     <Route path={'/profile'} element={<Profile postData={props.profilePage.postData}
-                                                               addPost={addPost}
                                                                newPostText={props.profilePage.newPostText}
-                                                               updateText={updateText}/>}/>
+                                                               addPost={addPost}
+                                                               updatePost={updatePost}/>}/>
                     <Route path={'/messages/*'} element={<Messages dialogs={props.dialogsPage.dialogs}
-                                                                   messages={props.dialogsPage.messages}/>}/>
+                                                                   messages={props.dialogsPage.messages}
+                                                                   newText={props.dialogsPage.newText}
+                                                                   updateText={updateText}
+                                                                   addText={addText}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
