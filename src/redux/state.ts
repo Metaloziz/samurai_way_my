@@ -1,4 +1,7 @@
-import {renderEntireTree} from "../render";
+let renderEntireTree = (state: sidebarPT & dialogsPagePT & profilePagePT) => {
+    console.log('State changed')
+}
+
 
 let avaPhoto = [
     {ava: 'https://wl-adme.cf.tsp.li/resize/728x/jpg/828/489/b2756c5cdd8b6216f063d69448.jpg'},
@@ -44,7 +47,8 @@ export let state: sidebarPT & profilePagePT & dialogsPagePT = {
     }
 }
 
-//--------------------------------1
+
+//------------------------------------------------
 export let addPost = () => {
 
     console.log('state')
@@ -62,7 +66,7 @@ export let updateAddPost = (props: string) => {
     state.profilePage.newPostText = (props)
     renderEntireTree(state)
 }
-//--------------------------------2
+//------------------------------------------------
 export let addTextMessage = () => {
 
     let newPost = {
@@ -73,13 +77,18 @@ export let addTextMessage = () => {
     state.dialogsPage.newText = ''
     renderEntireTree(state)
 }
-
 export let updateTextMessage = (props: string) => {
     state.dialogsPage.newText = (props)
     console.log(props)
     renderEntireTree(state)
 }
+//------------------------------------------------
 
+
+export const rerenderTree = (props: any) => {
+
+    renderEntireTree = props
+}
 
 
 // AppPT-----------------------------------------

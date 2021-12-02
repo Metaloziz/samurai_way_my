@@ -21,7 +21,6 @@ export let Messages = (props: dialogsItemsPT & updateTextPT & addTextPT) => {
         }
     }
 
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>
