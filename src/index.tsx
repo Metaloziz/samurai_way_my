@@ -3,26 +3,20 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {App} from './App';
-import {
-    dialogsPagePT,
-    sidebarPT,
-    profilePagePT,
-    state,
-    rerenderTree
-} from "./redux/state";
+import {store} from "./redux/_state";
 import './index.css';
 
 
-let renderEntireTree = (props: sidebarPT & dialogsPagePT & profilePagePT) => {
+let renderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <App props={props}/>
+            <App store={store}/>
         </BrowserRouter>,
         document.getElementById('root'));
 }
-renderEntireTree(state)
+renderEntireTree()
 
-rerenderTree(renderEntireTree)
+store.subscribe(renderEntireTree)
 
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,7 +1,7 @@
 import s from "./DialogItem.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {DialogPT} from "../../../redux/state";
+import {DialogPT} from "../../../redux/_state";
 
 export let DialogItem = (props: DialogPT) =>
 

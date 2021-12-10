@@ -1,6 +1,6 @@
 import React from "react";
 import s from './New_Post.module.css'
-import {ProfileItemsPT} from "../../../../../redux/state";
+import {ProfileItemsPT} from "../../../../../redux/_state";
 
 
 type profilePagePT = {

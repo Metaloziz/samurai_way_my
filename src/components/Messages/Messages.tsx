@@ -2,7 +2,7 @@ import React from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessagesItem} from "./MessagesItem/MessagesItem";
 import s from './Messages.module.css'
-import {DialogPT, MessagePT} from "../../redux/state";
+import {DialogPT, MessagePT} from "../../redux/_state";
 
 type dialogsPagePT = {
     dialogsPage: dialogsItemsPT

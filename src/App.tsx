@@ -8,14 +8,15 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import './App.css';
-import {dialogsPagePT, profilePagePT, sidebarPT} from "./redux/state";
-
+import {storeType} from "./redux/_state";
 
 type AppPT = {
-    props: sidebarPT & profilePagePT & dialogsPagePT
+    store: storeType
 }
 
-export const App = ({props}: AppPT) => {
+export const App: React.FC<AppPT> = ({store}) => {
+
+    const props = store.getState() // I can't take _state without this method
 
     return (
         <div className='app-wrapper'>

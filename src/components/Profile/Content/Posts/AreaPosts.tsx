@@ -2,7 +2,7 @@ import React from "react";
 import {NewPost} from "./New_post/NewPost";
 import {OldPost} from "./Old_post/OldPost";
 import s from './Area-posts.module.css';
-import { ProfileItemsPT} from "../../../../redux/state";
+import { ProfileItemsPT} from "../../../../redux/_state";
 
 
 type profilePagePT = {
