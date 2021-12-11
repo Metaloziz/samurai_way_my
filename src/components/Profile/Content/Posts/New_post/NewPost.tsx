@@ -3,23 +3,25 @@ import s from './New_Post.module.css'
 import {ProfileItemsPT} from "../../../../../redux/_state";
 
 
-type profilePagePT = {
+type NewPostPT = {
     profilePage: ProfileItemsPT
+    addPost: () => void
+    updateAddPost: (message: string) => void
 }
 
 
-export const NewPost = ({profilePage}: profilePagePT) => {
+export const NewPost = ({profilePage,addPost, updateAddPost}: NewPostPT) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     let addNewPost = () => {
-        profilePage.addPost()
+        addPost()
     }
 
     let onPostChange = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value
-            profilePage.updateAddPost(text)
+            updateAddPost(text)
             console.log(text)
         }
     }

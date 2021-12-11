@@ -14,6 +14,7 @@ type AppPT = {
     store: storeType
 }
 
+
 export const App: React.FC<AppPT> = ({store}) => {
 
     const props = store.getState() // I can't take _state without this method
@@ -24,9 +25,12 @@ export const App: React.FC<AppPT> = ({store}) => {
             <Navigation sidebar={props.sidebar}/>
             <div>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile profilePage={props.profilePage}/>}/>
+                    <Route path={'/profile'} element={<Profile profilePage={props.profilePage}
+                                                               addPost={store.addPost.bind(store)}
+                                                               updateAddPost={store.updateAddPost.bind(store)}/>}/>
                     <Route path={'/messages/*'} element={<Messages dialogsPage={props.dialogsPage}
-                    />}/>
+                                                                   addTextMessage={store.addTextMessage.bind(store)}
+                                                                   updateTextMessage={store.updateTextMessage.bind(store)}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
