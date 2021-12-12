@@ -1,18 +1,52 @@
-export type stateType = sidebarPT & dialogsPagePT & profilePagePT
+export type statePT = sidebarPT & dialogsPagePT & profilePagePT
 
-export type storeType = {
-    _state: stateType
+export type storePT = {
+    _state: statePT
     _callSubscriber: () => void
-    addPost: () => void
-    updateAddPost: (message: string) => void
-    getState: () => stateType
+    _addPost: () => void
+    _updateAddPost: (message: string) => void
+    _addTextMessage: () => void
+    _updateTextMessage: (message: string) => void
+    getState: () => statePT
     subscribe: (props: () => void) => void
-    addTextMessage: () => void
-    updateTextMessage: (message: string) => void
-    // dispatch: any
+    dispatch: (action: addPostATPT | updateAddTextPostATPT | addTextMessageATPT | updateTextMessageATPT) => void
 }
 
-export let store: storeType = {
+const ADD_POST = 'ADD-POST'
+const UPDATE_ADD_TEXT_POST = 'UPDATE-ADD-TEXT-POST'
+const ADD_TEXT_MESSAGE = 'ADD-TEXT-MESSAGE'
+const UPDATE_TEXT_MESSAGE = 'UPDATE-TEXT-MESSAGE'
+
+export type addPostATPT = {
+    type: 'ADD-POST'
+}
+
+export type updateAddTextPostATPT = {
+    type: 'UPDATE-ADD-TEXT-POST'
+    newText: string
+}
+export type addTextMessageATPT = {
+    type: 'ADD-TEXT-MESSAGE'
+}
+export type updateTextMessageATPT = {
+    type: 'UPDATE-TEXT-MESSAGE'
+    newText: string
+}
+
+
+export const addPostAC = (): addPostATPT => ({type: ADD_POST})
+export const updateAddTextPostAC = (newText: string): updateAddTextPostATPT => ({
+    type: UPDATE_ADD_TEXT_POST,
+    newText: newText
+})
+export const addTextMessageAC = (): addTextMessageATPT => ({type: ADD_TEXT_MESSAGE})
+export const updateTextMessageAC = (newText: string): updateTextMessageATPT => ({
+    type: UPDATE_TEXT_MESSAGE,
+    newText: newText
+})
+
+
+export let store: storePT = {
     _state: {
         sidebar: [
             {path: '/profile', title: 'Profile'},
@@ -26,7 +60,7 @@ export let store: storeType = {
                 {id: 1, message: 'Kiss me hard before you go Summertime sadness', like: 2, comment: 4},
                 {id: 2, message: 'I just wanted you to know That baby you\'re the best', like: 7, comment: 8}
             ],
-            newPostText: 'You Can type some',
+            newPostText: '',
         },
         dialogsPage: {
             dialogs: [
@@ -59,21 +93,40 @@ export let store: storeType = {
                 {id: 4, text: 'Yo'},
                 {id: 5, text: 'Yo'}
             ],
-            newText: 'Some text from State',
+            newText: '',
         }
     },
-    addTextMessage() {
+    _addPost() {
+        debugger
+        console.log('state addPost')
         let newPost = {
             id: 2,
-            text: store._state.dialogsPage.newText,
+            message: this._state.profilePage.newPostText,
+            like: 7,
+            comment: 8
+        }
+        this._state.profilePage.postData.unshift(newPost)
+        this._state.profilePage.newPostText = ''
+        this._callSubscriber()
+    },
+    _updateAddPost(props: string) {
+
+        console.log('state updateAddPost')
+        this._state.profilePage.newPostText = (props)
+        this._callSubscriber()
+    },
+    _addTextMessage() {
+        let newPost = {
+            id: 2,
+            text: this._state.dialogsPage.newText,
         }
         this._state.dialogsPage.messages.unshift(newPost)
         this._state.dialogsPage.newText = ''
         this._callSubscriber()  // надо ли изменять ?
     },
-    updateTextMessage(props: string) {
-        this._state.dialogsPage.newText = (props)
-        console.log(props)
+    _updateTextMessage(newText: string) {
+        this._state.dialogsPage.newText = (newText)
+        console.log(newText)
         this._callSubscriber()  // надо ли изменять ?
     },
     _callSubscriber() {
@@ -85,44 +138,39 @@ export let store: storeType = {
     subscribe(props) {
         this._callSubscriber = props
     },
-    addPost() {
-        console.log('state addPost')
-        let newPost = {
-            id: 2,
-            message: store._state.profilePage.newPostText,
-            like: 7,
-            comment: 8
+    dispatch(action) {
+        if (action.type === ADD_POST) {
+            console.log('state change')
+            let newPost = {
+                id: 2,
+                message: this._state.profilePage.newPostText, // action.newText
+                like: 7,
+                comment: 8
+            }
+            this._state.profilePage.postData.unshift(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber()
+        } else if (action.type === UPDATE_ADD_TEXT_POST) {
+            console.log('state updateAddPost')
+            this._state.profilePage.newPostText = (action.newText)
+            this._callSubscriber()
+        } else if (action.type === ADD_TEXT_MESSAGE) {
+            let newPost = {
+                id: 2,
+                text: this._state.dialogsPage.newText,
+            }
+            this._state.dialogsPage.messages.unshift(newPost)
+            this._state.dialogsPage.newText = ''
+            this._callSubscriber()  // надо ли изменять ?
+
+        } else if (action.type === UPDATE_TEXT_MESSAGE) {
+            this._state.dialogsPage.newText = (action.newText)
+            console.log(action.newText)
+            this._callSubscriber()  // надо ли изменять ?
         }
-        this._state.profilePage.postData.unshift(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },
-    updateAddPost(props: string) {
-        console.log('state updateAddPost')
-        this._state.profilePage.newPostText = (props)
-        this._callSubscriber()
     }
-
-    // dispatch(action) {
-    //     if (action.type === 'ADD-POST') {
-    //         console.log('state change')
-    //         let newPost = {
-    //             id: 2,
-    //             message: store._state.profilePage.newPostText,
-    //             like: 7,
-    //             comment: 8
-    //         }
-    //         this._state.profilePage.postData.unshift(newPost)
-    //         this._state.profilePage.newPostText = ''
-    //         this._callSubscriber() // надо ли изменять ?
-    //     } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-    //         console.log('state updateAddPost')
-    //         this._state.profilePage.newPostText = (action.props)
-    //         this._callSubscriber()  // надо ли изменять ?
-    //     }
-    //}
-
 }
+
 
 // sidebarPT--------------------------------------
 export type sidebarPT = {

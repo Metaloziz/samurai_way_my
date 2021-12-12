@@ -1,20 +1,19 @@
 import React from "react";
 import {AreaPosts} from "./Content/Posts/AreaPosts";
 import {ContentHeader} from "./Content/Content_header/ContentHeader";
-import { ProfileItemsPT} from "../../redux/_state";
+import {addPostATPT, updateAddTextPostATPT, ProfileItemsPT} from "../../redux/_state";
 
 type ProfilePT = {
     profilePage: ProfileItemsPT
-    addPost: () => void
-    updateAddPost: (message: string) => void
+    dispatch: (action: addPostATPT | updateAddTextPostATPT) => void
 }
 
 
-export const Profile = ({profilePage,updateAddPost,addPost}: ProfilePT ) => {
+export const Profile = ({profilePage,dispatch}: ProfilePT ) => {
     return (
         <div>
             <ContentHeader/>
-            <AreaPosts profilePage={profilePage} addPost={addPost} updateAddPost={updateAddPost} />
+            <AreaPosts profilePage={profilePage} dispatch={dispatch} />
 
         </div>
     )

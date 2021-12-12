@@ -8,10 +8,10 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import './App.css';
-import {storeType} from "./redux/_state";
+import {storePT} from "./redux/_state";
 
 type AppPT = {
-    store: storeType
+    store: storePT
 }
 
 
@@ -26,11 +26,9 @@ export const App: React.FC<AppPT> = ({store}) => {
             <div>
                 <Routes>
                     <Route path={'/profile'} element={<Profile profilePage={props.profilePage}
-                                                               addPost={store.addPost.bind(store)}
-                                                               updateAddPost={store.updateAddPost.bind(store)}/>}/>
+                                                               dispatch={store.dispatch.bind(store)}/>}/>
                     <Route path={'/messages/*'} element={<Messages dialogsPage={props.dialogsPage}
-                                                                   addTextMessage={store.addTextMessage.bind(store)}
-                                                                   updateTextMessage={store.updateTextMessage.bind(store)}/>}/>
+                                                                   dispatch={store.dispatch.bind(store)}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
