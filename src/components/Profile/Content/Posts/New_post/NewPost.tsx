@@ -2,11 +2,10 @@ import React from "react";
 import s from './New_Post.module.css'
 import {
     addPostATPT,
-    addPostAC,
     updateAddTextPostATPT,
     ProfileItemsPT,
-    updateAddTextPostAC
 } from "../../../../../redux/_state";
+import {addPostAC, updateAddTextPostAC} from "../../../../../redux/profile_reducer";
 
 
 type NewPostPT = {

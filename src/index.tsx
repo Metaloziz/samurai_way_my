@@ -14,9 +14,9 @@ let renderEntireTree = () => {
         </BrowserRouter>,
         document.getElementById('root'));
 }
-renderEntireTree()
+renderEntireTree() // first render
 
-store.subscribe(renderEntireTree)
+store.subscribe(renderEntireTree) // next render
 
 
 // If you want to start measuring performance in your app, pass a function

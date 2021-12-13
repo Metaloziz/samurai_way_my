@@ -25,13 +25,16 @@
 }
 
 .messages {
-    /*display: flex;*/
-    /*flex-direction: column;*/
+    display: flex;
+    flex-direction: column;
     /*justify-content: start;*/
     height: auto;
     width: 100%;
     margin-left: 1%;
     background-color: #7cb89c;
+}
+.messages button {
+    margin-bottom: 10px;
 }
 
 .messages textarea {

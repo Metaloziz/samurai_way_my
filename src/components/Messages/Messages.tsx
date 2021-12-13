@@ -3,12 +3,11 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {MessagesItem} from "./MessagesItem/MessagesItem";
 import s from './Messages.module.css'
 import {
-    addTextMessageAC,
     addTextMessageATPT,
     dialogsItemsPT,
-    updateTextMessageAC,
     updateTextMessageATPT
 } from "../../redux/_state";
+import {addTextMessageAC, updateTextMessageAC} from "../../redux/dialogs_reducer";
 
 type dialogsPagePT = {
     dialogsPage: dialogsItemsPT
@@ -44,10 +43,15 @@ export let Messages = ({dialogsPage, dispatch}: dialogsPagePT) => {
                 {dialogsDataItems}
             </div>
             <div className={s.messages}>
-                {messagesDataItems}
-                <textarea onChange={changeText} ref={newMessageRef} value={dialogsPage.newText}
-                          placeholder={'Some text from State'}/>
-                <button onClick={addNewMessage}>Add</button>
+                <div>{messagesDataItems}</div>
+
+                <div>
+                    <div><textarea onChange={changeText} ref={newMessageRef} value={dialogsPage.newText}
+                                   placeholder={'Some text from State'}/></div>
+                    <div>
+                        <button onClick={addNewMessage}>Add</button>
+                    </div>
+                </div>
             </div>
 
         </div>)

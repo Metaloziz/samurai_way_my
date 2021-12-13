@@ -1,5 +1,8 @@
-export type statePT = sidebarPT & dialogsPagePT & profilePagePT
+import {addPostAC, profile_reducer, updateAddTextPostAC} from "./profile_reducer";
+import {addTextMessageAC, dialogs_reducer} from "./dialogs_reducer";
+import {sidebar_reducer} from "./sidebar_reducer";
 
+export type statePT = sidebarPT & dialogsPagePT & profilePagePT
 export type storePT = {
     _state: statePT
     _callSubscriber: () => void
@@ -9,41 +12,17 @@ export type storePT = {
     _updateTextMessage: (message: string) => void
     getState: () => statePT
     subscribe: (props: () => void) => void
-    dispatch: (action: addPostATPT | updateAddTextPostATPT | addTextMessageATPT | updateTextMessageATPT) => void
+    dispatch: (action: actionPT) => void
 }
+export type actionPT = addPostATPT | updateAddTextPostATPT | addTextMessageATPT | updateTextMessageATPT
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_ADD_TEXT_POST = 'UPDATE-ADD-TEXT-POST'
-const ADD_TEXT_MESSAGE = 'ADD-TEXT-MESSAGE'
-const UPDATE_TEXT_MESSAGE = 'UPDATE-TEXT-MESSAGE'
-
-export type addPostATPT = {
-    type: 'ADD-POST'
-}
-
-export type updateAddTextPostATPT = {
-    type: 'UPDATE-ADD-TEXT-POST'
-    newText: string
-}
-export type addTextMessageATPT = {
-    type: 'ADD-TEXT-MESSAGE'
-}
-export type updateTextMessageATPT = {
+export type addPostATPT = ReturnType<typeof addPostAC>
+export type updateAddTextPostATPT = ReturnType<typeof updateAddTextPostAC>
+export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>
+export type updateTextMessageATPT = {   // for example
     type: 'UPDATE-TEXT-MESSAGE'
     newText: string
 }
-
-
-export const addPostAC = (): addPostATPT => ({type: ADD_POST})
-export const updateAddTextPostAC = (newText: string): updateAddTextPostATPT => ({
-    type: UPDATE_ADD_TEXT_POST,
-    newText: newText
-})
-export const addTextMessageAC = (): addTextMessageATPT => ({type: ADD_TEXT_MESSAGE})
-export const updateTextMessageAC = (newText: string): updateTextMessageATPT => ({
-    type: UPDATE_TEXT_MESSAGE,
-    newText: newText
-})
 
 
 export let store: storePT = {
@@ -108,7 +87,7 @@ export let store: storePT = {
         this._state.profilePage.postData.unshift(newPost)
         this._state.profilePage.newPostText = ''
         this._callSubscriber()
-    },
+    },                     // it doesn't use, I can delete them
     _updateAddPost(props: string) {
 
         console.log('state updateAddPost')
@@ -139,44 +118,21 @@ export let store: storePT = {
         this._callSubscriber = props
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            console.log('state change')
-            let newPost = {
-                id: 2,
-                message: this._state.profilePage.newPostText, // action.newText
-                like: 7,
-                comment: 8
-            }
-            this._state.profilePage.postData.unshift(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber()
-        } else if (action.type === UPDATE_ADD_TEXT_POST) {
-            console.log('state updateAddPost')
-            this._state.profilePage.newPostText = (action.newText)
-            this._callSubscriber()
-        } else if (action.type === ADD_TEXT_MESSAGE) {
-            let newPost = {
-                id: 2,
-                text: this._state.dialogsPage.newText,
-            }
-            this._state.dialogsPage.messages.unshift(newPost)
-            this._state.dialogsPage.newText = ''
-            this._callSubscriber()  // надо ли изменять ?
 
-        } else if (action.type === UPDATE_TEXT_MESSAGE) {
-            this._state.dialogsPage.newText = (action.newText)
-            console.log(action.newText)
-            this._callSubscriber()  // надо ли изменять ?
-        }
+        store._state.profilePage = profile_reducer(store._state.profilePage, action)
+        store._state.dialogsPage = dialogs_reducer(store._state.dialogsPage, action)
+        store._state.sidebar = sidebar_reducer(store._state.sidebar, action)
+
+        this._callSubscriber()
+
     }
 }
-
 
 // sidebarPT--------------------------------------
 export type sidebarPT = {
     sidebar: Array<ItemPT>
 }
-type ItemPT = {
+export type ItemPT = {
     path: string
     title: string
 }
