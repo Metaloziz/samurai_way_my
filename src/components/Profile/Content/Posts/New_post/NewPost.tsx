@@ -4,7 +4,7 @@ import {
     addPostATPT,
     updateAddTextPostATPT,
     ProfileItemsPT,
-} from "../../../../../redux/_state";
+} from "../../../../../redux/store";
 import {addPostAC, updateAddTextPostAC} from "../../../../../redux/profile_reducer";
 
 

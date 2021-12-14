@@ -2,7 +2,7 @@ import React from "react";
 import {NewPost} from "./New_post/NewPost";
 import {OldPost} from "./Old_post/OldPost";
 import s from './Area-posts.module.css';
-import {addPostATPT, updateAddTextPostATPT, ProfileItemsPT} from "../../../../redux/_state";
+import {addPostATPT, updateAddTextPostATPT, ProfileItemsPT} from "../../../../redux/store";
 
 
 type AreaPostPT = {

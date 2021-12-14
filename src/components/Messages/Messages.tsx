@@ -6,7 +6,7 @@ import {
     addTextMessageATPT,
     dialogsItemsPT,
     updateTextMessageATPT
-} from "../../redux/_state";
+} from "../../redux/store";
 import {addTextMessageAC, updateTextMessageAC} from "../../redux/dialogs_reducer";
 
 type dialogsPagePT = {

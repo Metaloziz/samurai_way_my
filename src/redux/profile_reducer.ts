@@ -1,4 +1,4 @@
-import {actionPT, ProfileItemsPT} from "./_state";
+import {actionPT, ProfileItemsPT} from "./store";
 
 export const ADD_POST = 'ADD-POST'
 export const UPDATE_ADD_TEXT_POST = 'UPDATE-ADD-TEXT-POST'
@@ -6,9 +6,8 @@ export const UPDATE_ADD_TEXT_POST = 'UPDATE-ADD-TEXT-POST'
 export const addPostAC = () => ({type: ADD_POST} as const)
 export const updateAddTextPostAC = (newText: string) => ({type: UPDATE_ADD_TEXT_POST, newText: newText} as const)
 
-
 export const profile_reducer = (state: ProfileItemsPT, action: actionPT) => {
-
+    console.log('profile')
     let newPost = {
         id: 2,
         message: state.newPostText, // action.newText
@@ -18,14 +17,14 @@ export const profile_reducer = (state: ProfileItemsPT, action: actionPT) => {
 
     switch (action.type) {
         case ADD_POST:
-            console.log('state change')
+            // console.log('state change')
             state.postData.unshift(newPost)
             state.newPostText = ''
             return state
         case UPDATE_ADD_TEXT_POST:
-            console.log('state updateAddPost')
+            // console.log('state updateAddPost')
             state.newPostText = (action.newText)
-            // this._callSubscriber()               // why is'not it here ?
+            // this._callSubscriber()               // why isn't it here ?
             return state
         default:
             return state

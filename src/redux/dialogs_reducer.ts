@@ -1,4 +1,4 @@
-import {actionPT, dialogsItemsPT, updateTextMessageATPT} from "./_state";
+import {actionPT, dialogsItemsPT} from "./store";
 
 
 export const ADD_TEXT_MESSAGE = 'ADD-TEXT-MESSAGE'
@@ -6,13 +6,16 @@ export const UPDATE_TEXT_MESSAGE = 'UPDATE-TEXT-MESSAGE'
 
 
 export const addTextMessageAC = () => ({type: ADD_TEXT_MESSAGE} as const)
-export const updateTextMessageAC = (newText: string): updateTextMessageATPT => ({ // for example type
+export const updateTextMessageAC = (newText: string) => ({
     type: UPDATE_TEXT_MESSAGE,
     newText: newText
-})
+} as const) // add as const
 
 
 export const dialogs_reducer = (state: dialogsItemsPT, action: actionPT) => {
+
+    console.log('dialogs')
+
 
     let newPost = {
         id: 2,

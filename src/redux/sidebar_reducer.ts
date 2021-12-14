@@ -1,4 +1,4 @@
-import {actionPT, ItemPT} from "./_state";
+import {actionPT, ItemPT} from "./store";
 
 
 export const sidebar_reducer = (state : Array<ItemPT> , action: actionPT) => {

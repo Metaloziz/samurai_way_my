@@ -8,12 +8,12 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import './App.css';
-import {storePT} from "./redux/_state";
+import {storePT} from "./redux/store";
+import {Page404} from "./components/Page404/Page404";
 
 type AppPT = {
     store: storePT
 }
-
 
 export const App: React.FC<AppPT> = ({store}) => {
 
@@ -25,6 +25,8 @@ export const App: React.FC<AppPT> = ({store}) => {
             <Navigation sidebar={props.sidebar}/>
             <div>
                 <Routes>
+                    <Route path={'/'} element={<Profile profilePage={props.profilePage}
+                                                        dispatch={store.dispatch.bind(store)}/>}/>
                     <Route path={'/profile'} element={<Profile profilePage={props.profilePage}
                                                                dispatch={store.dispatch.bind(store)}/>}/>
                     <Route path={'/messages/*'} element={<Messages dialogsPage={props.dialogsPage}
@@ -32,19 +34,12 @@ export const App: React.FC<AppPT> = ({store}) => {
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
+                    <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
             </div>
+
+
         </div>
 
     );
 }
-
-
-//
-// let navBarItemsRoute = [
-//     {path: '/profile', element: <Profile/>},
-//     {path: '/messages', element: <Messages dialogs={dialogsData} messages={messagesData}/>},// for messages
-//     {path: '/news', element: <News/>},
-//     {path: '/music', element: <Music/>},
-//     {path: '/settings', element: <Settings/>},
-// ]

@@ -1,7 +1,7 @@
 import React from "react";
 import {AreaPosts} from "./Content/Posts/AreaPosts";
 import {ContentHeader} from "./Content/Content_header/ContentHeader";
-import {addPostATPT, updateAddTextPostATPT, ProfileItemsPT} from "../../redux/_state";
+import {addPostATPT, updateAddTextPostATPT, ProfileItemsPT} from "../../redux/store";
 
 type ProfilePT = {
     profilePage: ProfileItemsPT
