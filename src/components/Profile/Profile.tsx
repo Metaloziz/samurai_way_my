@@ -1,7 +1,7 @@
 import React from "react";
-import {AreaPosts} from "./Content/Posts/AreaPosts";
 import {ContentHeader} from "./Content/Content_header/ContentHeader";
-import {addPostATPT, updateAddTextPostATPT, ProfileItemsPT} from "../../redux/store";
+import {addPostATPT, ProfileItemsPT, updateAddTextPostATPT} from "../../redux/store";
+import {PostsContainer} from "./Content/Posts/PostsContainer";
 
 type ProfilePT = {
     profilePage: ProfileItemsPT
@@ -9,12 +9,11 @@ type ProfilePT = {
 }
 
 
-export const Profile = ({profilePage,dispatch}: ProfilePT ) => {
+export const Profile = ({profilePage, dispatch}: ProfilePT) => {
     return (
         <div>
             <ContentHeader/>
-            <AreaPosts profilePage={profilePage} dispatch={dispatch} />
-
+            <PostsContainer profilePage={profilePage} dispatch={dispatch}/>
         </div>
     )
 }

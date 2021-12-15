@@ -47,7 +47,6 @@ export type MessagePT = {
     text: string
 }
 
-
 export type statePT = sidebarPT & dialogsPagePT & profilePagePT
 export type storePT = {
     _state: statePT
@@ -65,7 +64,7 @@ export type actionPT = addPostATPT | updateAddTextPostATPT | addTextMessageATPT 
 export type addPostATPT = ReturnType<typeof addPostAC>
 export type updateAddTextPostATPT = ReturnType<typeof updateAddTextPostAC>
 export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>
-export type updateTextMessageATPT = ReturnType<typeof updateTextMessageAC>
+export type updateTextMessageATPT = ReturnType<typeof updateTextMessageAC>  //typing is object-based
 
 
 export let store: storePT = {

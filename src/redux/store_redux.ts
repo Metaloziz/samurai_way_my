@@ -9,5 +9,4 @@ const reducers = combineReducers( {
     dialogsPage:dialogs_reducer
 })
 
-
 export const store = createStore(reducers)

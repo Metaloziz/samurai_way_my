@@ -1,5 +1,4 @@
 .content {
-
     background-color: darkcyan;
     padding: 1%;
     margin: 0.5%;
@@ -7,11 +6,32 @@
     border-radius: 10px;
 }
 
+.content button {
+    border-radius: 5px;
+}
+.contentButtons {
+    display: flex;
+    gap: 1%;
+
+}
+
 .avatar {
     width: 50px;
     border-radius: 100px;
 }
 
+.items {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1%  0 1% 0;
+    background-color: rgba(0, 0, 0, 0.21);
+    border-radius: 10px;
+
+}
+
 .item {
+    align-content: center;
     color: beige;
+    margin-left: 50px;
 }

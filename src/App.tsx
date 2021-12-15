@@ -12,9 +12,9 @@ import {actionPT, statePT} from "./redux/store";
 import {Page404} from "./components/Page404/Page404";
 
 type AppPT = {
-    store: AppnewPT
+    store: AppNewPT
 }
-type AppnewPT = {
+type AppNewPT = {
     getState: () => statePT
     subscribe: (props: () => void) => void
     dispatch: (action: actionPT) => void
