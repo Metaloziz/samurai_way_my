@@ -8,11 +8,16 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import './App.css';
-import {storePT} from "./redux/store";
+import {actionPT, statePT} from "./redux/store";
 import {Page404} from "./components/Page404/Page404";
 
 type AppPT = {
-    store: storePT
+    store: AppnewPT
+}
+type AppnewPT = {
+    getState: () => statePT
+    subscribe: (props: () => void) => void
+    dispatch: (action: actionPT) => void
 }
 
 export const App: React.FC<AppPT> = ({store}) => {
