@@ -33,18 +33,15 @@
     margin-left: 1%;
     background-color: #7cb89c;
 }
-.messages button {
-    margin-bottom: 10px;
-}
 
 .messages textarea {
     margin-left: 2%;
-    height: 20%;
+    height: 50%;
     width: 50%;
 }
 .messages button {
     margin-left: 2%;
     display: block;
-    height: 5%;
+    height: 50%;
     width: 51%;
 }

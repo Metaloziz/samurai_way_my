@@ -9,37 +9,37 @@ type NewPostPT = {
     changePost: (newText: string) => void
 }
 
-export const Posts = (props: NewPostPT) => {
+export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
-    const addNewPost = () => {
+    const addNewItem = () => {
         if (newPostElement.current?.value) {                // check empty
-            props.addNewPost()
+            addNewPost()
         }
     }
 
-    const changePost = () => {
+    const changeItem = () => {
         if (newPostElement.current) {                        // check empty
-            props.changePost(newPostElement.current.value)
+            changePost(newPostElement.current.value)
         }
     }
 
-    const postDataItem = props.profilePage.postData.map(x => <OldPost message={x.message}
-                                                                      like={x.like}
-                                                                      comment={x.comment}/>)
+    const postDataItem = profilePage.postData.map(x => <OldPost message={x.message}
+                                                                like={x.like}
+                                                                comment={x.comment}/>)
 
     return (
         <div className={s.content}>
             <div className={s.item}>
                 New Post
                 <div>
-                <textarea onChange={changePost}
+                <textarea onChange={changeItem}
                           ref={newPostElement}
-                          value={props.profilePage.newPostText}
+                          value={profilePage.newPostText}
                           placeholder={'You Can type some'}/>
                     <div>
-                        <button onClick={addNewPost}>Add post</button>
+                        <button onClick={addNewItem}>Add post</button>
                     </div>
                 </div>
                 {postDataItem}
