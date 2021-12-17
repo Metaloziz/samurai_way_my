@@ -20,6 +20,7 @@ type AppNewPT = {
     dispatch: (action: actionPT) => void
 }
 
+
 export const App: React.FC<AppPT> = ({store}) => {
 
     const props = store.getState() // I can't take _state without this method
