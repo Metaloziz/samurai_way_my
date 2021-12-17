@@ -2,6 +2,7 @@ import React from "react";
 import {addPostAC, updateAddTextPostAC} from "../../../../redux/profile_reducer";
 import {Posts} from "./Posts";
 import {StoreContext} from "../../../../StoreContext";
+import {ProfileItemsPT} from "../../../../redux/store";
 
 
 // type NewPostPT = {
@@ -13,13 +14,13 @@ export const PostsContainer = () => {
 
 
     return (<StoreContext.Consumer>
-        {(store) => {
+        {({getState, dispatch}) => {
 
-            const state = store.getState().profilePage
+            const state: ProfileItemsPT = getState().profilePage
 
             // AC - action creator
-            const addNewPost = () => store.dispatch(addPostAC())
-            const changePost = (newText: string) => store.dispatch(updateAddTextPostAC(newText))
+            const addNewPost = () => dispatch(addPostAC())
+            const changePost = (newText: string) => dispatch(updateAddTextPostAC(newText))
 
             return <Posts profilePage={state} addNewPost={addNewPost} changePost={changePost}/>
         }}

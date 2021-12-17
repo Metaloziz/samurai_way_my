@@ -3,11 +3,13 @@ import s from './Posts.module.css'
 import {ProfileItemsPT,} from "../../../../redux/store";
 import {OldPost} from "./Old_post/OldPost";
 
-type NewPostPT = {
+export type NewPostPT = {
     profilePage: ProfileItemsPT
     addNewPost: () => void
     changePost: (newText: string) => void
 }
+
+
 
 export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
 
