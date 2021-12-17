@@ -12,11 +12,9 @@ export const ContentHeader = () => {
 
     return (
         <div className={s.content}>
-
-            <div className={s.item}>
-                Title
-                <div><img alt={content[0].alt}
-                          src={content[0].src}/>
+            <div className={s.item}>Title
+                <div>
+                    <img alt={content[0].alt} src={content[0].src}/>
                 </div>
             </div>
         </div>

@@ -48,13 +48,14 @@ export type MessagePT = {
 }
 
 export type statePT = sidebarPT & dialogsPagePT & profilePagePT
+
 export type storePT = {
     _state: statePT
+    // _addPost: () => void
+    // _updateAddPost: (message: string) => void
+    // _addTextMessage: () => void
+    // _updateTextMessage: (message: string) => void
     _callSubscriber: () => void
-    _addPost: () => void
-    _updateAddPost: (message: string) => void
-    _addTextMessage: () => void
-    _updateTextMessage: (message: string) => void
     getState: () => statePT
     subscribe: (props: () => void) => void
     dispatch: (action: actionPT) => void
@@ -117,39 +118,39 @@ export let store: storePT = {
             newText: '',
         }
     },
-    _addPost() {
-        debugger
-        console.log('state addPost')
-        let newPost = {
-            id: 2,
-            message: this._state.profilePage.newPostText,
-            like: 7,
-            comment: 8
-        }
-        this._state.profilePage.postData.unshift(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },                     // it doesn't use, I can delete them
-    _updateAddPost(props: string) {
-
-        console.log('state updateAddPost')
-        this._state.profilePage.newPostText = (props)
-        this._callSubscriber()
-    },
-    _addTextMessage() {
-        let newPost = {
-            id: 2,
-            text: this._state.dialogsPage.newText,
-        }
-        this._state.dialogsPage.messages.unshift(newPost)
-        this._state.dialogsPage.newText = ''
-        this._callSubscriber()  // надо ли изменять ?
-    },
-    _updateTextMessage(newText: string) {
-        this._state.dialogsPage.newText = (newText)
-        console.log(newText)
-        this._callSubscriber()  // надо ли изменять ?
-    },
+    // _addPost() {
+    //     debugger
+    //     console.log('state addPost')
+    //     let newPost = {
+    //         id: 2,
+    //         message: this._state.profilePage.newPostText,
+    //         like: 7,
+    //         comment: 8
+    //     }
+    //     this._state.profilePage.postData.unshift(newPost)
+    //     this._state.profilePage.newPostText = ''
+    //     this._callSubscriber()
+    // },                     // it doesn't use, I can delete them
+    // _updateAddPost(props: string) {
+    //
+    //     console.log('state updateAddPost')
+    //     this._state.profilePage.newPostText = (props)
+    //     this._callSubscriber()
+    // },
+    // _addTextMessage() {
+    //     let newPost = {
+    //         id: 2,
+    //         text: this._state.dialogsPage.newText,
+    //     }
+    //     this._state.dialogsPage.messages.unshift(newPost)
+    //     this._state.dialogsPage.newText = ''
+    //     this._callSubscriber()  // надо ли изменять ?
+    // },
+    // _updateTextMessage(newText: string) {
+    //     this._state.dialogsPage.newText = (newText)
+    //     console.log(newText)
+    //     this._callSubscriber()  // надо ли изменять ?
+    // },
     _callSubscriber() {
         console.log('State changed')
     },

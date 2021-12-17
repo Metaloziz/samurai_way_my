@@ -1,23 +1,27 @@
 import React from "react";
-import {addTextMessageATPT, dialogsItemsPT, updateTextMessageATPT} from "../../redux/store";
 import {addTextMessageAC, updateTextMessageAC} from "../../redux/dialogs_reducer";
 import {Messages} from "./Messages";
+import {StoreContext} from "../../StoreContext";
 
-type dialogsPagePT = {
-    dialogsPage: dialogsItemsPT
-    dispatch: (action: addTextMessageATPT | updateTextMessageATPT) => void
-};
+// type dialogsPagePT = {
+//     dialogsPage: dialogsItemsPT
+//     dispatch: (action: addTextMessageATPT | updateTextMessageATPT) => void
+// };
 
 
-export let MessagesContainer = ({dialogsPage, dispatch}: dialogsPagePT) => {
+export let MessagesContainer = () => {
 
-    let addNewMessage = () => {
-        dispatch(addTextMessageAC())
-    }
+    return (
+        <StoreContext.Consumer>
+            {(store) => {           // add store from context
 
-    const changeText = (newText: string) => {
-        dispatch(updateTextMessageAC(newText))
-    }
+                const state = store.getState().dialogsPage
 
-    return (<Messages dialogsPage={dialogsPage} addNewMessage={addNewMessage} changeText={changeText}/>)
+                const addNewMessage = () => store.dispatch(addTextMessageAC())
+                const changeText = (newText: string) => store.dispatch(updateTextMessageAC(newText))
+
+                return <Messages dialogsPage={state} addNewMessage={addNewMessage} changeText={changeText}/>
+            }}
+        </StoreContext.Consumer>
+    )
 }
