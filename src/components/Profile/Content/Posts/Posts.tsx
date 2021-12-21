@@ -1,5 +1,5 @@
 import React from "react";
-import s from './Posts.module.css'
+import style from './Posts.module.css'
 import {ProfileItemsPT,} from "../../../../redux/store";
 import {OldPost} from "./Old_post/OldPost";
 
@@ -8,7 +8,6 @@ export type NewPostPT = {
     addNewPost: () => void
     changePost: (newText: string) => void
 }
-
 
 
 export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
@@ -27,13 +26,9 @@ export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
         }
     }
 
-    const postDataItem = profilePage.postData.map(x => <OldPost message={x.message}
-                                                                like={x.like}
-                                                                comment={x.comment}/>)
-
     return (
-        <div className={s.content}>
-            <div className={s.item}>
+        <div className={style.content}>
+            <div className={style.item}>
                 New Post
                 <div>
                 <textarea onChange={changeItem}
@@ -44,7 +39,9 @@ export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
                         <button onClick={addNewItem}>Add post</button>
                     </div>
                 </div>
-                {postDataItem}
+                {profilePage.postData.map(item => <OldPost message={item.message}
+                                                        like={item.like}
+                                                        comment={item.comment}/>)}
             </div>
         </div>
     )

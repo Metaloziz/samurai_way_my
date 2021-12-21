@@ -1,7 +1,7 @@
 import React from "react";
 import {addTextMessageAC, updateTextMessageAC} from "../../redux/dialogs_reducer";
 import {Messages} from "./Messages";
-import {StoreContext} from "../../StoreContext";
+import {StoreContext} from "../../StoreContext/StoreContext";
 
 // type dialogsPagePT = {
 //     dialogsPage: dialogsItemsPT

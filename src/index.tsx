@@ -6,14 +6,14 @@ import {App} from './App';
 import './index.css';
 // import {store} from "./redux/store";
 import {store} from "./redux/store_redux";
-import {Provider} from "./StoreContext";
+import {Provider} from "react-redux";
 
 
 
 let renderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <Provider store={store}>
+            <Provider context={store}>
                 <App/>
             </Provider>
         </BrowserRouter>,

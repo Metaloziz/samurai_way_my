@@ -9,9 +9,4 @@ const initialState = [
 ]
 
 
-export const sidebar_reducer = (state : Array<ItemPT>=initialState , action: actionPT) => {
-
-    console.log(action)
-
-    return state
-}
+export const sidebar_reducer = (state : Array<ItemPT>=initialState , action: actionPT) => state

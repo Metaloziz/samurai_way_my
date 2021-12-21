@@ -1,8 +1,9 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './Navigation.module.css'
-import {StoreContext} from "../../StoreContext";
+
 import {statePT} from "../../redux/store";
+import {StoreContext} from "../../StoreContext/StoreContext";
 
 export const Navigation = () =>
 
@@ -10,7 +11,7 @@ export const Navigation = () =>
 
         {(store) => {
 
-            let state: statePT  = store.getState()
+            let state: statePT = store.getState()
 
             return (<div>
                     <nav className={s.navigation}>
