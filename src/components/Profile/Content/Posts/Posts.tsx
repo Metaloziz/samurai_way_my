@@ -50,9 +50,10 @@ export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
                         <button onClick={addNewItem}>Add post</button>
                     </div>
                 </div>
-                {profilePage.postData.map(item => <OldPost message={item.message}
-                                                           like={item.like}
-                                                           comment={item.comment}/>)}
+                {profilePage.postData.map((item, index) => <OldPost
+                    key={index} message={item.message}
+                    like={item.like}
+                    comment={item.comment}/>)}
             </div>
         </div>
     )

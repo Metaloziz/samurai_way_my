@@ -48,22 +48,20 @@ const initialState: dialogsItemsPT =
     }
 
 export const dialogs_reducer = (state: dialogsItemsPT = initialState, action: actionPT): dialogsItemsPT => {
-    console.log('dialogs')
-    let newPost = {
-        id: 2,
-        text: state.newText,
-    }
+
+    let newPost = {id: 2, text: state.newText}
+    let copyState = {...state}
     switch (action.type) {
         case ADD_TEXT_MESSAGE:
-            state.messages.unshift(newPost)  // break rule immutability
-            state.newText = ''
-            return state
+            copyState.messages = [newPost, ...state.messages]  // break rule immutability
+            copyState.newText = ''
+            return copyState
         case UPDATE_TEXT_MESSAGE:
-            state.newText = (action.newText)
-            console.log(action.newText)
+            copyState.newText = (action.newText)
+            // console.log(action.newText)
             // this._callSubscriber()  //
-            return state
+            return copyState
         default:
-            return state
+            return copyState
     }
 }
