@@ -11,6 +11,7 @@ import {PostsContainer} from "./Content/Posts/PostsContainer";
 export const Profile = () => {
     return (
         <div>
+
             <ContentHeader/>
             <PostsContainer/>
         </div>

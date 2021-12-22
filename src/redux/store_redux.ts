@@ -1,13 +1,15 @@
 import {combineReducers, createStore} from "redux";
-import {profile_reducer} from "./profile_reducer";
-import {dialogs_reducer} from "./dialogs_reducer";
-import {sidebar_reducer} from "./sidebar_reducer";
+import {addPostATPT, profile_reducer, updateAddTextPostATPT} from "./profile_reducer";
+import {addTextMessageATPT, dialogs_reducer, updateTextMessageATPT} from "./dialogs_reducer";
+import {sidebar_reducer, sidebarATPT} from "./sidebar_reducer";
 
-const reducers = combineReducers( {
+export type actionPT = addPostATPT | updateAddTextPostATPT | addTextMessageATPT | updateTextMessageATPT | sidebarATPT
+export type AppStateType = ReturnType<typeof reducers>
+
+const reducers = combineReducers({
     sidebar: sidebar_reducer,
-    profilePage:profile_reducer,
-    dialogsPage:dialogs_reducer
+    profilePage: profile_reducer,
+    dialogsPage: dialogs_reducer
 })
-// export type AppStateType = ReturnType<typeof reducers>
 
 export const store = createStore(reducers)

@@ -1,14 +1,19 @@
 import React from "react";
-import {DialogItem} from "./DialogItem/DialogItem";
-import {MessagesItem} from "./MessagesItem/MessagesItem";
+import {DialogItem, DialogPT} from "./DialogItem/DialogItem";
+import {MessagePT, MessagesItem} from "./MessagesItem/MessagesItem";
 import s from './Messages.module.css'
-import {dialogsItemsPT} from "../../redux/store";
 
-type dialogsPagePT = {
+
+export type dialogsPagePT = {
     dialogsPage: dialogsItemsPT
     addNewMessage: () => void
     changeText: (newText: string) => void
 };
+export type dialogsItemsPT = {
+    dialogs: Array<DialogPT>
+    messages: Array<MessagePT>
+    newText: string
+}
 
 
 export let Messages = ({dialogsPage, addNewMessage, changeText}: dialogsPagePT) => {

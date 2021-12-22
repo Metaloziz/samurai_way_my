@@ -1,6 +1,10 @@
-import {actionPT, ItemPT} from "./store";
+import {actionPT} from "./store_redux";
+import {ItemPT} from "../components/Navigation/Navigation";
 
-const initialState = [
+
+export type sidebarATPT = ReturnType<typeof sidebarAC>
+
+const initialState: Array<ItemPT> = [
     {path: '/profile', title: 'Profile'},
     {path: '/messages', title: 'Messages'},
     {path: '/news', title: 'News'},
@@ -9,4 +13,6 @@ const initialState = [
 ]
 
 
-export const sidebar_reducer = (state : Array<ItemPT>=initialState , action: actionPT) => state
+export const sidebarAC = () => ({type: 'SIDE_BAR_TEST'} as const)
+
+export const sidebar_reducer = (state: Array<ItemPT> = initialState, action: actionPT): Array<ItemPT> => state

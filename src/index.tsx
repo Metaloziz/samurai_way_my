@@ -4,20 +4,20 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {App} from './App';
 import './index.css';
-// import {store} from "./redux/store";
 import {store} from "./redux/store_redux";
-import {Provider} from "react-redux";
-
+import {Provider} from "react-redux"; // !!!!!!!!!!!!!! new component
+// import {store} from "./redux/store";
 
 
 let renderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <Provider context={store}>
+            <Provider store={store}>
                 <App/>
             </Provider>
         </BrowserRouter>,
-        document.getElementById('root'));
+        document.getElementById('root')
+    );
 }
 renderEntireTree() // first render
 store.subscribe(renderEntireTree) // next render

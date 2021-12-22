@@ -1,12 +1,23 @@
 import React from "react";
 import style from './Posts.module.css'
-import {ProfileItemsPT,} from "../../../../redux/store";
+
 import {OldPost} from "./Old_post/OldPost";
 
 export type NewPostPT = {
     profilePage: ProfileItemsPT
     addNewPost: () => void
     changePost: (newText: string) => void
+}
+export type ProfileItemsPT = {
+    postData: Array<PostDataPT>
+    newPostText: string
+}
+
+export type PostDataPT = {
+    id: number
+    message: string
+    like: number
+    comment: number
 }
 
 
@@ -40,8 +51,8 @@ export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
                     </div>
                 </div>
                 {profilePage.postData.map(item => <OldPost message={item.message}
-                                                        like={item.like}
-                                                        comment={item.comment}/>)}
+                                                           like={item.like}
+                                                           comment={item.comment}/>)}
             </div>
         </div>
     )

@@ -1,18 +1,18 @@
-import {actionPT, dialogsItemsPT} from "./store";
+import {actionPT} from "./store_redux";
+import {dialogsItemsPT} from "../components/Messages/Messages";
 
+
+export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>
+export type updateTextMessageATPT = ReturnType<typeof updateTextMessageAC>  //typing is object-based
 
 export const ADD_TEXT_MESSAGE = 'ADD-TEXT-MESSAGE'
 export const UPDATE_TEXT_MESSAGE = 'UPDATE-TEXT-MESSAGE'
 
-
 export const addTextMessageAC = () => ({type: ADD_TEXT_MESSAGE} as const)
-export const updateTextMessageAC = (newText: string) => ({
-    type: UPDATE_TEXT_MESSAGE,
-    newText: newText
-} as const) // add as const
+export const updateTextMessageAC = (newText: string) => ({type: UPDATE_TEXT_MESSAGE, newText: newText} as const)
 
 
-const initialState =
+const initialState: dialogsItemsPT =
     {
         dialogs: [
             {
@@ -47,7 +47,7 @@ const initialState =
         newText: '',
     }
 
-export const dialogs_reducer = (state: dialogsItemsPT=initialState, action: actionPT) => {
+export const dialogs_reducer = (state: dialogsItemsPT = initialState, action: actionPT): dialogsItemsPT => {
     console.log('dialogs')
     let newPost = {
         id: 2,

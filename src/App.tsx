@@ -5,19 +5,11 @@ import {Header} from "./components/Header/Header";
 import {Profile} from "./components/Profile/Profile";
 import {Page404} from "./components/Page404/Page404";
 import {Settings} from "./components/Settings/Settings";
-import {Navigation} from "./components/Navigation/Navigation";
-import {MessagesContainer} from "./components/Messages/MessagesContainer";
 import {Navigate, Route, Routes} from "react-router-dom";
 import './App.css';
+import {MessagesContainer} from "./components/Messages/MessagesContainer";
+import {NavigationContainer} from "./components/Navigation/NavigationContainer";
 
-// export type AppPT = {
-//     store: AppNewPT
-// }
-// export type AppNewPT = {
-//     getState: () => statePT
-//     subscribe: (props: () => void) => void
-//     dispatch: (action: actionPT) => void
-// }
 
 export const App = () => {
 
@@ -26,7 +18,8 @@ export const App = () => {
     return (
         <div className='app-wrapper'>
             <Header logo={'logo'}/>
-            <Navigation/>
+            {/*<Navigation/>*/}
+            <NavigationContainer/>
             <div>
                 <Routes>
                     <Route path={'/'} element={<Navigate replace to={'/profile'}/>}/>

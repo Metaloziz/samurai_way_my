@@ -1,27 +1,28 @@
-import {addPostAC, profile_reducer, updateAddTextPostAC} from "./profile_reducer";
-import {addTextMessageAC, dialogs_reducer, updateTextMessageAC} from "./dialogs_reducer";
-import {sidebar_reducer} from "./sidebar_reducer";
+import {addPostATPT, profile_reducer, updateAddTextPostATPT} from "./profile_reducer";
+import {addTextMessageATPT, dialogs_reducer, updateTextMessageATPT} from "./dialogs_reducer";
+import {sidebar_reducer, sidebarATPT} from "./sidebar_reducer";
+
+export {}
 
 // sidebarPT--------------------------------------
-export type sidebarPT = {
+type sidebarPT = {
     sidebar: Array<ItemPT>
 }
-export type ItemPT = {
+type ItemPT = {
     path: string
     title: string
 }
 
 // profilePagePT ---------------------------------
-export type profilePagePT = {
+type profilePagePT = {
     profilePage: ProfileItemsPT
 
 }
-export type ProfileItemsPT = {
+type ProfileItemsPT = {
     postData: Array<PostDataPT>
     newPostText: string
-
 }
-export type PostDataPT = {
+type PostDataPT = {
     id: number
     message: string
     like: number
@@ -29,27 +30,27 @@ export type PostDataPT = {
 }
 
 // dialogsPagePT------------------------------------
-export type dialogsPagePT = {
+type dialogsPagePT = {
     dialogsPage: dialogsItemsPT
 };
-export type dialogsItemsPT = {
+type dialogsItemsPT = {
     dialogs: Array<DialogPT>
     messages: Array<MessagePT>
     newText: string
 }
-export type DialogPT = {
+type DialogPT = {
     id: number
     name: string
     ava: string
 }
-export type MessagePT = {
+type MessagePT = {
     id: number
     text: string
 }
 
-export type statePT = sidebarPT & dialogsPagePT & profilePagePT
+type statePT = sidebarPT & dialogsPagePT & profilePagePT
 
-export type storePT = {
+type storePT = {
     _state: statePT
     // _addPost: () => void
     // _updateAddPost: (message: string) => void
@@ -60,15 +61,10 @@ export type storePT = {
     subscribe: (props: () => void) => void
     dispatch: (action: actionPT) => void
 }
-export type actionPT = addPostATPT | updateAddTextPostATPT | addTextMessageATPT | updateTextMessageATPT
-
-export type addPostATPT = ReturnType<typeof addPostAC>
-export type updateAddTextPostATPT = ReturnType<typeof updateAddTextPostAC>
-export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>
-export type updateTextMessageATPT = ReturnType<typeof updateTextMessageAC>  //typing is object-based
+type actionPT = addPostATPT | updateAddTextPostATPT | addTextMessageATPT | updateTextMessageATPT | sidebarATPT
 
 
-export let store: storePT = {
+let store: storePT = {
     _state: {
         sidebar: [
             {path: '/profile', title: 'Profile'},
