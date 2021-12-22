@@ -1,6 +1,5 @@
 import React from "react";
 import style from './Posts.module.css'
-
 import {OldPost} from "./Old_post/OldPost";
 
 export type NewPostPT = {
@@ -12,7 +11,6 @@ export type ProfileItemsPT = {
     postData: Array<PostDataPT>
     newPostText: string
 }
-
 export type PostDataPT = {
     id: number
     message: string
@@ -23,7 +21,9 @@ export type PostDataPT = {
 
 export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
 
+    //--------------------------ref------------------------------
     let newPostElement = React.createRef<HTMLTextAreaElement>()
+    //--------------------------ref------------------------------
 
     const addNewItem = () => {
         if (newPostElement.current?.value) {                // check empty

@@ -24,24 +24,20 @@ const initialState: ProfileItemsPT =
 export const profile_reducer = (state: ProfileItemsPT = initialState, action: actionPT): ProfileItemsPT => {
 
     console.log(state)
-
-    let newPost = {
-        id: 2,
-        message: state.newPostText, // action.newText
-        like: 7,
-        comment: 8
-    }
-    let copyState = {...state}
+    // debugger
 
     switch (action.type) {
         case ADD_POST:
-            copyState.postData = [newPost, ...copyState.postData]
-            copyState.newPostText = ''
-            return copyState
+            let newPost = {
+                id: 2,
+                message: state.newPostText, // action.newText
+                like: 7,
+                comment: 8
+            }
+            return {...state, postData: [newPost, ...state.postData], newPostText: ''}
         case UPDATE_ADD_TEXT_POST:
-            copyState.newPostText = (action.newText)
-            return copyState
+            return {...state, newPostText: action.newText}
         default:
-            return copyState
+            return state
     }
 }
