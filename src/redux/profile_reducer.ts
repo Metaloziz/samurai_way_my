@@ -23,7 +23,7 @@ const initialState: ProfileItemsPT =
 
 export const profile_reducer = (state: ProfileItemsPT = initialState, action: actionPT): ProfileItemsPT => {
 
-    console.log(state)
+    // console.log(state)
     // debugger
 
     switch (action.type) {

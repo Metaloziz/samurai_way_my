@@ -9,6 +9,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import './App.css';
 import {MessagesContainer} from "./components/Messages/MessagesContainer";
 import {NavigationContainer} from "./components/Navigation/NavigationContainer";
+import {UsersContainer} from './components/Users/UsersContainer';
 
 
 export const App = () => {
@@ -25,6 +26,7 @@ export const App = () => {
                     <Route path={'/'} element={<Navigate replace to={'/profile'}/>}/>
                     <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/messages/*'} element={<MessagesContainer/>}/>
+                    <Route path={'/users/'} element={<UsersContainer/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>

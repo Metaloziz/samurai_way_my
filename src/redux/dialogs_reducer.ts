@@ -49,7 +49,7 @@ const initialState: dialogsItemsPT =
 
 export const dialogs_reducer = (state: dialogsItemsPT = initialState, action: actionPT): dialogsItemsPT => {
 
-    console.log(state)
+    // console.log(state)
 
     switch (action.type) {
         case ADD_TEXT_MESSAGE:
