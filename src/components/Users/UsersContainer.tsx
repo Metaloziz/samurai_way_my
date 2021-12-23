@@ -1,25 +1,27 @@
-
-import {actionPT, AppStateType} from "../../redux/store_redux";
+import {AppStateType} from "../../redux/store_redux";
 import {followAC} from "../../redux/users_reducer";
 import {connect} from "react-redux";
 import {Users, usersStatePT} from "./Users";
+import {Dispatch} from "redux";
 
 
-const mapStateToProps = (state: AppStateType): usersStatePT => {
+const mapStateToProps = (state: AppStateType): usersStatePT => state.users
 
-    return state.users
 
+type mapDispatchToPropsPT = {
+    follow: (userID: number) => void
 }
 
-const mapDispatchToProps = (dispatch: (action: actionPT) => void) => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsPT => {
 
     return {
         follow: (userID: number) => {
             dispatch(followAC(userID))
         }
     }
-
 }
+
+
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
 
 

@@ -4,20 +4,18 @@ import s from './Users.module.css'
 export type usersStatePT = {
     users: usersPT[]
 }
-
 export type usersPT = {
     id: number
+    photo: string
     followed: boolean
     fullName: string
     status: string
     location: locationPT
 }
-
 export type locationPT = {
     city: string
     country: string
 }
-
 type mainPT = {
     follow: (userID: number) => void
 }
@@ -26,14 +24,16 @@ type mainPT = {
 export const Users = (props: usersStatePT & mainPT) => {
 
     const callBack = (userID: number) => {
-        props.follow(userID)
+        props.follow(Number(userID))
     }
+
 
     return (
         <div>
             {props.users.map((user) => {
 
-                return <div className={s.maindiv}>
+                return <div id={String(user.id)} key={user.id} className={s.main_div}>
+                    <div><img alt={'ava'} src={user.photo}/></div>
                     <div>{user.fullName}</div>
                     <div>{user.status}</div>
                     <div>{user.location.country}</div>
