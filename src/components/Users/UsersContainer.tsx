@@ -5,12 +5,12 @@ import {Users, usersStatePT} from "./Users";
 import {Dispatch} from "redux";
 
 
-const mapStateToProps = (state: AppStateType): usersStatePT => state.users
-
-
 type mapDispatchToPropsPT = {
     follow: (userID: number) => void
 }
+
+
+const mapStateToProps = (state: AppStateType): usersStatePT => state.users
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsPT => {
 

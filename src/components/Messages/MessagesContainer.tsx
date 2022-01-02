@@ -7,7 +7,6 @@ import {actionPT, AppStateType} from "../../redux/store_redux";
 type mainDialogsPagePT = {
     dialogsPage: dialogsItemsPT
 };
-
 type mapDispatchToPropsPT = {
     addNewMessage: () => void
     changeText: (newText: string) => void

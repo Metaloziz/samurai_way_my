@@ -1,5 +1,6 @@
 import {actionPT} from "./store_redux";
 import {usersPT, usersStatePT} from "../components/Users/Users";
+import * as axios from "axios";
 
 
 export type followATPT = ReturnType<typeof followAC>
@@ -43,9 +44,31 @@ const initialUsersState: usersStatePT = {
         }
     ]
 }
+let item = axios.default.get('https://social-network.samuraijs.com/api/1.0/users').then((state) => {
+    return state.data.items.users
+})
+
+type itemPT = typeof item
+//
+// let newInitState = axios.default
+//     .get('https://social-network.samuraijs.com/api/1.0/users')
+//     .then((state) => {
+//
+//         let items: itemPT = state.data.items
+//
+//         let newState = items.map(i => ({
+//             id: 1,
+//             photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScFYVbjlgLDY0iVoBVcAqWrMZmCs2iflo3rbglT_h6S1lklhJIAuwaSEXAbvnwbFjcibM&usqp=CAU',
+//             followed: false,
+//             fullName: 'Andrew',
+//             status: 'I am a Hero',
+//             location: {city: 'Minsk', country: 'BY'}
+//         }))
+//         return state.data.items
+//     })
+//
 
 export const users_reducer = (state: usersStatePT = initialUsersState, action: actionPT): usersStatePT => {
-
     switch (action.type) {
         case FOLLOW:
             return {
@@ -57,7 +80,6 @@ export const users_reducer = (state: usersStatePT = initialUsersState, action: a
                 ...state,
                 users: [...state.users, action.usersFromAPI]
             }
-
         default:
             return state
     }
