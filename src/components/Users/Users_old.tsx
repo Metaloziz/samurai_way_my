@@ -3,12 +3,12 @@ import s from './Users.module.css'
 import * as axios from "axios";
 import image from '../Users/imgAva/user.png'
 
-export type UsersPT = {
+type UsersPT = {
     users: UserPT[]
     totalCount: number
     error: string
 }
-export type UserPT = {
+type UserPT = {
     id: number
     name: string
     status: string
@@ -18,24 +18,41 @@ export type UserPT = {
     }
     followed: boolean
 }
-export type mainPT = {
+type mainPT = {
     follow: (userID: number) => void
     setUsers: (users: UserPT[]) => void
 }
 
+// export type usersPT = {
+//     id: number
+//     photo: string
+//     followed: boolean
+//     fullName: string
+//     status: string
+//     location: locationPT
+// }
+// export type locationPT = {
+//     city: string
+//     country: string
+// }
 
-export class Users extends React.Component<UsersPT & mainPT> {
+export const Users = (props: UsersPT & mainPT) => {
 
-    setCallBack = () => {
+    const callBack = (userID: number) => props.follow(Number(userID))
+
+    const setCallBack = () => {
         axios.default
             .get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(state => this.props.setUsers(state.data.items))
+            .then((state) => {
+                props.setUsers(state.data.items)
+            })
     }
 
-    render() {
-        return <div>
-            <button onClick={this.setCallBack}>setUsers</button>
-            {this.props.users.map((user) => {
+
+    return (
+        <div>
+            <button onClick={setCallBack}>setUsers</button>
+            {props.users.map((user) => {
 
                 return <div id={String(user.id)} key={user.id} className={s.main_div}>
                     <div><img alt={'ava'} src={user.photos.small || image}/></div>
@@ -46,13 +63,12 @@ export class Users extends React.Component<UsersPT & mainPT> {
 
                     {user.followed ? 'followed' : 'unFollowed'}
 
-                    <button onClick={() => this.props.follow(user.id)}>follow</button>
+                    <button onClick={() => callBack(user.id)}>follow</button>
                 </div>
             })}
         </div>
-
-    }
-}
+    );
+};
 
 
 
