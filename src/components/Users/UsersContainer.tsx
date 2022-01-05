@@ -1,13 +1,14 @@
 import {AppStateType} from "../../redux/store_redux";
-import {followAC, setUsersAC} from "../../redux/users_reducer";
+import {changePageAC, followAC, setUsersAC} from "../../redux/users_reducer";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {UserPT, Users, UsersPT} from "./Users";
+import {UserPT, UsersAPIcontainer, UsersPT} from "./UsersAPIcontainer";
 
 
-type mapDispatchToPropsPT = {
+export type mapDispatchToPropsPT = {
     follow: (userID: number) => void
-    setUsers: (users: UserPT[]) => void
+    setUsers: (users: UserPT[], totalCount: number) => void
+    changePage: (pageID: number) => void
 }
 
 const mapStateToProps = (state: AppStateType): UsersPT => state.users
@@ -16,11 +17,12 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsPT => {
 
     return {
         follow: (userID) => dispatch(followAC(userID)),
-        setUsers: (userFromAPI) => dispatch(setUsersAC(userFromAPI))
+        setUsers: (users, totalCount) => dispatch(setUsersAC(users, totalCount)),
+        changePage: (pageID) => dispatch(changePageAC(pageID))
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIcontainer)
 
 
 

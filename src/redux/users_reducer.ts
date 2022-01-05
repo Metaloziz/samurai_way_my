@@ -1,17 +1,49 @@
 import {actionPT} from "./store_redux";
-// import {usersPT, usersStatePT} from "../components/Users/Users";
-// import axios from "axios";
-import {UserPT, UsersPT} from "../components/Users/Users";
-
+import {UserPT, UsersPT} from "../components/Users/UsersAPIcontainer";
 
 export type followATPT = ReturnType<typeof followAC>
 export type setUsersATPT = ReturnType<typeof setUsersAC>
+export type changePageACPT = ReturnType<typeof changePageAC>
 
 export const FOLLOW = 'FOLLOW'
 export const SET_USERS = 'SET_USERS'
+export const CHANGE_PAGE = 'CHANGE_PAGE'
+
 
 export const followAC = (userId: number) => ({type: FOLLOW, userId: userId} as const)
-export const setUsersAC = (users: UserPT[]) => ({type: SET_USERS, usersFromAPI: users} as const)
+export const setUsersAC = (users: UserPT[], totalCount: number) => ({type: SET_USERS, users, totalCount} as const)
+export const changePageAC = (pageID: number) => ({type: CHANGE_PAGE, pageID} as const)
+
+
+let newInitialState: UsersPT = {
+    users: [],
+    pageSize: 3,
+    totalCount: 36,
+    error: 'Error',
+    currentPage: 1
+}
+
+export const users_reducer = (state: UsersPT = newInitialState, action: actionPT): UsersPT => {
+
+    switch (action.type) {
+        case FOLLOW:
+            return {
+                ...state,
+                users: state.users.map(user => user.id === action.userId ? {...user, followed: !user.followed} : user)
+            }
+        case SET_USERS:
+            return {
+                ...state,
+                users: action.users, totalCount: action.totalCount
+            }
+        case CHANGE_PAGE:
+            return {
+                ...state, currentPage: action.pageID
+            }
+        default:
+            return state
+    }
+}
 
 
 // const initialUsersState: usersStatePT = {
@@ -43,28 +75,3 @@ export const setUsersAC = (users: UserPT[]) => ({type: SET_USERS, usersFromAPI: 
 //     ]
 // }
 
-
-
-let newInitialState: UsersPT = {
-    users: [],
-    totalCount: 10,
-    error: 'Error'
-}
-
-export const users_reducer = (state: UsersPT = newInitialState, action: actionPT): UsersPT => {
-
-    switch (action.type) {
-        case FOLLOW:
-            return {
-                ...state,
-                users: state.users.map(user => user.id === action.userId ? {...user, followed: !user.followed} : user)
-            }
-        case SET_USERS:
-            return {
-                ...state,
-                users: action.usersFromAPI
-            }
-        default:
-            return state
-    }
-}

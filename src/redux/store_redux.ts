@@ -2,7 +2,7 @@ import {combineReducers, createStore} from "redux";
 import {addPostATPT, profile_reducer, updateAddTextPostATPT} from "./profile_reducer";
 import {addTextMessageATPT, dialogs_reducer, updateTextMessageATPT} from "./dialogs_reducer";
 import {sidebar_reducer, sidebarATPT} from "./sidebar_reducer";
-import {followATPT, setUsersATPT, users_reducer} from "./users_reducer";
+import {changePageACPT, followATPT, setUsersATPT, users_reducer} from "./users_reducer";
 
 export type actionPT =
     addPostATPT
@@ -12,6 +12,7 @@ export type actionPT =
     | sidebarATPT
     | followATPT
     | setUsersATPT
+    | changePageACPT
 
 
 export type AppStateType = ReturnType<typeof reducers>
