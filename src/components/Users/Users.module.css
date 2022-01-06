@@ -27,3 +27,7 @@
 .buttons_pages .current {
     font-size: 40px;
 }
+
+.loader {
+    width: 495px;
+}

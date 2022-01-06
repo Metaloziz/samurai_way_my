@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Users.module.css'
 import image from '../Users/imgAva/user.png'
-import {UsersPT} from "./UsersAPIcontainer";
+import {UsersPT} from "./UsersContainer";
 
 
 type UsersFuncPT = {
@@ -20,12 +20,11 @@ export const Users = (props: UsersPT & UsersFuncPT) => {
         pages.push(i)
     }
 
-    debugger
     return <div>
         <div className={s.buttons_pages}>
-            {pages.map(pageID => <span onClick={() => props.setPage(pageID)}
+            {pages.map(pageID => <span key={pageID} onClick={() => props.setPage(pageID)}
                                        className={props.currentPage === pageID ? s.current : ''}>{pageID}</span>)}
-            {/*<span style={{fontSize: "40px"}}>1</span>*/}
+
 
         </div>
         {props.users.map((user) => {

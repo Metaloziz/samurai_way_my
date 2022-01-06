@@ -17,6 +17,6 @@ const initialState: Array<ItemPT> = [
 export const sidebarAC = () => ({type: 'SIDE_BAR_TEST'} as const)
 
 export const sidebar_reducer = (state: Array<ItemPT> = initialState, action: actionPT): Array<ItemPT> => {
-    console.log(typeof action.type + 'text from sidebar')
+    let a = action
     return state
 }
