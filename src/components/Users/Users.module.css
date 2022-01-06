@@ -29,5 +29,7 @@
 }
 
 .loader {
+    position: absolute;
+    opacity: 40%;
     width: 495px;
 }

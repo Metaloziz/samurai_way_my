@@ -9,10 +9,10 @@ import loader from './imgAva/blak_water.gif'
 import s from './Users.module.css'
 
 export type mapDispatchToPropsPT = {
-    follow: (userID: number) => void
-    setUsers: (users: UserPT[], totalCount: number) => void
-    changePage: (pageID: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
+    followAC: (userID: number) => void
+    setUsersAC: (users: UserPT[], totalCount: number) => void
+    changePageAC: (pageID: number) => void
+    toggleIsFetchingAC: (isFetching: boolean) => void
 }
 export type UsersPT = {
     users: UserPT[]
@@ -39,16 +39,14 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
     url = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
 
     componentDidMount() {
-        (async () => {
-            this.props.toggleIsFetching(true)
+        (async () => {             // async mean - do it one by one, and await axios
+            this.props.toggleIsFetchingAC(true)
 
             await axios.default
                 .get(this.url)
-                .then((state) => {
-                    this.props.setUsers(state.data.items, state.data.totalCount)
-                })
+                .then(state => this.props.setUsersAC(state.data.items, state.data.totalCount))
 
-            this.props.toggleIsFetching(false)
+            this.props.toggleIsFetchingAC(false)
         })()
 
 
@@ -56,14 +54,14 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
 
     setPage = (pageID: number) => {
 
-        this.props.toggleIsFetching(true)
+        this.props.toggleIsFetchingAC(true)
 
-        this.props.changePage(pageID)
+        this.props.changePageAC(pageID)
         axios.default
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageID}&count=${this.props.pageSize}`)
             .then((state) => {
-                this.props.setUsers(state.data.items, state.data.totalCount)
-                this.props.toggleIsFetching(false)
+                this.props.setUsersAC(state.data.items, state.data.totalCount)
+                this.props.toggleIsFetchingAC(false)
             })
 
 
@@ -79,7 +77,7 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
                          pageSize={this.props.pageSize}
                          totalCount={this.props.totalCount}
                          currentPage={this.props.currentPage}
-                         follow={this.props.follow}
+                         followAC={this.props.followAC}
                          error={this.props.error}
                          isFetching={this.props.isFetching}/>}
         </div>
@@ -88,17 +86,9 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
 
 const mapStateToProps = (state: AppStateType): UsersPT => state.users
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsPT => {
+let obj = {followAC, setUsersAC, changePageAC, toggleIsFetchingAC}
 
-    return {
-        follow: (userID) => dispatch(followAC(userID)),
-        setUsers: (users, totalCount) => dispatch(setUsersAC(users, totalCount)),
-        changePage: (pageID) => dispatch(changePageAC(pageID)),
-        toggleIsFetching: (isFetching) => dispatch(toggleIsFetchingAC(isFetching))
-    }
-}
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIcontainer)
+export const UsersContainer = connect(mapStateToProps, obj)(UsersAPIcontainer)
 
 
 

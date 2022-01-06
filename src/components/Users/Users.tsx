@@ -6,7 +6,7 @@ import {UsersPT} from "./UsersContainer";
 
 type UsersFuncPT = {
     setPage: (pageID: number) => void
-    follow: (userID: number) => void
+    followAC: (userID: number) => void
 }
 
 
@@ -38,7 +38,7 @@ export const Users = (props: UsersPT & UsersFuncPT) => {
 
                 {user.followed ? 'followed' : 'unFollowed'}
 
-                <button onClick={() => props.follow(user.id)}>follow</button>
+                <button onClick={() => props.followAC(user.id)}>follow</button>
             </div>
         })}
     </div>
