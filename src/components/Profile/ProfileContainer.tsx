@@ -17,7 +17,6 @@ export class ProfileContainerAPI extends React.Component<ProfileOnePT & mapDispa
     componentDidMount() {
         let userId: string = this.props.params.userId
 
-        console.log(userId)
         if (!userId) {
             userId = '4';
         }

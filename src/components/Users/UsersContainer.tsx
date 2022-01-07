@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import * as axios from "axios";
+import axios from "axios";
 import {AppStatePT} from "../../redux/store_redux";
 import {changePageAC, followAC, setUsersAC, toggleIsFetchingAC} from "../../redux/users_reducer";
 import {Users} from "./Users";
@@ -41,7 +41,7 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
         (async () => {             // async mean - do it one by one, and await axios
             this.props.toggleIsFetchingAC(true)
 
-            await axios.default
+            await axios
                 .get(this.url)
                 .then(state => this.props.setUsersAC(state.data.items, state.data.totalCount))
 
@@ -54,7 +54,7 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
         this.props.toggleIsFetchingAC(true)
 
         this.props.changePageAC(pageID)
-        axios.default
+        axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageID}&count=${this.props.pageSize}`)
             .then((state) => {
                 this.props.setUsersAC(state.data.items, state.data.totalCount)

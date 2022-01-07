@@ -43,7 +43,7 @@ export const Users = (props: UsersPT & UsersFuncPT) => {
 
                 {user.followed ? 'followed' : 'unFollowed'}
 
-                <button onClick={() => props.followAC(user.id)}>follow</button>
+                <button onClick={() => props.followAC(user.id)}>{user.followed ? 'followed' : 'unFollowed'}</button>
             </div>
         })}
     </div>

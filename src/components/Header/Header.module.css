@@ -4,6 +4,9 @@
     background-color: #191f2d;
     padding: 10px;
     color: beige;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header img {
@@ -14,4 +17,9 @@
 
 .header div {
     padding-left: 3.5%;
+}
+
+.loginBlock a {
+    color: whitesmoke;
+
 }
