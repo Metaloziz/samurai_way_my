@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import image from '../Users/imgAva/user.png'
 import {UsersPT} from "./UsersContainer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 type UsersFuncPT = {
@@ -13,7 +14,6 @@ type UsersFuncPT = {
 
 export const Users = (props: UsersPT & UsersFuncPT) => {
 
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
 
@@ -23,6 +23,33 @@ export const Users = (props: UsersPT & UsersFuncPT) => {
         pages.push(i)
     }
 
+    const localCB = (id: number, followed: boolean) => {
+        // props.followAC(id)
+        followed
+            ? axios.delete('https://social-network.samuraijs.com/api/1.0/follow/' + id,
+                {
+                    withCredentials: true,
+                    headers: {'API-KEY': '0d359f4b-dbac-4b25-81ad-e06b681fec5c'}
+                })
+                .then(response => {
+                        if (response.data.resultCode === 0) {
+                            props.followAC(id)
+                        }
+                    }
+                )
+            : axios.post('https://social-network.samuraijs.com/api/1.0/follow/' + id, {},
+                {
+                    withCredentials: true,
+                    headers: {'API-KEY': '0d359f4b-dbac-4b25-81ad-e06b681fec5c'}
+                })
+                .then(response => {
+                        if (response.data.resultCode === 0) {
+                            props.followAC(id)
+                        }
+                    }
+                )
+    }
+
     return <div>
         <div className={s.buttons_pages}>
             {pages.map(pageID => <span key={pageID}
@@ -30,11 +57,11 @@ export const Users = (props: UsersPT & UsersFuncPT) => {
                                        className={props.currentPage === pageID ? s.current : ''}>{pageID}</span>)}
 
         </div>
-        {props.users.map((user) => {
-
-            return <div id={String(user.id)} key={user.id} className={s.main_div}>
+        {props.users.map((user) => <div id={String(user.id)} key={user.id} className={s.main_div}>
                 <div>
-                    <NavLink to={'/profile/' + user.id}><img alt={'ava'} src={user.photos.small || image}/></NavLink>
+                    <NavLink to={'/profile/' + user.id}>
+                        <img alt={'ava'} src={user.photos.small || image}/>
+                    </NavLink>
                 </div>
                 <div>{user.name}</div>
                 <div>{user.status}</div>
@@ -43,9 +70,11 @@ export const Users = (props: UsersPT & UsersFuncPT) => {
 
                 {user.followed ? 'followed' : 'unFollowed'}
 
-                <button onClick={() => props.followAC(user.id)}>{user.followed ? 'followed' : 'unFollowed'}</button>
+                <button onClick={() => localCB(user.id, user.followed)}>
+                    {user.followed ? 'unFollowed' : 'followed'}
+                </button>
             </div>
-        })}
+        )}
     </div>
 
 }

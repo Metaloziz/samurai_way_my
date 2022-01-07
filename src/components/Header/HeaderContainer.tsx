@@ -9,9 +9,6 @@ import {AppStatePT} from "../../redux/store_redux";
 type mapDispatchToPropsPT = {
     setUserDataAC: (data: userDataPT) => void
 }
-type mapStateToPropsPT = {
-    data: userDataPT
-}
 
 
 export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatchToPropsPT> {
@@ -26,7 +23,7 @@ export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatch
                 if (response.data.resultCode === 0) {
                     this.props.setUserDataAC(response.data)
                     console.log(response)
-                }
+                } else throw Error('resultCode: ' + response.data.resultCode)
 
             })
     }

@@ -19,7 +19,7 @@ export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FET
 
 
 let newInitialState: UsersPT = {
-    users: [],
+    users: [{id: 0, name: 'null', status: 'null', photos: {small: 'null', large: 'null',}, followed: false}],
     pageSize: 3,
     totalCount: 36,
     error: 'Error',

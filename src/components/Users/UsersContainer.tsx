@@ -55,7 +55,7 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
 
         this.props.changePageAC(pageID)
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageID}&count=${this.props.pageSize}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageID}&count=${this.props.pageSize}`, {withCredentials: true})
             .then((state) => {
                 this.props.setUsersAC(state.data.items, state.data.totalCount)
                 this.props.toggleIsFetchingAC(false)
