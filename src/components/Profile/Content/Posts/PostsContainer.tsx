@@ -1,23 +1,16 @@
-import {addPostAC, updateAddTextPostAC} from "../../../../redux/profile_reducer";
+import {addLikeAC, addPostAC, changePostAC} from "../../../../redux/profile_reducer";
 import {Posts, ProfileItemsPT} from "./Posts";
 import {connect} from "react-redux";
-import {actionPT, AppStateType} from "../../../../redux/store_redux";
+import {AppStatePT} from "../../../../redux/store_redux";
 
 export type profilePagePT = {
     profilePage: ProfileItemsPT
 }
 
-const mapStateToProps = (state: AppStateType): profilePagePT => {
-    return {
-        profilePage: state.profilePage
-    }
+const mapStateToProps = ({profilePage}: AppStatePT): profilePagePT => {
+    return {profilePage}
 }
 
-const mapDispatchToProps = (dispatch: (action: actionPT) => void) => {
-    return {
-        addNewPost: () => dispatch(addPostAC()),
-        changePost: (newText: string) => dispatch(updateAddTextPostAC(newText))
-    }
-}
+let obj = {addPostAC, changePostAC, addLikeAC}
 
-export const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)
+export const PostsContainer = connect(mapStateToProps, obj)(Posts)

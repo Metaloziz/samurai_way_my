@@ -15,7 +15,7 @@ export const Navigation = (state: sidebarPT) => {
 
     return (<div>
             <nav className={s.navigation}>
-                {state.sidebar.map((x,index) =>
+                {state.sidebar.map((x, index) =>
                     <div key={index} className={s.item}>
                         <NavLink to={x.path}
                                  className={({isActive}) => isActive ? s.active : ''}> {x.title} </NavLink>

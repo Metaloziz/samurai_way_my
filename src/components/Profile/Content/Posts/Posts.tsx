@@ -1,25 +1,28 @@
 import React from "react";
 import style from './Posts.module.css'
 import {OldPost} from "./Old_post/OldPost";
+import {ProfilePT} from "../../Profile";
 
 export type NewPostPT = {
     profilePage: ProfileItemsPT
-    addNewPost: () => void
-    changePost: (newText: string) => void
+    addPostAC: () => void
+    changePostAC: (newText: string) => void
+    addLikeAC: (postID: string) => void
 }
 export type ProfileItemsPT = {
     postData: Array<PostDataPT>
     newPostText: string
+    profile: ProfilePT
 }
 export type PostDataPT = {
-    id: number
+    id: string
     message: string
     like: number
     comment: number
 }
 
 
-export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
+export const Posts = ({profilePage, addPostAC, changePostAC, addLikeAC}: NewPostPT) => {
 
     //--------------------------ref------------------------------
     let newPostElement = React.createRef<HTMLTextAreaElement>()
@@ -27,13 +30,13 @@ export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
 
     const addNewItem = () => {
         if (newPostElement.current?.value) {                // check empty
-            addNewPost()
+            addPostAC()
         }
     }
 
     const changeItem = () => {
         if (newPostElement.current) {                        // check empty
-            changePost(newPostElement.current.value)
+            changePostAC(newPostElement.current.value)
         }
     }
 
@@ -51,6 +54,7 @@ export const Posts = ({profilePage, addNewPost, changePost}: NewPostPT) => {
                     </div>
                 </div>
                 {profilePage.postData.map((item, index) => <OldPost
+                    addLike={() => addLikeAC(item.id)}
                     key={index} message={item.message}
                     like={item.like}
                     comment={item.comment}/>)}

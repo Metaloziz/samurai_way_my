@@ -13,10 +13,13 @@ const initialState: Array<ItemPT> = [
     {path: '/settings', title: 'Settings'}
 ]
 
+const SIDE_BAR_TEST = 'SIDE_BAR_TEST'
 
-export const sidebarAC = () => ({type: 'SIDE_BAR_TEST'} as const)
+export const sidebarAC = () => ({type: SIDE_BAR_TEST} as const)
 
 export const sidebar_reducer = (state: Array<ItemPT> = initialState, action: actionPT): Array<ItemPT> => {
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let a = action
     return state
 }

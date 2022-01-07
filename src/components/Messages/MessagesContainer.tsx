@@ -2,7 +2,8 @@ import {addTextMessageAC, updateTextMessageAC} from "../../redux/dialogs_reducer
 import {dialogsItemsPT, Messages} from "./Messages";
 import {connect} from "react-redux";
 
-import {actionPT, AppStateType} from "../../redux/store_redux";
+import {AppStatePT} from "../../redux/store_redux";
+import {Dispatch} from "redux";
 
 type mainDialogsPagePT = {
     dialogsPage: dialogsItemsPT
@@ -13,10 +14,10 @@ type mapDispatchToPropsPT = {
 };
 
 
-const mapStateToProps = (state: AppStateType): mainDialogsPagePT => ({dialogsPage: state.dialogsPage})
+const mapStateToProps = (state: AppStatePT): mainDialogsPagePT => ({dialogsPage: state.dialogsPage})
 
 
-const mapDispatchToProps = (dispatch: (action: actionPT) => void): mapDispatchToPropsPT => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsPT => {
     return {
         addNewMessage: () => dispatch(addTextMessageAC()),
         changeText: (newText: string) => dispatch(updateTextMessageAC(newText))

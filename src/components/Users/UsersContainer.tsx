@@ -1,12 +1,10 @@
-import {AppStateType} from "../../redux/store_redux";
-import {changePageAC, followAC, setUsersAC, toggleIsFetchingAC} from "../../redux/users_reducer";
-import {connect} from "react-redux";
-import {Dispatch} from "redux";
 import React from "react";
+import {connect} from "react-redux";
 import * as axios from "axios";
+import {AppStatePT} from "../../redux/store_redux";
+import {changePageAC, followAC, setUsersAC, toggleIsFetchingAC} from "../../redux/users_reducer";
 import {Users} from "./Users";
-import loader from './imgAva/blak_water.gif'
-import s from './Users.module.css'
+import {Preloader} from "../comonComponents/Preloader";
 
 export type mapDispatchToPropsPT = {
     followAC: (userID: number) => void
@@ -34,6 +32,7 @@ export type UserPT = {
     followed: boolean
 }
 
+
 export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPropsPT> {
 
     url = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
@@ -48,8 +47,6 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
 
             this.props.toggleIsFetchingAC(false)
         })()
-
-
     }
 
     setPage = (pageID: number) => {
@@ -71,7 +68,7 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
 
         return <div>
             {this.props.isFetching
-                ? <img className={s.loader} alt={'loader'} src={loader}/>
+                ? <Preloader/>
                 : <Users users={this.props.users}
                          setPage={this.setPage}
                          pageSize={this.props.pageSize}
@@ -84,7 +81,7 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
     }
 }
 
-const mapStateToProps = (state: AppStateType): UsersPT => state.users
+const mapStateToProps = (state: AppStatePT): UsersPT => state.users
 
 let obj = {followAC, setUsersAC, changePageAC, toggleIsFetchingAC}
 
