@@ -60,8 +60,6 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
                 this.props.setUsersAC(state.data.items, state.data.totalCount)
                 this.props.toggleIsFetchingAC(false)
             })
-
-
     }
 
     render() {

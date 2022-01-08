@@ -1,6 +1,6 @@
 import React from "react";
 import {Profile, ProfileOnePT, ProfilePT} from "./Profile";
-import * as axios from "axios";
+import axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfileAC} from "../../redux/profile_reducer";
 import {AppStatePT} from "../../redux/store_redux";
@@ -21,7 +21,7 @@ export class ProfileContainerAPI extends React.Component<ProfileOnePT & mapDispa
             userId = '4';
         }
 
-        axios.default
+        axios
             .get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then((state) => this.props.setUserProfileAC(state.data))
     }
@@ -36,8 +36,8 @@ type PathParamPT = {
     userId: string
 }
 
+export const blablaComponent = (WrappedComponent: typeof React.Component) => {
 
-export const withRouter = (WrappedComponent: typeof React.Component) => {
 
     return (props: object) => {
 
@@ -49,7 +49,7 @@ export const withRouter = (WrappedComponent: typeof React.Component) => {
     }
 }
 
-const ProfileContainerURL = withRouter(ProfileContainerAPI)
+const ProfileContainerURL = blablaComponent(ProfileContainerAPI)
 
 const mapStateToProps = (state: AppStatePT): ProfileOnePT => state.profilePage
 
