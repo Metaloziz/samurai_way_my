@@ -2,7 +2,14 @@ import {combineReducers, createStore} from "redux";
 import {addLikeACPT, addPostATPT, profile_reducer, changePostACPT, setUserProfileACPT} from "./profile_reducer";
 import {addTextMessageATPT, dialogs_reducer, updateTextMessageATPT} from "./dialogs_reducer";
 import {sidebar_reducer, sidebarATPT} from "./sidebar_reducer";
-import {changePageACPT, followATPT, setUsersATPT, toggleIsFetchingACPT, users_reducer} from "./users_reducer";
+import {
+    changePageACPT,
+    followATPT,
+    setUsersATPT,
+    toggleIsFetchingPageACPT,
+    toggleIsFetchingUserACPT,
+    users_reducer
+} from "./users_reducer";
 import {auth_reducer, setUserDataACPT} from "./auth_reducer";
 
 export type actionPT =
@@ -14,7 +21,8 @@ export type actionPT =
     | followATPT
     | setUsersATPT
     | changePageACPT
-    | toggleIsFetchingACPT
+    | toggleIsFetchingPageACPT
+    | toggleIsFetchingUserACPT
     | addLikeACPT
     | setUserProfileACPT
     | setUserDataACPT

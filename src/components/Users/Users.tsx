@@ -47,7 +47,8 @@ export const Users = (props: UsersPT & UsersFuncPT) => {
 
                 {user.followed ? 'followed' : 'unFollowed'}
 
-                <button onClick={() => localCB(user.id, user.followed)}>
+                <button disabled={props.isFetchingUser}
+                        onClick={() => localCB(user.id, user.followed)}>
                     {user.followed ? 'unFollowed' : 'followed'}
                 </button>
             </div>
