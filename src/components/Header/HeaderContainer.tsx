@@ -1,9 +1,9 @@
-import axios from "axios";
 import React from "react";
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {setUserDataAC, userDataPT} from "../../redux/auth_reducer";
 import {AppStatePT} from "../../redux/store_redux";
+import {headerAPI} from "../../api/api";
 
 
 type mapDispatchToPropsPT = {
@@ -16,14 +16,12 @@ export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatch
 
     componentDidMount() {
 
-        axios
-            .get('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
-            .then(response => {
-
-                    if (response.data.resultCode === 0) {
-                        this.props.setUserDataAC(response.data)
-                        console.log(response)
-                    } else throw Error('resultCode: ' + response.data.resultCode)
+        headerAPI()
+            .then((response) => {
+                    if (response.resultCode === 0) {
+                        this.props.setUserDataAC(response)
+                        console.log('headerAPI')
+                    } else throw Error('resultCode: ' + response.resultCode)
                 }
             )
     }

@@ -3,12 +3,13 @@ import s from './Users.module.css'
 import image from '../Users/imgAva/user.png'
 import {UsersPT} from "./UsersContainer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 
 
 type UsersFuncPT = {
     setPage: (pageID: number) => void
-    followAC: (userID: number) => void
+    // followAC: (userID: number) => void
+    unFollow: (userID: number) => void
+    follow: (userID: number) => void
 }
 
 
@@ -23,32 +24,8 @@ export const Users = (props: UsersPT & UsersFuncPT) => {
         pages.push(i)
     }
 
-    const localCB = (id: number, followed: boolean) => {
-        // props.followAC(id)
-        followed
-            ? axios.delete('https://social-network.samuraijs.com/api/1.0/follow/' + id,
-                {
-                    withCredentials: true,
-                    headers: {'API-KEY': '0d359f4b-dbac-4b25-81ad-e06b681fec5c'}
-                })
-                .then(response => {
-                        if (response.data.resultCode === 0) {
-                            props.followAC(id)
-                        }
-                    }
-                )
-            : axios.post('https://social-network.samuraijs.com/api/1.0/follow/' + id, {},
-                {
-                    withCredentials: true,
-                    headers: {'API-KEY': '0d359f4b-dbac-4b25-81ad-e06b681fec5c'}
-                })
-                .then(response => {
-                        if (response.data.resultCode === 0) {
-                            props.followAC(id)
-                        }
-                    }
-                )
-    }
+    const localCB = (id: number, followed: boolean) => followed ? props.unFollow(id) : props.follow(id)
+
 
     return <div>
         <div className={s.buttons_pages}>
@@ -57,7 +34,7 @@ export const Users = (props: UsersPT & UsersFuncPT) => {
                                        className={props.currentPage === pageID ? s.current : ''}>{pageID}</span>)}
 
         </div>
-        {props.users.map((user) => <div id={String(user.id)} key={user.id} className={s.main_div}>
+        {props.items.map((user) => <div id={String(user.id)} key={user.id} className={s.main_div}>
                 <div>
                     <NavLink to={'/profile/' + user.id}>
                         <img alt={'ava'} src={user.photos.small || image}/>

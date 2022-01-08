@@ -1,29 +1,29 @@
 import React from "react";
 import {Profile, ProfileOnePT, ProfilePT} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfileAC} from "../../redux/profile_reducer";
 import {AppStatePT} from "../../redux/store_redux";
 import {useParams} from "react-router-dom";
+import {profileAPI} from "../../api/api";
 
 
 type mapDispatchToProps = {
     setUserProfileAC: (profile: ProfilePT) => void
 }
 
-
 export class ProfileContainerAPI extends React.Component<ProfileOnePT & mapDispatchToProps & { params: PathParamPT }> {
 
     componentDidMount() {
-        let userId: string = this.props.params.userId
+        let userId = this.props.params.userId
 
         if (!userId) {
-            userId = '4';
+            userId = '2';
         }
 
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then((state) => this.props.setUserProfileAC(state.data))
+        profileAPI(userId).then((state) => {
+            this.props.setUserProfileAC(state)
+            console.log('profileAPI')
+        })
     }
 
     render() {
@@ -36,7 +36,7 @@ type PathParamPT = {
     userId: string
 }
 
-export const blablaComponent = (WrappedComponent: typeof React.Component) => {
+export const withRouter = (WrappedComponent: typeof React.Component) => {
 
 
     return (props: object) => {
@@ -49,7 +49,7 @@ export const blablaComponent = (WrappedComponent: typeof React.Component) => {
     }
 }
 
-const ProfileContainerURL = blablaComponent(ProfileContainerAPI)
+const ProfileContainerURL = withRouter(ProfileContainerAPI)
 
 const mapStateToProps = (state: AppStatePT): ProfileOnePT => state.profilePage
 

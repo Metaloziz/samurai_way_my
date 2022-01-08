@@ -19,7 +19,7 @@ export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FET
 
 
 let newInitialState: UsersPT = {
-    users: [{id: 0, name: 'null', status: 'null', photos: {small: 'null', large: 'null',}, followed: false}],
+    items: [{id: 0, name: 'null', status: 'null', photos: {small: 'null', large: 'null',}, followed: false}],
     pageSize: 3,
     totalCount: 36,
     error: 'Error',
@@ -32,11 +32,11 @@ export const users_reducer = (state: UsersPT = newInitialState, action: actionPT
     switch (action.type) {
         case FOLLOW:
             return {
-                ...state, users: state.users
+                ...state, items: state.items
                     .map(user => user.id === action.userId ? {...user, followed: !user.followed} : user)
             }
         case SET_USERS:
-            return {...state, users: action.users, totalCount: action.totalCount}
+            return {...state, items: action.users, totalCount: action.totalCount}
         case CHANGE_PAGE:
             return {...state, currentPage: action.pageID}
         case TOGGLE_IS_FETCHING:
