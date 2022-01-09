@@ -1,5 +1,7 @@
 import {actionPT} from "./store_redux";
-import {UserPT, UsersPT} from "../components/Users/UsersContainer";
+import {UserPT, UsersStatePT} from "../components/Users/UsersContainer";
+import {Dispatch} from "redux";
+import {setFollowAPI, setUnFollowAPI, setUserDataAPI, setUserOnPageAPI} from "../api/api";
 
 export type followATPT = ReturnType<typeof followAC>
 export type setUsersATPT = ReturnType<typeof setUsersAC>
@@ -12,7 +14,6 @@ export const SET_USERS = 'SET_USERS'
 export const CHANGE_PAGE = 'CHANGE_PAGE'
 export const TOGGLE_IS_FETCHING_PAGE = 'TOGGLE_IS_FETCHING_PAGE'
 export const TOGGLE_IS_FETCHING_USER = 'TOGGLE_IS_FETCHING_USER'
-
 
 export const followAC = (userID: number) => ({type: FOLLOW, userID} as const)
 export const setUsersAC = (users: UserPT[], totalCount: number) => ({type: SET_USERS, users, totalCount} as const)
@@ -28,7 +29,7 @@ export const toggleIsFetchingUserAC = (isFetchingUser: boolean, userID: number) 
 } as const)
 
 
-let newInitialState: UsersPT = {
+let usersState: UsersStatePT = {
     items: [
         {
             id: 0,
@@ -45,7 +46,7 @@ let newInitialState: UsersPT = {
     isFetchingPage: true,         // add myself
 }
 
-export const users_reducer = (state: UsersPT = newInitialState, action: actionPT): UsersPT => {
+export const users_reducer = (state: UsersStatePT = usersState, action: actionPT): UsersStatePT => {
 
     switch (action.type) {
         case FOLLOW:
@@ -54,6 +55,7 @@ export const users_reducer = (state: UsersPT = newInitialState, action: actionPT
                     .map(user => user.id === action.userID ? {...user, followed: !user.followed} : user)
             }
         case SET_USERS:
+
             return {...state, items: action.users, totalCount: action.totalCount}
         case CHANGE_PAGE:
             return {...state, currentPage: action.pageID}
@@ -67,5 +69,72 @@ export const users_reducer = (state: UsersPT = newInitialState, action: actionPT
 
         default:
             return state
+    }
+}
+
+
+export const getUsersThunkContainer = (currentPage: number, pageSize: number) => {
+
+    return (dispatch: Dispatch) => {
+
+        dispatch(toggleIsFetchingPageAC(true))
+        setUserDataAPI(currentPage, pageSize)
+            .then((state) => {
+                debugger
+                console.log('setUserDataAPI')
+                dispatch(setUsersAC(state.items, state.totalCount))
+            })
+        dispatch(toggleIsFetchingPageAC(false))
+    }
+}
+
+export const sePageThunkContainer = (pageID: number, pageSize: number) => {
+
+    return (dispatch: Dispatch) => {
+
+        dispatch(toggleIsFetchingPageAC(true))
+
+        dispatch(changePageAC(pageID))
+        setUserOnPageAPI(pageID, pageSize)
+            .then((state) => {
+                    dispatch(setUsersAC(state.items, state.totalCount))
+                    dispatch(toggleIsFetchingPageAC(false))
+                    console.log('setUserOnPageAPI')
+                }
+            )
+    }
+}
+
+export const unFollowThunkContainer = (userID: number) => {
+
+    return (dispatch: Dispatch) => {
+
+        dispatch(toggleIsFetchingUserAC(true, userID))
+        setUnFollowAPI(userID)
+            .then(response => {
+                    if (response.resultCode === 0) {
+                        dispatch(followAC(userID))
+                        dispatch(toggleIsFetchingUserAC(false, userID))
+                        console.log('unFollow')
+                    }
+                }
+            )
+    }
+}
+
+export const followThunkContainer = (userID: number) => {
+
+    return (dispatch: Dispatch) => {
+
+        dispatch(toggleIsFetchingUserAC(true, userID))
+        setFollowAPI(userID)
+            .then(response => {
+                    if (response.resultCode === 0) {
+                        dispatch(followAC(userID))
+                        dispatch(toggleIsFetchingUserAC(false, userID))
+                        console.log('Follow')
+                    }
+                }
+            )
     }
 }

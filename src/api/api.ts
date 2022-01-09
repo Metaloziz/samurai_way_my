@@ -1,6 +1,6 @@
 import axios from "axios";
 import {ProfilePT} from "../components/Profile/Profile";
-import {UsersPT} from "../components/Users/UsersContainer";
+import {UsersStatePT} from "../components/Users/UsersContainer";
 import {userDataPT} from "../components/Header/Header";
 
 const instance = axios.create({
@@ -25,8 +25,8 @@ export const profileAPI = (userID: string) => {
 export const setUserDataAPI = (currentPage: number, pageSize: number) => {
     return instance
         .get(`users?page=${currentPage}&count=${pageSize}`)
-        .then((response): UsersPT => {
-            console.log(response.data)
+        .then((response): UsersStatePT => {
+            console.log(response)
             return response.data
         })
 }
@@ -34,7 +34,7 @@ export const setUserDataAPI = (currentPage: number, pageSize: number) => {
 export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
     return instance
         .get(`users?page=${pageID}&count=${pageSize}`)
-        .then((response): UsersPT => response.data)
+        .then((response): UsersStatePT => response.data)
 }
 
 export const setUnFollowAPI = (userID: number) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Users.module.css'
 import image from '../Users/imgAva/user.png'
-import {UsersPT} from "./UsersContainer";
+import {UsersStatePT} from "./UsersContainer";
 import {NavLink} from "react-router-dom";
 
 
@@ -13,7 +13,7 @@ type UsersFuncPT = {
 }
 
 
-export const Users = (props: UsersPT & UsersFuncPT) => {
+export const Users = (props: UsersStatePT & UsersFuncPT) => {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
