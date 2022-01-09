@@ -1,15 +1,6 @@
 import {actionPT} from "./store_redux";
+import {userDataPT} from "../components/Header/Header";
 
-export  type userDataPT = {
-    data: {
-        id: number
-        login: string
-        email: string
-    },
-    messages: string[]
-    fieldsErrors: string[]
-    resultCode: number
-}
 
 export type setUserDataACPT = ReturnType<typeof setUserDataAC>
 

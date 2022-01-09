@@ -1,11 +1,21 @@
 import React from "react";
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
-import {userDataPT} from "../../redux/auth_reducer";
 
 
 type HeaderPT = {
     data: userDataPT
+}
+
+export  type userDataPT = {
+    data: {
+        id: number
+        login: string
+        email: string
+    },
+    messages: string[]
+    fieldsErrors: string[]
+    resultCode: number
 }
 
 export const Header = ({data}: HeaderPT) => {

@@ -1,7 +1,7 @@
 import axios from "axios";
-import {userDataPT} from "../redux/auth_reducer";
 import {ProfilePT} from "../components/Profile/Profile";
 import {UsersPT} from "../components/Users/UsersContainer";
+import {userDataPT} from "../components/Header/Header";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -25,7 +25,10 @@ export const profileAPI = (userID: string) => {
 export const setUserDataAPI = (currentPage: number, pageSize: number) => {
     return instance
         .get(`users?page=${currentPage}&count=${pageSize}`)
-        .then((response): UsersPT => response.data)
+        .then((response): UsersPT => {
+            console.log(response.data)
+            return response.data
+        })
 }
 
 export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
@@ -43,5 +46,8 @@ export const setUnFollowAPI = (userID: number) => {
 export const setFollowAPI = (userID: number) => {
     return instance
         .post('follow/' + userID)
-        .then(response => response.data)
+        .then(response => {
+            console.log(response)
+            return response.data
+        })
 }

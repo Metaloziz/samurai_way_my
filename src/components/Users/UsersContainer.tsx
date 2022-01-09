@@ -17,7 +17,7 @@ export type mapDispatchToPropsPT = {
     setUsersAC: (users: UserPT[], totalCount: number) => void
     changePageAC: (pageID: number) => void
     toggleIsFetchingPageAC: (isFetching: boolean) => void
-    toggleIsFetchingUserAC: (isFetching: boolean) => void
+    toggleIsFetchingUserAC: (isFetching: boolean, userID: number) => void
 }
 export type UsersPT = {
     items: UserPT[]
@@ -26,9 +26,8 @@ export type UsersPT = {
     error: string
     currentPage: number
     isFetchingPage: boolean
-    isFetchingUser: boolean
-
 }
+
 export type UserPT = {
     id: number
     name: string
@@ -38,6 +37,7 @@ export type UserPT = {
         large: string
     }
     followed: boolean
+    isFetchingUser: boolean
 }
 
 
@@ -51,6 +51,7 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
             await setUserDataAPI(this.props.currentPage, this.props.pageSize)
                 .then((state) => {
                     console.log('setUserDataAPI')
+
                     this.props.setUsersAC(state.items, state.totalCount)
                 })
 
@@ -72,12 +73,13 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
     }
 
     unFollow = (userID: number) => {
-        this.props.toggleIsFetchingUserAC(true)
+
+        this.props.toggleIsFetchingUserAC(true, userID)
         setUnFollowAPI(userID)
             .then(response => {
                     if (response.resultCode === 0) {
                         this.props.followAC(userID)
-                        this.props.toggleIsFetchingUserAC(false)
+                        this.props.toggleIsFetchingUserAC(false, userID)
                         console.log('unFollow')
                     }
                 }
@@ -85,12 +87,12 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
     }
 
     follow = (userID: number) => {
-        this.props.toggleIsFetchingUserAC(true)
+        this.props.toggleIsFetchingUserAC(true, userID)
         setFollowAPI(userID)
             .then(response => {
                     if (response.resultCode === 0) {
                         this.props.followAC(userID)
-                        this.props.toggleIsFetchingUserAC(false)
+                        this.props.toggleIsFetchingUserAC(false, userID)
                         console.log('Follow')
                     }
                 }
@@ -112,7 +114,7 @@ export class UsersAPIcontainer extends React.Component<UsersPT & mapDispatchToPr
                          currentPage={this.props.currentPage}
                     // followAC={this.props.followAC}
                          error={this.props.error}
-                         isFetchingUser={this.props.isFetchingUser}
+                    // isFetchingUser={this.props.isFetchingUser}
                          isFetchingPage={this.props.isFetchingPage}/>}
         </div>
     }

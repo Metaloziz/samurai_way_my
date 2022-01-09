@@ -1,7 +1,7 @@
 import React from "react";
-import {Header} from "./Header";
+import {Header, userDataPT} from "./Header";
 import {connect} from "react-redux";
-import {setUserDataAC, userDataPT} from "../../redux/auth_reducer";
+import {setUserDataAC} from "../../redux/auth_reducer";
 import {AppStatePT} from "../../redux/store_redux";
 import {headerAPI} from "../../api/api";
 
@@ -15,7 +15,6 @@ export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatch
 
 
     componentDidMount() {
-
         headerAPI()
             .then((response) => {
                     if (response.resultCode === 0) {
@@ -28,7 +27,7 @@ export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatch
 
     render() {
         return (
-            <Header data={this.props}/> // почему не ругается типизация ?
+            <Header data={this.props}/>
         )
     }
 }
