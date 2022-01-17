@@ -37,7 +37,7 @@ let usersState: UsersStatePT = {
             status: 'null',
             photos: {small: 'null', large: 'null',},
             followed: false,
-            isFetchingUser: false  // add myself
+            isFetchingUser: false,  // add myself
         }],
     pageSize: 3,
     totalCount: 36,
@@ -55,7 +55,6 @@ export const users_reducer = (state: UsersStatePT = usersState, action: actionPT
                     .map(user => user.id === action.userID ? {...user, followed: !user.followed} : user)
             }
         case SET_USERS:
-
             return {...state, items: action.users, totalCount: action.totalCount}
         case CHANGE_PAGE:
             return {...state, currentPage: action.pageID}
@@ -74,13 +73,10 @@ export const users_reducer = (state: UsersStatePT = usersState, action: actionPT
 
 
 export const getUsersThunkContainer = (currentPage: number, pageSize: number) => {
-
     return (dispatch: Dispatch) => {
-
         dispatch(toggleIsFetchingPageAC(true))
         setUserDataAPI(currentPage, pageSize)
             .then((state) => {
-                debugger
                 console.log('setUserDataAPI')
                 dispatch(setUsersAC(state.items, state.totalCount))
             })

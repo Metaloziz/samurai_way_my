@@ -2,6 +2,8 @@ import {v1} from "uuid";
 import {ProfileItemsPT} from "../components/Profile/Content/Posts/Posts";
 import {actionPT} from "./store_redux";
 import {ProfilePT} from "../components/Profile/Profile";
+import {Dispatch} from "redux";
+import {profileAPI} from "../api/api";
 
 
 export type addPostATPT = ReturnType<typeof addPostAC>
@@ -63,4 +65,13 @@ export const profile_reducer = (state: ProfileItemsPT = initialState, action: ac
         default:
             return state
     }
+}
+
+export const setUserThunkContainer = (userId: string) => (dispatch: Dispatch) => {
+
+    profileAPI(userId)
+        .then((state) => {
+            dispatch(setUserProfileAC(state))
+            console.log('profileAPI')
+        })
 }

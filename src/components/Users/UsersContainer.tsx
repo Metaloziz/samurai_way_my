@@ -117,7 +117,11 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
     }
 }
 
-const mapStateToProps = (state: AppStatePT): UsersStatePT => state.users
+type mapStateToPropsType = (state: AppStatePT) => UsersStatePT
+
+const mapStateToProps = (state: AppStatePT): UsersStatePT => {
+    return state.users
+}
 
 let obj = {
     getUsersThunkContainer,

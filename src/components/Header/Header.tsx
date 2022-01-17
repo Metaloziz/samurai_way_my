@@ -19,6 +19,8 @@ export  type userDataPT = {
 }
 
 export const Header = ({data}: HeaderPT) => {
+
+
     return (
         <div className={s.header}>
             <div>

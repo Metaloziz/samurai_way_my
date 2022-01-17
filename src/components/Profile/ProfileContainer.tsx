@@ -1,39 +1,47 @@
 import React from "react";
-import {Profile, ProfileOnePT, ProfilePT} from "./Profile";
+import {Profile, ProfileOnePT} from "./Profile";
 import {connect} from "react-redux";
-import {setUserProfileAC} from "../../redux/profile_reducer";
+import {setUserThunkContainer} from "../../redux/profile_reducer";
 import {AppStatePT} from "../../redux/store_redux";
 import {useParams} from "react-router-dom";
-import {profileAPI} from "../../api/api";
 
 
 type mapDispatchToProps = {
-    setUserProfileAC: (profile: ProfilePT) => void
+    // setUserProfileAC: (profile: ProfilePT) => void
+    setUserThunkContainer: (useId: string) => void
 }
+
+type PathParamPT = {
+    userId: string
+}
+
 
 export class ProfileContainerAPI extends React.Component<ProfileOnePT & mapDispatchToProps & { params: PathParamPT }> {
 
     componentDidMount() {
-        let userId = this.props.params.userId
 
-        if (!userId) {
-            userId = '2';
+        let userID = this.props.params.userId
+
+        if (!userID) {
+            userID = '2';
         }
 
-        profileAPI(userId).then((state) => {
-            this.props.setUserProfileAC(state)
-            console.log('profileAPI')
-        })
+        this.props.setUserThunkContainer(userID)
+        // let userId = this.props.params.userId
+        //
+        // if (!userId) {
+        //     userId = '2';
+        // }
+        //
+        // profileAPI(userId).then((state) => {
+        //     this.props.setUserProfileAC(state)
+        //     console.log('profileAPI')
+        // })
     }
 
     render() {
         return <Profile profile={this.props.profile}/>
     }
-}
-
-
-type PathParamPT = {
-    userId: string
 }
 
 export const withRouter = (WrappedComponent: typeof React.Component) => {
@@ -53,4 +61,4 @@ const ProfileContainerURL = withRouter(ProfileContainerAPI)
 
 const mapStateToProps = (state: AppStatePT): ProfileOnePT => state.profilePage
 
-export const ProfileContainer = connect(mapStateToProps, {setUserProfileAC})(ProfileContainerURL)
+export const ProfileContainer = connect(mapStateToProps, {setUserThunkContainer})(ProfileContainerURL)

@@ -1,13 +1,13 @@
 import React from "react";
 import {Header, userDataPT} from "./Header";
 import {connect} from "react-redux";
-import {setUserDataAC} from "../../redux/auth_reducer";
+import {setUserDataAC, setUserDataThunkContainer} from "../../redux/auth_reducer";
 import {AppStatePT} from "../../redux/store_redux";
 import {headerAPI} from "../../api/api";
 
 
 type mapDispatchToPropsPT = {
-    setUserDataAC: (data: userDataPT) => void
+    setUserDataThunkContainer: () => void
 }
 
 
@@ -15,14 +15,18 @@ export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatch
 
 
     componentDidMount() {
-        headerAPI()
-            .then((response) => {
-                    if (response.resultCode === 0) {
-                        this.props.setUserDataAC(response)
-                        console.log('headerAPI')
-                    } else throw Error('resultCode: ' + response.resultCode)
-                }
-            )
+
+        this.props.setUserDataThunkContainer()
+
+
+        // headerAPI()
+        //     .then((response) => {
+        //             if (response.resultCode === 0) {
+        //                 this.props.setUserDataAC(response)
+        //                 console.log('headerAPI')
+        //             } else throw Error('resultCode: ' + response.resultCode)
+        //         }
+        //     )
     }
 
     render() {
@@ -34,4 +38,4 @@ export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatch
 
 const mapStateToProps = (state: AppStatePT): userDataPT => state.auth
 
-export const HeaderContainer = connect(mapStateToProps, {setUserDataAC})(HeaderContainerAPI)
+export const HeaderContainer = connect(mapStateToProps, {setUserDataThunkContainer})(HeaderContainerAPI)

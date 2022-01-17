@@ -1,5 +1,7 @@
 import {actionPT} from "./store_redux";
 import {userDataPT} from "../components/Header/Header";
+import {Dispatch} from "redux";
+import {headerAPI} from "../api/api";
 
 
 export type setUserDataACPT = ReturnType<typeof setUserDataAC>
@@ -28,4 +30,16 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
         default:
             return state
     }
+}
+
+export const setUserDataThunkContainer = () => (dispatch: Dispatch) => {
+
+    headerAPI()
+        .then((response) => {
+                if (response.resultCode === 0) {
+                    dispatch(setUserDataAC(response))
+                    console.log('headerAPI')
+                } else throw Error('resultCode: ' + response.resultCode)
+            }
+        )
 }
