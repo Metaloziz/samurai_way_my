@@ -1,7 +1,6 @@
 import {actionPT} from "./store_redux";
 import {dialogsItemsPT} from "../components/Messages/Messages";
 
-
 export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>
 export type updateTextMessageATPT = ReturnType<typeof updateTextMessageAC>  //typing is object-based
 
@@ -48,8 +47,6 @@ const initialState: dialogsItemsPT =
     }
 
 export const dialogs_reducer = (state: dialogsItemsPT = initialState, action: actionPT): dialogsItemsPT => {
-
-    // console.log(state)
 
     switch (action.type) {
         case ADD_TEXT_MESSAGE:

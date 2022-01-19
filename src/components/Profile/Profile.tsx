@@ -22,8 +22,6 @@ export type ProfilePT = {
 
 export const Profile = (props: ProfileOnePT) => {
 
-
-
     return (
         <div>
             <ContentHeader profile={props.profile}/>
