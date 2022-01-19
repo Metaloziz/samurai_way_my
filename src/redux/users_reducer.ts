@@ -28,7 +28,6 @@ export const toggleIsFetchingUserAC = (isFetchingUser: boolean, userID: number) 
     userID
 } as const)
 
-
 let usersState: UsersStatePT = {
     items: [
         {
@@ -70,7 +69,6 @@ export const users_reducer = (state: UsersStatePT = usersState, action: actionPT
             return state
     }
 }
-
 
 export const getUsersThunkContainer = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {

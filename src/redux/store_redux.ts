@@ -28,7 +28,6 @@ export type actionPT =
     | setUserProfileACPT
     | setUserDataACPT
 
-
 export type AppStatePT = ReturnType<typeof reducers>
 
 const reducers = combineReducers({

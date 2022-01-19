@@ -3,7 +3,6 @@ import {userDataPT} from "../components/Header/Header";
 import {Dispatch} from "redux";
 import {headerAPI} from "../api/api";
 
-
 export type setUserDataACPT = ReturnType<typeof setUserDataAC>
 
 export const SET_USER_DATA = 'SET_USER_DATA'
