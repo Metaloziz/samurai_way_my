@@ -29,6 +29,7 @@ export const App = () => {
     //         },
     //         { path: "team", element: <AboutPage /> }
     //     ]);
+    //test commit
 
     return (
         <div className='app-wrapper'>
