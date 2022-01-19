@@ -29,7 +29,7 @@ export const App = () => {
     //         },
     //         { path: "team", element: <AboutPage /> }
     //     ]);
-    // test
+
 
     return (
         <div className='app-wrapper'>
