@@ -1,13 +1,33 @@
 import React from "react";
-import {AreaPosts} from "./Content/Posts/AreaPosts";
 import {ContentHeader} from "./Content/Content_header/ContentHeader";
-import {ProfileMiddle} from "../../redux/state";
+import {PostsContainer} from "./Content/Posts/PostsContainer";
 
-export const Profile = (props : ProfileMiddle) => {
+export type ProfileOnePT = {
+    profile: ProfilePT
+}
+
+
+export type ProfilePT = {
+    aboutMe: string
+    contacts: { [key: string]: string }
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
+    }
+}
+
+export const Profile = (props: ProfileOnePT) => {
+
+
+
     return (
         <div>
-            <ContentHeader/>
-            <AreaPosts postData={props.postData} addPost={props.addPost}/>
+            <ContentHeader profile={props.profile}/>
+            <PostsContainer/>
         </div>
     )
 }

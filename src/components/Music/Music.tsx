@@ -1,5 +1,5 @@
-import s from "../News/News.module.css";
 import React from "react";
+import s from "../News/News.module.css";
 
 export let Music = () => {
     return (<div className={s.header}>

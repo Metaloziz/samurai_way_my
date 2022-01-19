@@ -1,9 +1,14 @@
 import s from "./DialogItem.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {DialogPropsType} from "../../../redux/state";
 
-export let DialogItem = (props: DialogPropsType) =>
+export type DialogPT = {
+    id: number
+    name: string
+    ava: string
+}
+
+export let DialogItem = (props: DialogPT) =>
 
     <div className={s.dialog}>
         <img alt={'ava'} src={props.ava} title={props.name} id={props.id.toString()}/>

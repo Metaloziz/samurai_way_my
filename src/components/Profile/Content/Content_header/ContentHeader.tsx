@@ -1,7 +1,13 @@
 import React from "react";
 import s from './Content_header.module.css'
+import {ProfileOnePT} from "../../Profile";
+import {Preloader} from "../../../comonComponents/Preloader";
 
-export const ContentHeader = () => {
+export const ContentHeader = (props: ProfileOnePT) => {
+
+    if (!props.profile) {
+        return <Preloader/>
+    }
 
     let content = [
         {
@@ -12,11 +18,16 @@ export const ContentHeader = () => {
 
     return (
         <div className={s.content}>
-
-            <div className={s.item}>
-                Title
-                <div><img alt={content[0].alt}
-                          src={content[0].src}/>
+            <div className={s.item}>Title
+                <div>
+                    <img alt={content[0].alt} src={content[0].src}/>
+                </div>
+                <img alt={'ava'} src={props.profile.photos.large}/>
+                <div>
+                    <div>about me: {props.profile.aboutMe}</div>
+                    <div>contacts: {props.profile.contacts["facebook"]}</div>
+                    <div>lookingForAJob: {props.profile.lookingForAJob ? "true" : "false"}</div>
+                    <div>fullName: {props.profile.fullName}</div>
                 </div>
             </div>
         </div>

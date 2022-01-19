@@ -1,48 +1,54 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
-import {Header} from "./components/Header/Header";
-import {Profile} from "./components/Profile/Profile";
-import {Navigation} from "./components/Navigation/Navigation";
-import {Messages} from "./components/Messages/Messages";
+import './App.css';
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
+import {Page404} from "./components/Page404/Page404";
 import {Settings} from "./components/Settings/Settings";
-import './App.css';
-import {AppPropsType} from "./redux/state";
+import {UsersContainer} from './components/Users/UsersContainer';
+import {HeaderContainer} from "./components/Header/HeaderContainer";
+import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {MessagesContainer} from "./components/Messages/MessagesContainer";
+import {NavigationContainer} from "./components/Navigation/NavigationContainer";
+import {Navigate, Route, Routes} from "react-router-dom";
 
 
-// type AppPropsType = navBarNavLinkPropsType & ConversationsPropsType
+export const App = () => {
 
-export const App = ({state}: AppPropsType) => {
-
+    // function App() {
+    //     let element = useRoutes([
+    //         {
+    //             path: "/",
+    //             element: <Dashboard />,
+    //             children: [
+    //                 {
+    //                     path: "messages",
+    //                     element: <DashboardMessages />
+    //                 },
+    //                 { path: "tasks", element: <DashboardTasks /> }
+    //             ]
+    //         },
+    //         { path: "team", element: <AboutPage /> }
+    //     ]);
 
     return (
         <div className='app-wrapper'>
-            <Header logo={'logo'}/>
-            <Navigation sidebar={state.sidebar}/>
-
+            <HeaderContainer/>
+            <NavigationContainer/>
             <div>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile postData={state.profilePage.postData}
-                                                               addPost={state.profilePage.addPost}/>}/>
-                    <Route path={'/messages/*'} element={<Messages dialogs={state.dialogsPage.dialogs}
-                                                                   messages={state.dialogsPage.messages}/>}/>
+                    <Route path={'/'} element={<Navigate replace to={'/profile'}/>}/>
+                    <Route path="/profile" element={<ProfileContainer/>}>
+                        <Route path=":userId" element={<ProfileContainer/>}/>
+                    </Route>
+                    <Route path={'/messages/*'} element={<MessagesContainer/>}/>
+                    <Route path={'/users/'} element={<UsersContainer/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
+                    <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
             </div>
         </div>
 
     );
 }
-
-
-//
-// let navBarItemsRoute = [
-//     {path: '/profile', element: <Profile/>},
-//     {path: '/messages', element: <Messages dialogs={dialogsData} messages={messagesData}/>},// for messages
-//     {path: '/news', element: <News/>},
-//     {path: '/music', element: <Music/>},
-//     {path: '/settings', element: <Settings/>},
-// ]

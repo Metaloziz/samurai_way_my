@@ -1,6 +1,10 @@
 import s from "./MessagesItem.module.css";
 import React from "react";
-import {MessagePropsType} from "../../../redux/state";
 
-export let MessagesItem = (props:MessagePropsType) =>
+export type MessagePT = {
+    id: number
+    text: string
+}
+
+export let MessagesItem = (props:MessagePT) =>
     <div className={s.message}>{props.text}</div>
