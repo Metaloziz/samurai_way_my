@@ -30,6 +30,8 @@ export const App = () => {
     //         { path: "team", element: <AboutPage /> }
     //     ]);
 
+    // add GPG key
+
 
     return (
         <div className='app-wrapper'>
