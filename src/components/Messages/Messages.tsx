@@ -18,11 +18,11 @@ export type dialogsItemsPT = {
 
 export let Messages = ({dialogsPage, addNewMessage, changeText}: dialogsPagePT) => {
 
-    let dialogsDataItems = dialogsPage.dialogs.map((x, index) =>
-        <DialogItem key={index} id={x.id} name={x.name} ava={x.ava}/>)
+    let dialogsDataItems = dialogsPage.dialogs.map((item, index) =>
+        <DialogItem key={index} id={item.id} name={item.name} ava={item.ava}/>)
 
-    let messagesDataItems = dialogsPage.messages.map((x, index) =>
-        <MessagesItem key={index} id={x.id} text={x.text}/>)
+    let messagesDataItems = dialogsPage.messages.map((item, index) =>
+        <MessagesItem key={index} id={item.id} text={item.text}/>)
 
     //---------------------------ref-------------------------
     let newMessageRef = React.createRef<HTMLTextAreaElement>()

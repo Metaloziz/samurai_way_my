@@ -31,10 +31,11 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
     }
 }
 
-export const setUserDataThunkContainer = () => (dispatch: Dispatch) => {
+export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
 
     headerAPI()
         .then((response) => {
+
                 if (response.resultCode === 0) {
                     dispatch(setUserDataAC(response))
                     console.log('headerAPI')

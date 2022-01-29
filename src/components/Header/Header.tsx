@@ -20,6 +20,8 @@ export  type userDataPT = {
 
 export const Header = ({data}: HeaderPT) => {
 
+    // debugger
+
 
     return (
         <div className={s.header}>

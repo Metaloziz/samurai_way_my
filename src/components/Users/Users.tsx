@@ -24,7 +24,9 @@ export const Users = (props: UsersStatePT & UsersFuncPT) => {
         pages.push(i)
     }
 
-    const localCB = (id: number, followed: boolean) => followed ? props.unFollow(id) : props.follow(id)
+    const localCB = (id: number, followed: boolean) => {
+        followed ? props.unFollow(id) : props.follow(id)
+    }
 
 
     return <div>

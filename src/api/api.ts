@@ -11,9 +11,16 @@ const instance = axios.create({
 
 
 export const headerAPI = () => {
+
+    // debugger
+
     return instance
         .get('auth/me')
-        .then((response): userDataPT => response.data)
+        .then((response): userDataPT => {
+
+            // debugger
+            return response.data
+        })
 }
 
 export const profileAPI = (userID: string) => {

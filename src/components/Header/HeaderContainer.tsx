@@ -1,13 +1,13 @@
 import React from "react";
 import {Header, userDataPT} from "./Header";
 import {connect} from "react-redux";
-import {setUserDataAC, setUserDataThunkContainer} from "../../redux/auth_reducer";
+import {setUserDataAC, setUserDataThunkCreator} from "../../redux/auth_reducer";
 import {AppStatePT} from "../../redux/store_redux";
 import {headerAPI} from "../../api/api";
 
 
 type mapDispatchToPropsPT = {
-    setUserDataThunkContainer: () => void
+    setUserDataThunkCreator: () => void
 }
 
 
@@ -16,7 +16,7 @@ export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatch
 
     componentDidMount() {
 
-        this.props.setUserDataThunkContainer()
+        this.props.setUserDataThunkCreator()
 
 
         // headerAPI()
@@ -38,4 +38,5 @@ export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatch
 
 const mapStateToProps = (state: AppStatePT): userDataPT => state.auth
 
-export const HeaderContainer = connect(mapStateToProps, {setUserDataThunkContainer})(HeaderContainerAPI)
+
+export const HeaderContainer = connect(mapStateToProps, {setUserDataThunkCreator})(HeaderContainerAPI)

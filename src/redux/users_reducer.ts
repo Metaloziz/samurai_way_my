@@ -36,13 +36,13 @@ let usersState: UsersStatePT = {
             status: 'null',
             photos: {small: 'null', large: 'null',},
             followed: false,
-            isFetchingUser: false,  // add myself
+            isFetchingUser: false,  // add this key  myself
         }],
     pageSize: 3,
     totalCount: 36,
     error: 'Error',
     currentPage: 1,
-    isFetchingPage: true,         // add myself
+    isFetchingPage: true,          // add this key  myself
 }
 
 export const users_reducer = (state: UsersStatePT = usersState, action: actionPT): UsersStatePT => {
@@ -70,24 +70,27 @@ export const users_reducer = (state: UsersStatePT = usersState, action: actionPT
     }
 }
 
-export const getUsersThunkContainer = (currentPage: number, pageSize: number) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+
     return (dispatch: Dispatch) => {
+
         dispatch(toggleIsFetchingPageAC(true))
+
         setUserDataAPI(currentPage, pageSize)
             .then((state) => {
                 console.log('setUserDataAPI')
                 dispatch(setUsersAC(state.items, state.totalCount))
             })
+
         dispatch(toggleIsFetchingPageAC(false))
     }
+
 }
 
-export const sePageThunkContainer = (pageID: number, pageSize: number) => {
+export const sePageThunkCreator = (pageID: number, pageSize: number) => {
 
     return (dispatch: Dispatch) => {
-
         dispatch(toggleIsFetchingPageAC(true))
-
         dispatch(changePageAC(pageID))
         setUserOnPageAPI(pageID, pageSize)
             .then((state) => {
@@ -99,13 +102,13 @@ export const sePageThunkContainer = (pageID: number, pageSize: number) => {
     }
 }
 
-export const unFollowThunkContainer = (userID: number) => {
+export const unFollowThunkCreator = (userID: number) => {
 
     return (dispatch: Dispatch) => {
 
         dispatch(toggleIsFetchingUserAC(true, userID))
         setUnFollowAPI(userID)
-            .then(response => {
+            .then((response) => {
                     if (response.resultCode === 0) {
                         dispatch(followAC(userID))
                         dispatch(toggleIsFetchingUserAC(false, userID))
@@ -116,13 +119,16 @@ export const unFollowThunkContainer = (userID: number) => {
     }
 }
 
-export const followThunkContainer = (userID: number) => {
 
+// это thunk creator
+export const followThunkCreator = (userID: number) => {
+
+    // Это thunk. Её запускает сам redux и забрасывает в неё dispatch
     return (dispatch: Dispatch) => {
 
         dispatch(toggleIsFetchingUserAC(true, userID))
         setFollowAPI(userID)
-            .then(response => {
+            .then((response) => {
                     if (response.resultCode === 0) {
                         dispatch(followAC(userID))
                         dispatch(toggleIsFetchingUserAC(false, userID))

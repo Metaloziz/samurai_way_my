@@ -2,10 +2,10 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStatePT} from "../../redux/store_redux";
 import {
-    followThunkContainer,
-    getUsersThunkContainer,
-    sePageThunkContainer,
-    unFollowThunkContainer
+    followThunkCreator,
+    getUsersThunkCreator,
+    sePageThunkCreator,
+    unFollowThunkCreator
 } from "../../redux/users_reducer";
 import {Users} from "./Users";
 import {Preloader} from "../comonComponents/Preloader";
@@ -16,10 +16,10 @@ export type mapDispatchToPropsPT = {
     // changePageAC: (pageID: number) => void
     // toggleIsFetchingPageAC: (isFetching: boolean) => void
     // toggleIsFetchingUserAC: (isFetching: boolean, userID: number) => void
-    getUsersThunkContainer: (currentPage: number, pageSize: number) => void
-    sePageThunkContainer: (pageID: number, pageSize: number) => void
-    unFollowThunkContainer: (userID: number) => void
-    followThunkContainer: (userID: number) => void
+    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+    sePageThunkCreator: (pageID: number, pageSize: number) => void
+    unFollowThunkCreator: (userID: number) => void
+    followThunkCreator: (userID: number) => void
 }
 export type UsersStatePT = {
     items: UserPT[]
@@ -45,7 +45,7 @@ export type UserPT = {
 export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatchToPropsPT> {
 
     componentDidMount = () => {
-        this.props.getUsersThunkContainer(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
         // this.props.toggleIsFetchingPageAC(true)
         // setUserDataAPI(this.props.currentPage, this.props.pageSize)
         //     .then((state) => {
@@ -56,7 +56,7 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
     }
 
     setPage = (pageID: number) => {
-        this.props.sePageThunkContainer(pageID, this.props.pageSize)
+        this.props.sePageThunkCreator(pageID, this.props.pageSize)
         //
         // this.props.toggleIsFetchingPageAC(true)
         //
@@ -70,7 +70,7 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
     }
 
     unFollow = (userID: number) => {
-        this.props.unFollowThunkContainer(userID)
+        this.props.unFollowThunkCreator(userID)
         // this.props.toggleIsFetchingUserAC(true, userID)
         // setUnFollowAPI(userID)
         //     .then(response => {
@@ -84,7 +84,7 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
     }
 
     follow = (userID: number) => {
-        this.props.followThunkContainer(userID)
+        this.props.followThunkCreator(userID)
         // this.props.toggleIsFetchingUserAC(true, userID)
         // setFollowAPI(userID)
         //     .then(response => {
@@ -119,18 +119,18 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
 
 type mapStateToPropsType = (state: AppStatePT) => UsersStatePT
 
-const mapStateToProps = (state: AppStatePT): UsersStatePT => {
+const mapStateToProps: mapStateToPropsType = (state: AppStatePT): UsersStatePT => {
     return state.users
 }
 
-let obj = {
-    getUsersThunkContainer,
-    sePageThunkContainer,
-    unFollowThunkContainer,
-    followThunkContainer,
+let mapDispatchToProps: mapDispatchToPropsPT = {
+    getUsersThunkCreator,
+    sePageThunkCreator,
+    unFollowThunkCreator,
+    followThunkCreator,
 }
 
-export const UsersContainer = connect(mapStateToProps, obj)(UsersAPIcontainer)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIcontainer)
 
 
 // setUsersAC: (props)=> dispatch(setUsersAC(props))
