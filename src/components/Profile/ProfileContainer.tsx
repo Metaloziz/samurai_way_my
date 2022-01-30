@@ -1,12 +1,14 @@
 import React from "react";
-import {Profile, ContentHeaderPT} from "./Profile";
+import {ContentHeaderPT, Profile} from "./Profile";
 import {connect} from "react-redux";
 import {setUserThunkCreator} from "../../redux/profile_reducer";
 import {AppStatePT} from "../../redux/store_redux";
 import {useParams} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
-type mapDispatchToProps = {
+type mapDispatchToPropsType = {
     // setUserProfileAC: (profile: ProfilePT) => void
     setUserThunkContainer: (useId: string) => void
 }
@@ -16,7 +18,7 @@ type PathParamPT = {
 }
 
 
-export class ProfileContainerAPI extends React.Component<ContentHeaderPT & mapDispatchToProps & { params: PathParamPT }> {
+export class ProfileContainerAPI extends React.Component<ContentHeaderPT & mapDispatchToPropsType & { params: PathParamPT }> {
 
 
     componentDidMount() {
@@ -38,11 +40,26 @@ export class ProfileContainerAPI extends React.Component<ContentHeaderPT & mapDi
         //     this.props.setUserProfileAC(state)
         //     console.log('profileAPI')
         // })
+        // debugger
     }
 
+
     render() {
-        return <Profile profile={this.props.profile}/>
+        // return <Profile profile={this.props.profile}/>
+        return <Profile {...this.props}/>
     }
+}
+
+
+const mapStateToProps = (state: AppStatePT): ContentHeaderPT => {
+    return {
+        profile: state.profilePage.profile
+    }
+}
+
+
+const mapDispatchToProps = {
+    setUserThunkContainer: setUserThunkCreator
 }
 
 export const withRouter = (WrappedComponent: typeof React.Component) => {
@@ -54,12 +71,17 @@ export const withRouter = (WrappedComponent: typeof React.Component) => {
     }
 }
 
-const ProfileContainerURL = withRouter(ProfileContainerAPI)
+// const ProfileContainerURL = withRouter(ProfileContainerAPI)
+//
+// let connectComponent = connect(mapStateToProps, mapDispatchToProps)(ProfileContainerURL)
+//
+// export const ProfileContainer = withAuthRedirect(connectComponent)
+//
 
-const mapStateToProps = (state: AppStatePT): ContentHeaderPT => {
-    return {
-        profile: state.profilePage.profile
-    }
-}
+export const ProfileContainer = compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter
+)(ProfileContainerAPI)
 
-export const ProfileContainer = connect(mapStateToProps, {setUserThunkContainer: setUserThunkCreator})(ProfileContainerURL)
+

@@ -9,6 +9,7 @@ import {
 } from "../../redux/users_reducer";
 import {Users} from "./Users";
 import {Preloader} from "../comonComponents/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type mapDispatchToPropsPT = {
     // followAC: (userID: number) => void
@@ -130,7 +131,10 @@ let mapDispatchToProps: mapDispatchToPropsPT = {
     followThunkCreator,
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIcontainer)
+
+let connectComponent = connect(mapStateToProps, mapDispatchToProps)(UsersAPIcontainer)
+
+export const UsersContainer = withAuthRedirect(connectComponent)
 
 
 // setUsersAC: (props)=> dispatch(setUsersAC(props))

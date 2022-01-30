@@ -28,9 +28,9 @@ export type actionPT =
     | setUserProfileACPT
     | setUserDataACPT
 
-export type AppStatePT = ReturnType<typeof reducers>
+export type AppStatePT = ReturnType<typeof reducer>
 
-const reducers = combineReducers({
+const reducer = combineReducers({
     sidebar_reducer: sidebar_reducer,
     profilePage: profile_reducer,
     dialogsPage: dialogs_reducer,
@@ -38,6 +38,6 @@ const reducers = combineReducers({
     auth: auth_reducer
 })
 
-export const store = createStore(reducers, applyMiddleware(thunkMiddleware))
+export const store = createStore(reducer, applyMiddleware(thunkMiddleware))
 
 

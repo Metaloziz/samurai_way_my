@@ -10,6 +10,8 @@ export type ContentHeaderPT = {
 
 export const Profile = (props: ContentHeaderPT) => {
 
+    // debugger
+
     return (
         <div>
             <ContentHeader profile={props.profile}/>

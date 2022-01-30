@@ -1,10 +1,8 @@
 import React from "react";
-import {DialogItem, DialogPT} from "./DialogItem/DialogItem";
-import {MessagePT, MessagesItem} from "./MessagesItem/MessagesItem";
+import {DialogItem} from "./DialogItem/DialogItem";
+import {MessagesItem} from "./MessagesItem/MessagesItem";
 import s from './Messages.module.css'
 import {mapDispatchToPropsMessageType, mapStateToPropsMessageType} from "./MessagesContainer";
-import {Login} from "../Login/Login";
-import {Navigate, NavLink} from "react-router-dom";
 
 
 // export type dialogsPagePT = {
@@ -19,14 +17,14 @@ import {Navigate, NavLink} from "react-router-dom";
 // }
 
 
-export let Messages = ({dialogsPage, addNewMessage, changeText, isAuth}:
-                           mapStateToPropsMessageType & mapDispatchToPropsMessageType) => {
+export let Messages = ({dialogsPage, addNewMessage, changeText,}
+                           : Omit<mapStateToPropsMessageType, "isAuth"> & mapDispatchToPropsMessageType) => {
 
-    let dialogsDataItems = dialogsPage.dialogs.map((item, index) =>
-        <DialogItem key={index} id={item.id} name={item.name} ava={item.ava}/>)
+    let dialogsDataItems = dialogsPage.dialogs
+        .map((item, index) => <DialogItem key={index} id={item.id} name={item.name} ava={item.ava}/>)
 
-    let messagesDataItems = dialogsPage.messages.map((item, index) =>
-        <MessagesItem key={index} id={item.id} text={item.text}/>)
+    let messagesDataItems = dialogsPage.messages
+        .map((item, index) => <MessagesItem key={index} id={item.id} text={item.text}/>)
 
     //---------------------------ref-------------------------
     let newMessageRef = React.createRef<HTMLTextAreaElement>()
@@ -45,9 +43,7 @@ export let Messages = ({dialogsPage, addNewMessage, changeText, isAuth}:
         }
     }
 
-    debugger
-
-    if (isAuth === false) return <Navigate to={'/login'}/>
+    // if (!isAuth) return <Navigate to={'/login'}/>
 
     return (
         <div className={s.dialogs}>

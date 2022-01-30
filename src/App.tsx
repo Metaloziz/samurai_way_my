@@ -15,26 +15,6 @@ import {Login} from "./components/Login/Login";
 
 export const App = () => {
 
-    // function App() {
-    //     let element = useRoutes([
-    //         {
-    //             path: "/",
-    //             element: <Dashboard />,
-    //             children: [
-    //                 {
-    //                     path: "messages",
-    //                     element: <DashboardMessages />
-    //                 },
-    //                 { path: "tasks", element: <DashboardTasks /> }
-    //             ]
-    //         },
-    //         { path: "team", element: <AboutPage /> }
-    //     ]);
-
-    // add GPG key
-    // add GPG key_2
-
-
     return (
         <div className='app-wrapper'>
             <HeaderContainer/>

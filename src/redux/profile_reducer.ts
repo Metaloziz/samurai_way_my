@@ -52,17 +52,17 @@ const initialState: initialStateProfileType =
             {id: v1(), message: 'Kiss me hard before you go Summertime sadness', like: 2, comment: 4},
             {id: v1(), message: 'I just wanted you to know That baby you\'re the best', like: 7, comment: 8}
         ],
-        newPostText: '',
+        newPostText: 'stock',
         profile: {
-            aboutMe: '',
+            aboutMe: 'stock',
             contacts: {},
             lookingForAJob: false,
-            lookingForAJobDescription: '',
+            lookingForAJobDescription: 'stock',
             fullName: 'test',
             userId: 0,
             photos: {
-                small: '',
-                large: ''
+                small: 'stock',
+                large: 'stock'
             }
         }
     }

@@ -84,7 +84,6 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
 
         dispatch(toggleIsFetchingPageAC(false))
     }
-
 }
 
 export const sePageThunkCreator = (pageID: number, pageSize: number) => {
