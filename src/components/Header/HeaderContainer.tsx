@@ -1,9 +1,8 @@
 import React from "react";
 import {Header, userDataPT} from "./Header";
 import {connect} from "react-redux";
-import {setUserDataAC, setUserDataThunkCreator} from "../../redux/auth_reducer";
+import {setUserDataThunkCreator} from "../../redux/auth_reducer";
 import {AppStatePT} from "../../redux/store_redux";
-import {headerAPI} from "../../api/api";
 
 
 type mapDispatchToPropsPT = {

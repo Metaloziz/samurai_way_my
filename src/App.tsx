@@ -40,7 +40,7 @@ export const App = () => {
             <NavigationContainer/>
             <div>
                 <Routes>
-                    <Route path={'/'} element={<Navigate replace to={'/profile'}/>}/>
+                    <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                     <Route path="/profile" element={<ProfileContainer/>}>
                         <Route path=":userId" element={<ProfileContainer/>}/>
                     </Route>

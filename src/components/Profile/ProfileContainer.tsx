@@ -1,7 +1,7 @@
 import React from "react";
 import {Profile, ProfileOnePT} from "./Profile";
 import {connect} from "react-redux";
-import {setUserThunkContainer} from "../../redux/profile_reducer";
+import {setUserThunkCreator} from "../../redux/profile_reducer";
 import {AppStatePT} from "../../redux/store_redux";
 import {useParams} from "react-router-dom";
 
@@ -24,7 +24,7 @@ export class ProfileContainerAPI extends React.Component<ProfileOnePT & mapDispa
         let userID = this.props.params.userId
 
         if (!userID) {
-            userID = '2';
+            userID = '21608';
         }
 
         this.props.setUserThunkContainer(userID)
@@ -62,4 +62,4 @@ const ProfileContainerURL = withRouter(ProfileContainerAPI)
 
 const mapStateToProps = (state: AppStatePT): ProfileOnePT => state.profilePage
 
-export const ProfileContainer = connect(mapStateToProps, {setUserThunkContainer})(ProfileContainerURL)
+export const ProfileContainer = connect(mapStateToProps, {setUserThunkContainer: setUserThunkCreator})(ProfileContainerURL)

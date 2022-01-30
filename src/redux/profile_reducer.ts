@@ -67,7 +67,7 @@ export const profile_reducer = (state: ProfileItemsPT = initialState, action: ac
     }
 }
 
-export const setUserThunkContainer = (userId: string) => (dispatch: Dispatch) => {
+export const setUserThunkCreator = (userId: string) => (dispatch: Dispatch) => {
 
     profileAPI(userId)
         .then((state) => {

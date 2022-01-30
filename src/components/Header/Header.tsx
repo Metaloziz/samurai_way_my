@@ -33,10 +33,10 @@ export const Header = ({data}: HeaderPT) => {
             <div className={s.loginBlock}>
                 {data.resultCode === 0
                     ? <div>
-                        <NavLink to={'/login'}>Login</NavLink>
+
                         <div>{data.data.login}</div>
                     </div>
-                    : 'error'}
+                    : <NavLink to={'/login'}>Login</NavLink>}
                 {/*<NavLink to={'/login'}>Login</NavLink>*/}
             </div>
         </div>

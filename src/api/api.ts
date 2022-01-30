@@ -10,15 +10,11 @@ const instance = axios.create({
 })
 
 
-export const headerAPI = () => {
-
-    // debugger
+export const authMeAPI = () => {
 
     return instance
         .get('auth/me')
         .then((response): userDataPT => {
-
-            // debugger
             return response.data
         })
 }
@@ -29,11 +25,10 @@ export const profileAPI = (userID: string) => {
         .then((response): ProfilePT => response.data)
 }
 
-export const setUserDataAPI = (currentPage: number, pageSize: number) => {
+export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {
     return instance
         .get(`users?page=${currentPage}&count=${pageSize}`)
         .then((response): UsersStatePT => {
-            console.log(response)
             return response.data
         })
 }
@@ -54,7 +49,6 @@ export const setFollowAPI = (userID: number) => {
     return instance
         .post('follow/' + userID)
         .then(response => {
-            console.log(response)
             return response.data
         })
 }
