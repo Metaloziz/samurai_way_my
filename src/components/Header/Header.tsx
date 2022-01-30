@@ -16,6 +16,7 @@ export  type userDataPT = {
     messages: string[]
     fieldsErrors: string[]
     resultCode: number
+    isAuth: boolean
 }
 
 export const Header = ({data}: HeaderPT) => {

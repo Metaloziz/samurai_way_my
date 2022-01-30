@@ -1,24 +1,13 @@
 import React from "react";
 import style from './Posts.module.css'
 import {OldPost} from "./Old_post/OldPost";
-import {ProfilePT} from "../../Profile";
+import {initialStateProfileType} from "../../../../redux/profile_reducer";
 
 export type NewPostPT = {
-    profilePage: ProfileItemsPT
+    profilePage: initialStateProfileType
     addPostAC: () => void
     changePostAC: (newText: string) => void
     addLikeAC: (postID: string) => void
-}
-export type ProfileItemsPT = {
-    postData: Array<PostDataPT>
-    newPostText: string
-    profile: ProfilePT
-}
-export type PostDataPT = {
-    id: string
-    message: string
-    like: number
-    comment: number
 }
 
 

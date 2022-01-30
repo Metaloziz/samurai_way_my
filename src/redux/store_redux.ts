@@ -31,7 +31,7 @@ export type actionPT =
 export type AppStatePT = ReturnType<typeof reducers>
 
 const reducers = combineReducers({
-    sidebar: sidebar_reducer,
+    sidebar_reducer: sidebar_reducer,
     profilePage: profile_reducer,
     dialogsPage: dialogs_reducer,
     users: users_reducer,

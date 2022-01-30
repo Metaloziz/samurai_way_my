@@ -1,10 +1,7 @@
 import {v1} from "uuid";
-import {ProfileItemsPT} from "../components/Profile/Content/Posts/Posts";
 import {actionPT} from "./store_redux";
-import {ProfilePT} from "../components/Profile/Profile";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
-
 
 export type addPostATPT = ReturnType<typeof addPostAC>
 export type changePostACPT = ReturnType<typeof changePostAC>
@@ -19,9 +16,37 @@ export const SET_USER_PROFILE = 'SET_USER_PROFILE'
 export const addPostAC = () => ({type: ADD_POST} as const)
 export const changePostAC = (newText: string) => ({type: CHANGE_POST, newText: newText} as const)
 export const addLikeAC = (postID: string) => ({type: ADD_LIKE, postID} as const)
-export const setUserProfileAC = (profile: ProfilePT) => ({type: SET_USER_PROFILE, profile} as const)
+export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 
-const initialState: ProfileItemsPT =
+
+export type initialStateProfileType = {
+    postData: Array<PostDataType>
+    newPostText: string
+    profile: ProfileType
+}
+
+export type PostDataType = {
+    id: string
+    message: string
+    like: number
+    comment: number
+}
+
+export type ProfileType = {
+    aboutMe: string
+    contacts: { [key: string]: string }
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
+    }
+}
+
+
+const initialState: initialStateProfileType =
     {
         postData: [
             {id: v1(), message: 'Kiss me hard before you go Summertime sadness', like: 2, comment: 4},
@@ -42,7 +67,7 @@ const initialState: ProfileItemsPT =
         }
     }
 
-export const profile_reducer = (state: ProfileItemsPT = initialState, action: actionPT): ProfileItemsPT => {
+export const profile_reducer = (state: initialStateProfileType = initialState, action: actionPT): initialStateProfileType => {
 
     switch (action.type) {
         case ADD_POST:

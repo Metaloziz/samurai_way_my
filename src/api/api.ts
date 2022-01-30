@@ -1,7 +1,7 @@
 import axios from "axios";
-import {ProfilePT} from "../components/Profile/Profile";
 import {UsersStatePT} from "../components/Users/UsersContainer";
 import {userDataPT} from "../components/Header/Header";
+import {ProfileType} from "../redux/profile_reducer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -22,7 +22,7 @@ export const authMeAPI = () => {
 export const profileAPI = (userID: string) => {
     return instance
         .get('profile/' + userID)
-        .then((response): ProfilePT => response.data)
+        .then((response): ProfileType => response.data)
 }
 
 export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {

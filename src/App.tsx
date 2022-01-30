@@ -10,6 +10,7 @@ import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {MessagesContainer} from "./components/Messages/MessagesContainer";
 import {NavigationContainer} from "./components/Navigation/NavigationContainer";
 import {Navigate, Route, Routes} from "react-router-dom";
+import {Login} from "./components/Login/Login";
 
 
 export const App = () => {
@@ -49,11 +50,10 @@ export const App = () => {
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
             </div>
         </div>
-// test verification
-// test verification with gpg key
     );
 }

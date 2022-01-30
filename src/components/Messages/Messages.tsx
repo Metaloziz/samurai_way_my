@@ -2,21 +2,25 @@ import React from "react";
 import {DialogItem, DialogPT} from "./DialogItem/DialogItem";
 import {MessagePT, MessagesItem} from "./MessagesItem/MessagesItem";
 import s from './Messages.module.css'
+import {mapDispatchToPropsMessageType, mapStateToPropsMessageType} from "./MessagesContainer";
+import {Login} from "../Login/Login";
+import {Navigate, NavLink} from "react-router-dom";
 
 
-export type dialogsPagePT = {
-    dialogsPage: dialogsItemsPT
-    addNewMessage: () => void
-    changeText: (newText: string) => void
-};
-export type dialogsItemsPT = {
-    dialogs: Array<DialogPT>
-    messages: Array<MessagePT>
-    newText: string
-}
+// export type dialogsPagePT = {
+//     dialogsPage: dialogsItemsPT
+//     addNewMessage: () => void
+//     changeText: (newText: string) => void
+// };
+// export type dialogsItemsPT = {
+//     dialogs: Array<DialogPT>
+//     messages: Array<MessagePT>
+//     newText: string
+// }
 
 
-export let Messages = ({dialogsPage, addNewMessage, changeText}: dialogsPagePT) => {
+export let Messages = ({dialogsPage, addNewMessage, changeText, isAuth}:
+                           mapStateToPropsMessageType & mapDispatchToPropsMessageType) => {
 
     let dialogsDataItems = dialogsPage.dialogs.map((item, index) =>
         <DialogItem key={index} id={item.id} name={item.name} ava={item.ava}/>)
@@ -40,6 +44,10 @@ export let Messages = ({dialogsPage, addNewMessage, changeText}: dialogsPagePT) 
             changeText(newText)
         }
     }
+
+    debugger
+
+    if (isAuth === false) return <Navigate to={'/login'}/>
 
     return (
         <div className={s.dialogs}>

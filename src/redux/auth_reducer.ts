@@ -9,6 +9,7 @@ export const SET_USER_DATA = 'SET_USER_DATA'
 
 export const setUserDataAC = (data: userDataPT) => ({type: SET_USER_DATA, data} as const)
 
+
 const userDataInitialState: userDataPT = {
     data: {
         id: 21608,
@@ -17,7 +18,8 @@ const userDataInitialState: userDataPT = {
     },
     messages: [''],
     fieldsErrors: [''],
-    resultCode: 1
+    resultCode: 1,
+    isAuth: false
 }
 
 export const auth_reducer = (state = userDataInitialState, action: actionPT): userDataPT => {
@@ -25,7 +27,7 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
     switch (action.type) {
         case SET_USER_DATA:
             console.log(action.data.data.login)
-            return {...state, ...action.data}
+            return {...state, ...action.data, isAuth: true}
         default:
             return state
     }

@@ -1,9 +1,9 @@
 import React from "react";
 import s from './Content_header.module.css'
-import {ProfileOnePT} from "../../Profile";
+import {ContentHeaderPT} from "../../Profile";
 import {Preloader} from "../../../comonComponents/Preloader";
 
-export const ContentHeader = (props: ProfileOnePT) => {
+export const ContentHeader = (props: ContentHeaderPT) => {
 
     if (!props.profile) {
         return <Preloader/>

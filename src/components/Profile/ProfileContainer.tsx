@@ -1,5 +1,5 @@
 import React from "react";
-import {Profile, ProfileOnePT} from "./Profile";
+import {Profile, ContentHeaderPT} from "./Profile";
 import {connect} from "react-redux";
 import {setUserThunkCreator} from "../../redux/profile_reducer";
 import {AppStatePT} from "../../redux/store_redux";
@@ -16,7 +16,7 @@ type PathParamPT = {
 }
 
 
-export class ProfileContainerAPI extends React.Component<ProfileOnePT & mapDispatchToProps & { params: PathParamPT }> {
+export class ProfileContainerAPI extends React.Component<ContentHeaderPT & mapDispatchToProps & { params: PathParamPT }> {
 
 
     componentDidMount() {
@@ -46,12 +46,8 @@ export class ProfileContainerAPI extends React.Component<ProfileOnePT & mapDispa
 }
 
 export const withRouter = (WrappedComponent: typeof React.Component) => {
-
-
     return (props: object) => {
-
         const params = useParams(); //useParams возвращает объект пары key/value (ключ/значение) параметров URL.
-
         return (
             <WrappedComponent {...props} params={params}/>
         );
@@ -60,6 +56,10 @@ export const withRouter = (WrappedComponent: typeof React.Component) => {
 
 const ProfileContainerURL = withRouter(ProfileContainerAPI)
 
-const mapStateToProps = (state: AppStatePT): ProfileOnePT => state.profilePage
+const mapStateToProps = (state: AppStatePT): ContentHeaderPT => {
+    return {
+        profile: state.profilePage.profile
+    }
+}
 
 export const ProfileContainer = connect(mapStateToProps, {setUserThunkContainer: setUserThunkCreator})(ProfileContainerURL)
