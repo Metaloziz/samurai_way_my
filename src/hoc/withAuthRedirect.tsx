@@ -24,7 +24,11 @@ export function withAuthRedirect<T>(Component: React.ComponentType<T>) {  //  <T
         // debugger
         let {isAuth, ...restProps} = props   // Достаём isAuth, т.к. нам не нужно его передавать в компоненту
 
-        if (!isAuth) return <Navigate to={'/login'}/>
+        if (!isAuth) {
+            // debugger
+            return <Navigate to={'/login'}/>
+        }
+
 
         return <Component  {...restProps as T}/> // Все что мы закинем сюда, добавит новые ключи в конечной компоненте
     }

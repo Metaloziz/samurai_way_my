@@ -40,7 +40,7 @@ export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
 
                 if (response.resultCode === 0) {
                     dispatch(setUserDataAC(response))
-                    console.log('headerAPI')
+
                 } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode)
             }
         )

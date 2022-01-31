@@ -6,7 +6,6 @@ import {compose, Dispatch} from "redux";
 import {DialogPT} from "./DialogItem/DialogItem";
 import {MessagePT} from "./MessagesItem/MessagesItem";
 import React from "react";
-import {Navigate} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type mapStateToPropsMessageType = {
