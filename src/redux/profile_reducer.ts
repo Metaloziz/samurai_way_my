@@ -23,6 +23,7 @@ export type initialStateProfileType = {
     postData: Array<PostDataType>
     newPostText: string
     profile: ProfileType
+    status: string       // another request
 }
 
 export type PostDataType = {
@@ -32,7 +33,7 @@ export type PostDataType = {
     comment: number
 }
 
-export type ProfileType = {
+export type ProfileType = {    // data from API
     aboutMe: string
     contacts: { [key: string]: string }
     lookingForAJob: boolean
@@ -45,13 +46,17 @@ export type ProfileType = {
     }
 }
 
+type ProfileStatusType = {   // another request
+    status: string
+}
+
 
 const initialState: initialStateProfileType =
     {
         postData: [
             {id: v1(), message: 'Kiss me hard before you go Summertime sadness', like: 2, comment: 4},
             {id: v1(), message: 'I just wanted you to know That baby you\'re the best', like: 7, comment: 8}
-        ],
+        ],    // it is not from API
         newPostText: 'stock',
         profile: {
             aboutMe: 'stock',
@@ -64,10 +69,11 @@ const initialState: initialStateProfileType =
                 small: 'stock',
                 large: 'stock'
             }
-        }
+        },
+        status: 'default status'
     }
 
-export const profile_reducer = (state: initialStateProfileType = initialState, action: actionPT): initialStateProfileType => {
+export const profile_reducer = (state = initialState, action: actionPT): initialStateProfileType => {
 
     switch (action.type) {
         case ADD_POST:
@@ -97,6 +103,5 @@ export const setUserThunkCreator = (userId: string) => (dispatch: Dispatch) => {
     profileAPI(userId)
         .then((state) => {
             dispatch(setUserProfileAC(state))
-            console.log('profileAPI')
         })
 }

@@ -3,7 +3,11 @@ import {Navigation, sidebarPT} from "./Navigation";
 import {actionPT, AppStatePT} from "../../redux/store_redux";
 
 
-const mapStateToProps = (state: AppStatePT): sidebarPT => ({sidebar_reducer: state.sidebar_reducer})
+const mapStateToProps = (state: AppStatePT): sidebarPT => {
+    return {
+        sidebarPage: state.sidebarPage
+    }
+}
 
 const mapDispatchToProps = (dispatch: (action: actionPT) => void) => {
     return {

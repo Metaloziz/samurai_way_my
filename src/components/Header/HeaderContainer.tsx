@@ -15,6 +15,7 @@ export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatch
 
     componentDidMount() {
 
+        console.log('auth')
 
         this.props.setUserDataThunkCreator()
 

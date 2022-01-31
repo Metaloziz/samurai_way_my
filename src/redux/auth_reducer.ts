@@ -34,7 +34,7 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
 }
 
 export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
-
+    // debugger
     authMeAPI()
         .then((response) => {
 

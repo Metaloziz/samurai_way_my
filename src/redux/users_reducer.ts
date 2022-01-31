@@ -73,15 +73,11 @@ export const users_reducer = (state: UsersStatePT = usersState, action: actionPT
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
 
     return (dispatch: Dispatch) => {
-
         dispatch(toggleIsFetchingPageAC(true))
-
         setUserDataAPI(currentPage, pageSize)
             .then((state) => {
-                console.log('setUserDataAPI')
                 dispatch(setUsersAC(state.items, state.totalCount))
             })
-
         dispatch(toggleIsFetchingPageAC(false))
     }
 }
@@ -95,7 +91,6 @@ export const sePageThunkCreator = (pageID: number, pageSize: number) => {
             .then((state) => {
                     dispatch(setUsersAC(state.items, state.totalCount))
                     dispatch(toggleIsFetchingPageAC(false))
-                    console.log('setUserOnPageAPI')
                 }
             )
     }

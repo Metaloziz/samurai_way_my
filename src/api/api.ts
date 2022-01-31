@@ -11,6 +11,7 @@ const instance = axios.create({
 
 
 export const authMeAPI = () => {
+    console.log('authMeAPI')
     return instance
         .get('auth/me')
         .then((response): userDataPT => {
@@ -19,32 +20,58 @@ export const authMeAPI = () => {
 }
 
 export const profileAPI = (userID: string) => {
+    console.log('profileAPI')
     return instance
         .get('profile/' + userID)
-        .then((response): ProfileType => response.data)
+        .then((response): ProfileType => {
+            return response.data
+        })
 }
 
-export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {
+export const profileStatusAPI = (userID: string) => {
+    console.log('profileStatusAPI')
     return instance
-        .get(`users?page=${currentPage}&count=${pageSize}`)
+        .get('/profile/status/' + userID)
+        .then((response): string => {
+            return response.data
+        })
+
+}
+
+// profileStatusAPI("2").then()
+
+
+export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {
+    console.warn('It is old method')
+    return setUserOnPageAPI(currentPage, pageSize)
+
+    // instance
+    //     .get(`users?page=${currentPage}&count=${pageSize}`)
+    //     .then((response): UsersStatePT => {
+    //         return response.data
+    //     })
+}
+
+export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
+    console.log('setUserOnPageAPI')
+    return instance
+        .get(`users?page=${pageID}&count=${pageSize}`)
         .then((response): UsersStatePT => {
             return response.data
         })
 }
 
-export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
-    return instance
-        .get(`users?page=${pageID}&count=${pageSize}`)
-        .then((response): UsersStatePT => response.data)
-}
-
 export const setUnFollowAPI = (userID: number) => {
+    console.log('setUnFollowAPI')
     return instance
         .delete('follow/' + userID)
-        .then((response) => response.data)
+        .then((response) => {
+            return response.data
+        })
 }
 
 export const setFollowAPI = (userID: number) => {
+    console.log('setFollowAPI')
     return instance
         .post('follow/' + userID)
         .then(response => {

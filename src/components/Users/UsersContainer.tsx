@@ -47,6 +47,7 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
 
     componentDidMount = () => {
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        // debugger
         // this.props.toggleIsFetchingPageAC(true)
         // setUserDataAPI(this.props.currentPage, this.props.pageSize)
         //     .then((state) => {

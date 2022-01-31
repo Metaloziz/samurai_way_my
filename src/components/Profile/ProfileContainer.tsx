@@ -53,6 +53,7 @@ export class ProfileContainerAPI extends React.Component<ContentHeaderPT & mapDi
 const mapStateToProps = (state: AppStatePT): ContentHeaderPT => {
     return {
         profile: state.profilePage.profile
+
     }
 }
 
