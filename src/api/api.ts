@@ -61,20 +61,30 @@ export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
         })
 }
 
-export const setUnFollowAPI = (userID: number) => {
-    console.log('setUnFollowAPI')
-    return instance
-        .delete('follow/' + userID)
-        .then((response) => {
-            return response.data
-        })
+
+export const followAPI = {   // это просто объект с методами, пушка
+
+    setUnFollow: (userID: number) => {
+        return instance
+            .delete('follow/' + userID)
+            .then((response) => {
+                return response.data
+            })
+    },
+    setFollow: (userID: number) => {
+        return instance
+            .post('follow/' + userID)
+            .then(response => {
+                return response.data
+            })
+    }
 }
 
-export const setFollowAPI = (userID: number) => {
-    console.log('setFollowAPI')
-    return instance
-        .post('follow/' + userID)
-        .then(response => {
-            return response.data
-        })
-}
+// export const setFollowAPI = (userID: number) => {
+//     console.log('setFollowAPI')
+//     return instance
+//         .post('follow/' + userID)
+//         .then(response => {
+//             return response.data
+//         })
+// }

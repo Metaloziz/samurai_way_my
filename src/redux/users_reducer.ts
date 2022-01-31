@@ -1,7 +1,7 @@
 import {actionPT} from "./store_redux";
 import {UserPT, UsersStatePT} from "../components/Users/UsersContainer";
 import {Dispatch} from "redux";
-import {setFollowAPI, setUnFollowAPI, setUserDataAPI, setUserOnPageAPI} from "../api/api";
+import {followAPI, setUserDataAPI, setUserOnPageAPI} from "../api/api";
 
 export type followATPT = ReturnType<typeof followAC>
 export type setUsersATPT = ReturnType<typeof setUsersAC>
@@ -101,12 +101,11 @@ export const unFollowThunkCreator = (userID: number) => {
     return (dispatch: Dispatch) => {
 
         dispatch(toggleIsFetchingUserAC(true, userID))
-        setUnFollowAPI(userID)
+        followAPI.setUnFollow(userID)
             .then((response) => {
                     if (response.resultCode === 0) {
                         dispatch(followAC(userID))
                         dispatch(toggleIsFetchingUserAC(false, userID))
-                        console.log('unFollow')
                     }
                 }
             )
@@ -121,7 +120,7 @@ export const followThunkCreator = (userID: number) => {
     return (dispatch: Dispatch) => {
 
         dispatch(toggleIsFetchingUserAC(true, userID))
-        setFollowAPI(userID)
+        followAPI.setFollow(userID)
             .then((response) => {
                     if (response.resultCode === 0) {
                         dispatch(followAC(userID))
