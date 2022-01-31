@@ -1,22 +1,25 @@
 import {v1} from "uuid";
 import {actionPT} from "./store_redux";
 import {Dispatch} from "redux";
-import {profileAPI} from "../api/api";
+import {profileAPI, profileStatusAPI} from "../api/api";
 
 export type addPostATPT = ReturnType<typeof addPostAC>
 export type changePostACPT = ReturnType<typeof changePostAC>
 export type addLikeACPT = ReturnType<typeof addLikeAC>
 export type setUserProfileACPT = ReturnType<typeof setUserProfileAC>
+export type setUserStatusACPT = ReturnType<typeof setUserStatusAC>
 
 export const ADD_POST = 'ADD-POST'
 export const CHANGE_POST = 'CHANGE_POST'
 export const ADD_LIKE = 'ADD_LIKE'
 export const SET_USER_PROFILE = 'SET_USER_PROFILE'
+export const SET_USER_STATUS = 'SET_USER_STATUS'
 
 export const addPostAC = () => ({type: ADD_POST} as const)
 export const changePostAC = (newText: string) => ({type: CHANGE_POST, newText: newText} as const)
 export const addLikeAC = (postID: string) => ({type: ADD_LIKE, postID} as const)
 export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
+export const setUserStatusAC = (status: string) => ({type: SET_USER_STATUS, status} as const)
 
 
 export type initialStateProfileType = {
@@ -46,9 +49,9 @@ export type ProfileType = {    // data from API
     }
 }
 
-type ProfileStatusType = {   // another request
-    status: string
-}
+// type ProfileStatusType = {   // another request
+//     status: string
+// }
 
 
 const initialState: initialStateProfileType =
@@ -93,6 +96,8 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
             }
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
+        case SET_USER_STATUS:
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -103,5 +108,19 @@ export const setUserThunkCreator = (userId: string) => (dispatch: Dispatch) => {
     profileAPI(userId)
         .then((state) => {
             dispatch(setUserProfileAC(state))
+        })
+}
+
+export const setUserStatusThunkCreator = (userId: string) => (dispatch: Dispatch) => {
+
+    profileStatusAPI(userId)
+        .then((state) => {
+            if (state) {
+                dispatch(setUserStatusAC(state))
+            }
+            console.warn('state is null')
+            debugger
+            dispatch(setUserStatusAC('state is null'))
+
         })
 }

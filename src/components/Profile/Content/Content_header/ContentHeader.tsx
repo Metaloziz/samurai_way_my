@@ -24,7 +24,7 @@ export const ContentHeader = (props: ContentHeaderPT) => {
                 {/*    <img alt={content[0].alt} src={content[0].src}/>*/}
                 {/*</div>*/}
                 <img alt={'ava'} src={props.profile.photos.large}/>
-                <ProfileStatus value={"status"}/>
+                <ProfileStatus status={props.status}/>
                 <div>
                     <div>about me: {props.profile.aboutMe}</div>
                     <div>contacts: {props.profile.contacts["facebook"]}</div>

@@ -5,6 +5,7 @@ import {ProfileType} from "../../redux/profile_reducer";
 
 export type ContentHeaderPT = {
     profile: ProfileType
+    status: string
 }
 
 
@@ -14,7 +15,7 @@ export const Profile = (props: ContentHeaderPT) => {
 
     return (
         <div>
-            <ContentHeader profile={props.profile}/>
+            <ContentHeader {...props}/>
             <PostsContainer/>
         </div>
     )

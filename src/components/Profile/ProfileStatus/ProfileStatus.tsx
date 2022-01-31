@@ -1,14 +1,14 @@
 import React, {ChangeEvent} from 'react';
 
 type ProfileStatusPT = {
-    value: string
+    status: string
 }
 
 export class ProfileStatus extends React.Component<ProfileStatusPT> {
 
     state = {
         editMode: false,
-        value: this.props.value
+        value: this.props.status
     }
 
     setEditMod = () => {

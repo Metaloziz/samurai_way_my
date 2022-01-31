@@ -1,7 +1,7 @@
 import React from "react";
 import {ContentHeaderPT, Profile} from "./Profile";
 import {connect} from "react-redux";
-import {setUserThunkCreator} from "../../redux/profile_reducer";
+import {setUserStatusThunkCreator, setUserThunkCreator} from "../../redux/profile_reducer";
 import {AppStatePT} from "../../redux/store_redux";
 import {useParams} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -10,7 +10,8 @@ import {compose} from "redux";
 
 type mapDispatchToPropsType = {
     // setUserProfileAC: (profile: ProfilePT) => void
-    setUserThunkContainer: (useId: string) => void
+    setUserThunkCreator: (useId: string) => void
+    setUserStatusThunkCreator: (status: string) => void
 }
 
 type PathParamPT = {
@@ -29,7 +30,8 @@ export class ProfileContainerAPI extends React.Component<ContentHeaderPT & mapDi
             userID = '21608';
         }
 
-        this.props.setUserThunkContainer(userID)
+        this.props.setUserThunkCreator(userID)
+        this.props.setUserStatusThunkCreator(userID)
         // let userId = this.props.params.userId
         //
         // if (!userId) {
@@ -52,14 +54,15 @@ export class ProfileContainerAPI extends React.Component<ContentHeaderPT & mapDi
 
 const mapStateToProps = (state: AppStatePT): ContentHeaderPT => {
     return {
-        profile: state.profilePage.profile
-
+        profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 }
 
 
-const mapDispatchToProps = {
-    setUserThunkContainer: setUserThunkCreator
+const mapDispatchToProps: mapDispatchToPropsType = {
+    setUserThunkCreator: setUserThunkCreator,
+    setUserStatusThunkCreator: setUserStatusThunkCreator
 }
 
 export const withRouter = (WrappedComponent: typeof React.Component) => {

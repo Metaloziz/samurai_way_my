@@ -1,4 +1,11 @@
-import {addLikeACPT, addPostATPT, profile_reducer, changePostACPT, setUserProfileACPT} from "./profile_reducer";
+import {
+    addLikeACPT,
+    addPostATPT,
+    profile_reducer,
+    changePostACPT,
+    setUserProfileACPT,
+    setUserStatusACPT
+} from "./profile_reducer";
 import {addTextMessageATPT, dialogs_reducer, updateTextMessageATPT} from "./dialogs_reducer";
 import {sidebar_reducer, sidebarATPT} from "./sidebar_reducer";
 import {
@@ -27,6 +34,7 @@ export type actionPT =
     | addLikeACPT
     | setUserProfileACPT
     | setUserDataACPT
+    | setUserStatusACPT
 
 export type AppStatePT = ReturnType<typeof reducer>
 
