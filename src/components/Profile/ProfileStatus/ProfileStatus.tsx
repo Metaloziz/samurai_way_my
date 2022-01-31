@@ -8,18 +8,18 @@ export class ProfileStatus extends React.Component<ProfileStatusPT> {
 
     state = {
         editMode: false,
-        value: 'your status'
+        value: this.props.value
     }
 
     setEditMod = () => {
-
+        console.log(this)
         this.setState({
                 editMode: !this.state.editMode
             }
         )
     };
 
-    changeCallBack = (e: ChangeEvent<HTMLInputElement>) => {
+    changeCallBack = (e: ChangeEvent<HTMLInputElement>) => {  // изменяет н
         console.log(e.currentTarget.value)
         this.setState({
                 value: e.currentTarget.value
@@ -39,8 +39,8 @@ export class ProfileStatus extends React.Component<ProfileStatusPT> {
                             type={"text"}
                             onChange={this.changeCallBack}
                             // defaultValue={"status"}
-                            value={this.props.value}/></div>
-                        : <div><h2 onDoubleClick={this.setEditMod}>{this.props.value}</h2></div>
+                            value={this.state.value}/></div>
+                        : <div><h2 onDoubleClick={this.setEditMod}>{this.state.value}</h2></div>
                 }
             </>
         );

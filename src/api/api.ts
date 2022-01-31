@@ -10,13 +10,7 @@ const instance = axios.create({
 })
 
 
-
-
-
-
-
 export const authMeAPI = () => {
-
     return instance
         .get('auth/me')
         .then((response): userDataPT => {
