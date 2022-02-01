@@ -112,7 +112,6 @@ export const unFollowThunkCreator = (userID: number) => {
     }
 }
 
-
 // это thunk creator
 export const followThunkCreator = (userID: number) => {
 
@@ -125,7 +124,6 @@ export const followThunkCreator = (userID: number) => {
                     if (response.resultCode === 0) {
                         dispatch(followAC(userID))
                         dispatch(toggleIsFetchingUserAC(false, userID))
-                        console.log('Follow')
                     }
                 }
             )

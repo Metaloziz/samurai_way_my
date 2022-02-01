@@ -6,6 +6,7 @@ import {ProfileType} from "../../redux/profile_reducer";
 export type ContentHeaderPT = {
     profile: ProfileType
     status: string
+    updateUserStatusThunkCreator: (status: string) => void
 }
 
 

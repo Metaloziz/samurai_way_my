@@ -42,7 +42,8 @@ export const Posts = ({profilePage, addPostAC, changePostAC, addLikeAC}: NewPost
                         <button onClick={addNewItem}>Add post</button>
                     </div>
                 </div>
-                {profilePage.postData.map((item, index) => <OldPost
+                {profilePage.postData.map((item, index) =>
+                    <OldPost
                     addLike={() => addLikeAC(item.id)}
                     key={index} message={item.message}
                     like={item.like}

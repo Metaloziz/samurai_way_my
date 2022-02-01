@@ -1,25 +1,26 @@
-import React from "react";
+import React, {Component} from "react";
 import {ContentHeaderPT, Profile} from "./Profile";
 import {connect} from "react-redux";
-import {setUserStatusThunkCreator, setUserThunkCreator} from "../../redux/profile_reducer";
+import {
+    ProfileType,
+    setUserStatusThunkCreator,
+    setUserThunkCreator,
+    updateUserStatusThunkCreator
+} from "../../redux/profile_reducer";
 import {AppStatePT} from "../../redux/store_redux";
 import {useParams} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 
-type mapDispatchToPropsType = {
-    // setUserProfileAC: (profile: ProfilePT) => void
-    setUserThunkCreator: (useId: string) => void
-    setUserStatusThunkCreator: (status: string) => void
-}
-
 type PathParamPT = {
     userId: string
 }
 
 
-export class ProfileContainerAPI extends React.Component<ContentHeaderPT & mapDispatchToPropsType & { params: PathParamPT }> {
+export class ProfileContainerAPI extends Component<mapStateToPropsPT
+    & mapDispatchToPropsType
+    & { params: PathParamPT }> {
 
 
     componentDidMount() {
@@ -49,20 +50,30 @@ export class ProfileContainerAPI extends React.Component<ContentHeaderPT & mapDi
     render() {
         // return <Profile profile={this.props.profile}/>
         return <Profile {...this.props}/>
+        // return <Profile />
     }
 }
 
-const mapStateToProps = (state: AppStatePT): ContentHeaderPT => {
+type mapStateToPropsPT = {
+    profile: ProfileType
+    status: string
+}
+const mapStateToProps = (state: AppStatePT): mapStateToPropsPT => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status
     }
 }
 
-
+type mapDispatchToPropsType = {
+    setUserThunkCreator: (useId: string) => void
+    setUserStatusThunkCreator: (status: string) => void
+    updateUserStatusThunkCreator: (status: string) => void
+}
 const mapDispatchToProps: mapDispatchToPropsType = {
     setUserThunkCreator: setUserThunkCreator,
-    setUserStatusThunkCreator: setUserStatusThunkCreator
+    setUserStatusThunkCreator: setUserStatusThunkCreator,
+    updateUserStatusThunkCreator: updateUserStatusThunkCreator
 }
 
 export const withRouter = (WrappedComponent: typeof React.Component) => {
@@ -74,17 +85,19 @@ export const withRouter = (WrappedComponent: typeof React.Component) => {
     }
 }
 
-// const ProfileContainerURL = withRouter(ProfileContainerAPI)
-//
-// let connectComponent = connect(mapStateToProps, mapDispatchToProps)(ProfileContainerURL)
-//
-// export const ProfileContainer = withAuthRedirect(connectComponent)
-//
 
 export const ProfileContainer = compose<React.ComponentType>(
     withAuthRedirect,
     connect(mapStateToProps, mapDispatchToProps),
     withRouter
 )(ProfileContainerAPI)
+
+
+// const ProfileContainerURL = withRouter(ProfileContainerAPI)
+//
+// let connectComponent = connect(mapStateToProps, mapDispatchToProps)(ProfileContainerURL)
+//
+// export const ProfileContainer = withAuthRedirect(connectComponent)
+//
 
 

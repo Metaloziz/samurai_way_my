@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import {actionPT} from "./store_redux";
 import {Dispatch} from "redux";
-import {profileAPI, profileStatusAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 
 export type addPostATPT = ReturnType<typeof addPostAC>
 export type changePostACPT = ReturnType<typeof changePostAC>
@@ -105,7 +105,7 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
 
 export const setUserThunkCreator = (userId: string) => (dispatch: Dispatch) => {
 
-    profileAPI(userId)
+    profileAPI.getUserData(userId)
         .then((state) => {
             dispatch(setUserProfileAC(state))
         })
@@ -113,14 +113,29 @@ export const setUserThunkCreator = (userId: string) => (dispatch: Dispatch) => {
 
 export const setUserStatusThunkCreator = (userId: string) => (dispatch: Dispatch) => {
 
-    profileStatusAPI(userId)
+    profileAPI.getUserStatus(userId)
         .then((state) => {
-            if (state) {
-                dispatch(setUserStatusAC(state))
-            }
-            console.warn('state is null')
-            debugger
-            dispatch(setUserStatusAC('state is null'))
 
+            if (state) dispatch(setUserStatusAC(state))
+            console.log('status is null')
+
+            // dispatch(setUserStatusAC('status is null'))
         })
 }
+
+export const updateUserStatusThunkCreator = (status: string) => (dispatch: Dispatch) => {
+
+    profileAPI.updateUserStatus(status)
+        .then((state) => {
+
+
+            if (state.resultCode === 0) {
+                dispatch(setUserStatusAC(status))  // если запрос успешный, то обнови статус на тот, который отправил
+            }
+
+        })
+
+
+}
+
+
