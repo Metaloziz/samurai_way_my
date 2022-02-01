@@ -11,7 +11,6 @@ const instance = axios.create({
 
 
 export const authMeAPI = () => {
-    console.log('authMeAPI')
     return instance
         .get('auth/me')
         .then((response): userDataPT => {
@@ -21,7 +20,6 @@ export const authMeAPI = () => {
 
 export const profileAPI = {
     getUserData: (userID: string) => {
-        console.log('profileAPI')
         return instance
             .get('profile/' + userID)
             .then((response): ProfileType => {
@@ -30,7 +28,6 @@ export const profileAPI = {
     },
 
     getUserStatus: (userID: string) => {
-        console.log('profileStatusAPI')
         return instance
             .get('/profile/status/' + userID)
             .then((response): string => {
@@ -39,6 +36,7 @@ export const profileAPI = {
             )
     },
     updateUserStatus: (status: string) => {
+
         return instance
             .put('/profile/status', {status: status}) // 2 argument -  Media type: application/json
             .then((state) => {

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {ContentHeaderPT, Profile} from "./Profile";
+import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {
     ProfileType,

@@ -6,7 +6,11 @@ import {
     setUserProfileACPT,
     setUserStatusACPT
 } from "./profile_reducer";
-import {addTextMessageATPT, dialogs_reducer, updateTextMessageATPT} from "./dialogs_reducer";
+import {
+    addTextMessageATPT,
+    dialogs_reducer,
+    updateTextMessageATPT
+} from "./dialogs_reducer";
 import {sidebar_reducer, sidebarATPT} from "./sidebar_reducer";
 import {
     changePageACPT,
@@ -19,6 +23,21 @@ import {
 import {auth_reducer, setUserDataACPT} from "./auth_reducer";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
+import {reducer as formReducer} from 'redux-form'
+
+export type AppStatePT = ReturnType<typeof reducer>
+
+const reducer = combineReducers({
+    sidebarPage: sidebar_reducer,
+    profilePage: profile_reducer,
+    dialogsPage: dialogs_reducer,
+    users: users_reducer,
+    auth: auth_reducer,
+    form: formReducer   // redux-form
+})
+
+export const store = createStore(reducer, applyMiddleware(thunkMiddleware))
+
 
 export type actionPT =
     addPostATPT
@@ -35,17 +54,3 @@ export type actionPT =
     | setUserProfileACPT
     | setUserDataACPT
     | setUserStatusACPT
-
-export type AppStatePT = ReturnType<typeof reducer>
-
-const reducer = combineReducers({
-    sidebarPage: sidebar_reducer,
-    profilePage: profile_reducer,
-    dialogsPage: dialogs_reducer,
-    users: users_reducer,
-    auth: auth_reducer
-})
-
-export const store = createStore(reducer, applyMiddleware(thunkMiddleware))
-
-

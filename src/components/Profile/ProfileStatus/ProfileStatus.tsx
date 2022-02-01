@@ -40,9 +40,6 @@ export class ProfileStatus extends React.Component<ProfileStatusPT> {
                 status: this.props.status
             })
         }
-
-
-        console.log('componentDidUpdate')
     }
 
     render() {
