@@ -17,7 +17,6 @@ type PathParamPT = {
     userId: string
 }
 
-
 export class ProfileContainerAPI extends Component<mapStateToPropsPT
     & mapDispatchToPropsType
     & { params: PathParamPT }> {
@@ -48,9 +47,12 @@ export class ProfileContainerAPI extends Component<mapStateToPropsPT
 
 
     render() {
-        // return <Profile profile={this.props.profile}/>
-        return <Profile {...this.props}/>
-        // return <Profile />
+        return <Profile profile={this.props.profile}
+                        status={this.props.status}
+                        updateUserStatusThunkCreator={
+                            this.props.updateUserStatusThunkCreator
+                        }/>
+
     }
 }
 

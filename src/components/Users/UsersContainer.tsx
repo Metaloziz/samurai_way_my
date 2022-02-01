@@ -99,7 +99,6 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
         //     )
     }
 
-
     render() {
         return <div>
             {this.props.isFetchingPage
@@ -119,6 +118,8 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
     }
 }
 
+
+
 type mapStateToPropsType = (state: AppStatePT) => UsersStatePT
 
 const mapStateToProps: mapStateToPropsType = (state: AppStatePT): UsersStatePT => {
@@ -131,7 +132,6 @@ let mapDispatchToProps: mapDispatchToPropsPT = {
     unFollowThunkCreator,
     followThunkCreator,
 }
-
 
 let connectComponent = connect(mapStateToProps, mapDispatchToProps)(UsersAPIcontainer)
 

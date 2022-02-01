@@ -12,11 +12,11 @@ export type ContentHeaderPT = {
 
 export const Profile = (props: ContentHeaderPT) => {
 
-    // debugger
-
     return (
         <div>
-            <ContentHeader {...props}/>
+            <ContentHeader profile={props.profile}
+                           status={props.status}
+                           updateUserStatusThunkCreator={props.updateUserStatusThunkCreator}/>
             <PostsContainer/>
         </div>
     )

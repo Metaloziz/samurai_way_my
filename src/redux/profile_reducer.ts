@@ -16,10 +16,19 @@ export const SET_USER_PROFILE = 'SET_USER_PROFILE'
 export const SET_USER_STATUS = 'SET_USER_STATUS'
 
 export const addPostAC = () => ({type: ADD_POST} as const)
-export const changePostAC = (newText: string) => ({type: CHANGE_POST, newText: newText} as const)
+export const changePostAC = (newText: string) => ({
+    type: CHANGE_POST,
+    newText: newText
+} as const)
 export const addLikeAC = (postID: string) => ({type: ADD_LIKE, postID} as const)
-export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
-export const setUserStatusAC = (status: string) => ({type: SET_USER_STATUS, status} as const)
+export const setUserProfileAC = (profile: ProfileType) => ({
+    type: SET_USER_PROFILE,
+    profile
+} as const)
+export const setUserStatusAC = (status: string) => ({
+    type: SET_USER_STATUS,
+    status
+} as const)
 
 
 export type initialStateProfileType = {
@@ -57,8 +66,18 @@ export type ProfileType = {    // data from API
 const initialState: initialStateProfileType =
     {
         postData: [
-            {id: v1(), message: 'Kiss me hard before you go Summertime sadness', like: 2, comment: 4},
-            {id: v1(), message: 'I just wanted you to know That baby you\'re the best', like: 7, comment: 8}
+            {
+                id: v1(),
+                message: 'Kiss me hard before you go Summertime sadness',
+                like: 2,
+                comment: 4
+            },
+            {
+                id: v1(),
+                message: 'I just wanted you to know That baby you\'re the best',
+                like: 7,
+                comment: 8
+            }
         ],    // it is not from API
         newPostText: 'stock',
         profile: {
@@ -92,7 +111,10 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
         case ADD_LIKE:
             return {
                 ...state, postData: state.postData
-                    .map(post => post.id === action.postID ? {...post, like: post.like + 1} : post)
+                    .map(post => post.id === action.postID ? {
+                        ...post,
+                        like: post.like + 1
+                    } : post)
             }
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
@@ -116,8 +138,11 @@ export const setUserStatusThunkCreator = (userId: string) => (dispatch: Dispatch
     profileAPI.getUserStatus(userId)
         .then((state) => {
 
-            if (state) dispatch(setUserStatusAC(state))
-            console.log('status is null')
+            if (state) {
+                dispatch(setUserStatusAC(state))
+            } else {
+                dispatch(setUserStatusAC("status from API is null"))
+            }
 
             // dispatch(setUserStatusAC('status is null'))
         })
