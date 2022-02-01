@@ -2,10 +2,11 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 
-type FormDataType = {
-    login: string
+export type FormDataType = {
+    email: string
     password: string
     rememberMe: boolean
+    captcha: boolean
 }
 
 // <form onSubmit={props.handleSubmit}>  метод из redux form,
@@ -15,10 +16,10 @@ const LoginReduxForm = (props: InjectedFormProps<FormDataType>) => {
 
 
     return (
-        <form onSubmit={props.handleSubmit}> метод из redux form,
+        <form onSubmit={props.handleSubmit}>
             <div>
                 <Field type={'text'}
-                       name={'login'}
+                       name={'email'}
                        placeholder={'login'}
                        component={'input'}/>
             </div>

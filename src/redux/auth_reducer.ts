@@ -1,7 +1,7 @@
 import {actionPT} from "./store_redux";
 import {userDataPT} from "../components/Header/Header";
 import {Dispatch} from "redux";
-import {authMeAPI} from "../api/api";
+import {authMeAPI, loginAPI, loginAPIRequestType} from "../api/api";
 
 export type setUserDataACPT = ReturnType<typeof setUserDataAC>
 
@@ -26,7 +26,6 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
 
     switch (action.type) {
         case SET_USER_DATA:
-            console.log(action.data.data.login)
             return {...state, ...action.data, isAuth: true}
         default:
             return state
@@ -34,7 +33,6 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
 }
 
 export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
-    // debugger
     authMeAPI()
         .then((response) => {
 
@@ -44,4 +42,24 @@ export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
                 } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode)
             }
         )
+}
+
+
+export const setLoginThunkCreator = (userData: loginAPIRequestType) => (dispatch: Dispatch) => {
+
+    loginAPI(userData)
+        .then((state: any) => {    // any
+            if (state.data.resultCode === 0) {
+                authMeAPI()
+                    .then((response) => {
+
+                            if (response.resultCode === 0) {
+                                dispatch(setUserDataAC(response))
+
+                            } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode)
+                        }
+                    )
+
+            }
+        })
 }

@@ -10,10 +10,28 @@ const instance = axios.create({
 })
 
 
+export type loginAPIRequestType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: boolean
+}
+
+export const loginAPI = (data: loginAPIRequestType) => {
+    return instance
+        .post('/auth/login', data)
+        .then((response) => {
+            return response
+        })
+
+}
+
+
 export const authMeAPI = () => {
     return instance
         .get('auth/me')
         .then((response): userDataPT => {
+            console.log(response.data)
             return response.data
         })
 }
@@ -45,9 +63,7 @@ export const profileAPI = {
     }
 }
 
-
 // profileStatusAPI("2").then()
-
 
 export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {
     console.log('It is old method')
@@ -68,7 +84,6 @@ export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
             return response.data
         })
 }
-
 
 export const followAPI = {   // это просто объект с методами, пушка
 

@@ -21,21 +21,17 @@ let mapStateToProps = (state: AppStatePT): mapStateToPropsType => {
 export function withAuthRedirect<T>(Component: React.ComponentType<T>) {  //  <T> не работает со стрелочными функциями
 
     let RedirectComponent = (props: mapStateToPropsType) => {
-        // debugger
+
         let {isAuth, ...restProps} = props   // Достаём isAuth, т.к. нам не нужно его передавать в компоненту
 
         if (!isAuth) {
-            // debugger
+
             return <Navigate to={'/login'}/>
         }
-
-
         return <Component  {...restProps as T}/> // Все что мы закинем сюда, добавит новые ключи в конечной компоненте
     }
 
-
     // let ConnectRedirectComponent = connect(mapStateToProps)(RedirectComponent)
-
     return connect(mapStateToProps)(RedirectComponent)
 }
 
