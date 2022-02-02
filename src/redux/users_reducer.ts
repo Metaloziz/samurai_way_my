@@ -64,7 +64,6 @@ export const users_reducer = (state: UsersStatePT = usersState, action: actionPT
                 ...state, items: state.items
                     .map(user => user.id === action.userID ? {...user, isFetchingUser: action.isFetchingUser} : user)
             }
-
         default:
             return state
     }
@@ -99,7 +98,6 @@ export const sePageThunkCreator = (pageID: number, pageSize: number) => {
 export const unFollowThunkCreator = (userID: number) => {
 
     return (dispatch: Dispatch) => {
-
         dispatch(toggleIsFetchingUserAC(true, userID))
         followAPI.setUnFollow(userID)
             .then((response) => {
@@ -117,7 +115,6 @@ export const followThunkCreator = (userID: number) => {
 
     // Это thunk. Её запускает сам redux и забрасывает в неё dispatch
     return (dispatch: Dispatch) => {
-
         dispatch(toggleIsFetchingUserAC(true, userID))
         followAPI.setFollow(userID)
             .then((response) => {

@@ -12,23 +12,9 @@ type mapDispatchToPropsPT = {
 
 export class HeaderContainerAPI extends React.Component<userDataPT & mapDispatchToPropsPT> {
 
-
-    componentDidMount() {
-
-        console.log('auth')
-
+    componentDidMount = () => {
         this.props.setUserDataThunkCreator()
-
-
-        // headerAPI()
-        //     .then((response) => {
-        //             if (response.resultCode === 0) {
-        //                 this.props.setUserDataAC(response)
-        //                 console.log('headerAPI')
-        //             } else throw Error('resultCode: ' + response.resultCode)
-        //         }
-        //     )
-    }
+    };
 
     render() {
         return (

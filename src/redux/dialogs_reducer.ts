@@ -3,13 +3,12 @@ import {dialogsItemsPT} from "../components/Messages/MessagesContainer";
 
 export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>
 
-export const ADD_TEXT_MESSAGE = 'ADD-TEXT-MESSAGE'
+export const ADD_TEXT_MESSAGE = 'ADD_TEXT_MESSAGE'
 
 export const addTextMessageAC = (value: string) => ({
     type: ADD_TEXT_MESSAGE,
     value
 } as const)
-
 
 const initialState: dialogsItemsPT =
     {

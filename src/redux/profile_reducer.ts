@@ -58,11 +58,6 @@ export type ProfileType = {    // data from API
     }
 }
 
-// type ProfileStatusType = {   // another request
-//     status: string
-// }
-
-
 const initialState: initialStateProfileType =
     {
         postData: [
@@ -137,13 +132,11 @@ export const setUserStatusThunkCreator = (userId: string) => (dispatch: Dispatch
 
     profileAPI.getUserStatus(userId)
         .then((state) => {
-
             if (state) {
                 dispatch(setUserStatusAC(state))
             } else {
                 dispatch(setUserStatusAC("status from API is null"))
             }
-
             // dispatch(setUserStatusAC('status is null'))
         })
 }
@@ -152,15 +145,10 @@ export const updateUserStatusThunkCreator = (status: string) => (dispatch: Dispa
 
     profileAPI.updateUserStatus(status)
         .then((state) => {
-
-
             if (state.resultCode === 0) {
                 dispatch(setUserStatusAC(status))  // если запрос успешный, то обнови статус на тот, который отправил
             }
-
         })
-
-
 }
 
 

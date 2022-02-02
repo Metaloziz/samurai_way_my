@@ -1,8 +1,4 @@
-import {actionPT} from "./store_redux";
-import {loginAPI, loginAPIRequestType} from "../api/api";
-import {Dispatch} from "redux";
-import {setUserDataThunkCreator} from "./auth_reducer";
-//
+export {}
 // export type setLoginACPT = ReturnType<typeof setLoginAC>
 //
 // const initialState: loginAPIRequestType = {
