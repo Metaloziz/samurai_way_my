@@ -50,8 +50,7 @@ export class ProfileContainerAPI extends Component<mapStateToPropsPT
         return <Profile profile={this.props.profile}
                         status={this.props.status}
                         updateUserStatusThunkCreator={
-                            this.props.updateUserStatusThunkCreator
-                        }/>
+                            this.props.updateUserStatusThunkCreator}/>
 
     }
 }

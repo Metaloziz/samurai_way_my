@@ -15,7 +15,7 @@ export const ADD_LIKE = 'ADD_LIKE'
 export const SET_USER_PROFILE = 'SET_USER_PROFILE'
 export const SET_USER_STATUS = 'SET_USER_STATUS'
 
-export const addPostAC = () => ({type: ADD_POST} as const)
+export const addPostAC = (value: string) => ({type: ADD_POST, value} as const)
 export const changePostAC = (newText: string) => ({
     type: CHANGE_POST,
     newText: newText
@@ -101,7 +101,7 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
         case ADD_POST:
             let newPost = {
                 id: v1(),
-                message: state.newPostText, // action.newText
+                message: action.value, // action.newText
                 like: 0,
                 comment: 0
             }
