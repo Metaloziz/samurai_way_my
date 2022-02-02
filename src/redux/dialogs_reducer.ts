@@ -2,13 +2,13 @@ import {actionPT} from "./store_redux";
 import {dialogsItemsPT} from "../components/Messages/MessagesContainer";
 
 export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>
-export type updateTextMessageATPT = ReturnType<typeof updateTextMessageAC>  //typing is object-based
 
 export const ADD_TEXT_MESSAGE = 'ADD-TEXT-MESSAGE'
-export const UPDATE_TEXT_MESSAGE = 'UPDATE-TEXT-MESSAGE'
 
-export const addTextMessageAC = () => ({type: ADD_TEXT_MESSAGE} as const)
-export const updateTextMessageAC = (newText: string) => ({type: UPDATE_TEXT_MESSAGE, newText: newText} as const)
+export const addTextMessageAC = (value: string) => ({
+    type: ADD_TEXT_MESSAGE,
+    value
+} as const)
 
 
 const initialState: dialogsItemsPT =
@@ -24,7 +24,11 @@ const initialState: dialogsItemsPT =
                 name: 'Olga',
                 ava: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRyOavUGIwOOX3ETRRyYRX5i6cckfejkOGGZuuzC49v3Kn9fts9Af4l3JsKYc1SxZb3VU&usqp=CAU'
             },
-            {id: 3, name: 'Anna', ava: 'https://www.meme-arsenal.com/memes/45e5d421b1445a06da4d6850fcafdb1a.jpg'},
+            {
+                id: 3,
+                name: 'Anna',
+                ava: 'https://www.meme-arsenal.com/memes/45e5d421b1445a06da4d6850fcafdb1a.jpg'
+            },
             {
                 id: 4,
                 name: 'Yra',
@@ -43,17 +47,14 @@ const initialState: dialogsItemsPT =
             {id: 4, text: 'Yo'},
             {id: 5, text: 'Yo'}
         ],
-        newText: '',
     }
 
 export const dialogs_reducer = (state: dialogsItemsPT = initialState, action: actionPT): dialogsItemsPT => {
 
     switch (action.type) {
         case ADD_TEXT_MESSAGE:
-            let newPost = {id: 2, text: state.newText}
-            return {...state, messages: [...state.messages, newPost], newText: ''}
-        case UPDATE_TEXT_MESSAGE:
-            return {...state, newText: action.newText}
+            let newPost = {id: 2, text: action.value}
+            return {...state, messages: [...state.messages, newPost],}
         default:
             return state
     }

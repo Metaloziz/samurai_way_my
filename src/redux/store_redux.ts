@@ -1,16 +1,12 @@
 import {
     addLikeACPT,
     addPostATPT,
-    profile_reducer,
     changePostACPT,
+    profile_reducer,
     setUserProfileACPT,
     setUserStatusACPT
 } from "./profile_reducer";
-import {
-    addTextMessageATPT,
-    dialogs_reducer,
-    updateTextMessageATPT
-} from "./dialogs_reducer";
+import {addTextMessageATPT, dialogs_reducer} from "./dialogs_reducer";
 import {sidebar_reducer, sidebarATPT} from "./sidebar_reducer";
 import {
     changePageACPT,
@@ -43,7 +39,6 @@ export type actionPT =
     addPostATPT
     | changePostACPT
     | addTextMessageATPT
-    | updateTextMessageATPT
     | sidebarATPT
     | followATPT
     | setUsersATPT

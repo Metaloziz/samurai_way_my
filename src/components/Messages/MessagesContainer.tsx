@@ -1,4 +1,4 @@
-import {addTextMessageAC, updateTextMessageAC} from "../../redux/dialogs_reducer";
+import {addTextMessageAC} from "../../redux/dialogs_reducer";
 import {Messages} from "./Messages";
 import {connect} from "react-redux";
 import {AppStatePT} from "../../redux/store_redux";
@@ -13,20 +13,28 @@ export type mapStateToPropsMessageType = {
     isAuth: boolean
 };
 export type mapDispatchToPropsMessageType = {
-    addNewMessage: () => void
-    changeText: (newText: string) => void
+    addNewMessage: (value: string) => void
+    // changeText: (newText: string) => void
 };
 export type dialogsItemsPT = {
     dialogs: Array<DialogPT>
     messages: Array<MessagePT>
-    newText: string
+    // newText: string
 }
 
 class MessagesClassComponent extends React.Component<mapStateToPropsMessageType & mapDispatchToPropsMessageType> {
 
+
+    onSubmit = (data: any) => {
+        console.log(data)
+    }
+
+
     render() {
         // if (!this.props.isAuth) return <Navigate to={'/login'}/>
-        return <Messages {...this.props}/>;
+        return <Messages addNewMessage={this.props.addNewMessage}
+                         // changeText={this.props.changeText}
+                         dialogsPage={this.props.dialogsPage}/>;
     }
 }
 
@@ -40,15 +48,13 @@ const mapStateToProps = (state: AppStatePT): mapStateToPropsMessageType => {
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsMessageType => {
     return {
-        addNewMessage: () => dispatch(addTextMessageAC()),
-        changeText: (newText: string) => dispatch(updateTextMessageAC(newText))
+        addNewMessage: (value: string) => dispatch(addTextMessageAC(value)),
+        // changeText: (newText: string) => dispatch(updateTextMessageAC(newText))
     }
 }
 
 
 // let connectComponent = withAuthRedirect(MessagesClassComponent) // withAuthRedirect проверяет на авторизацию
-//
-// export const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(connectComponent)
 
 export const MessagesContainer = compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),

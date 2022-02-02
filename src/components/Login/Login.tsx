@@ -34,19 +34,15 @@ class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchTo
 type mapStateToPropsType = () => void
 
 const mapStateToProps: mapStateToPropsType = () => {
-
     return {}
-
 }
 
 type mapDispatchToPropsType = {
     setLoginThunkCreator: (userData: loginAPIRequestType) => void
 }
 
-
 const mapDispatchToProps: mapDispatchToPropsType = {
     setLoginThunkCreator: setLoginThunkCreator
 }
-
 
 export const Login = connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
