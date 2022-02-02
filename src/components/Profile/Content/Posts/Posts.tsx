@@ -13,8 +13,8 @@ export type NewPostPT = {
 
 export const Posts = ({profilePage, addPostAC, addLikeAC}: NewPostPT) => {
 
-    const addNewItem = (data: PostsReduxFormType) => {
 
+    const addNewItem = (data: PostsReduxFormType) => {
 
         if (data.textPost) {              // check empty
             addPostAC(data.textPost.trim())
