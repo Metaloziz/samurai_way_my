@@ -1,104 +1,60 @@
-import axios from "axios";
-import {UsersStatePT} from "../components/Users/UsersContainer";
-import {userDataPT} from "../components/Header/Header";
-import {ProfileType} from "../redux/profile_reducer";
+import axios from 'axios';
+
+import { UsersStatePT } from '../components/Users/UsersContainer';
+
+import { userDataPT } from 'components/Header';
+import { ProfileType } from 'redux_my';
 
 const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    withCredentials: true,
-    headers: {'API-KEY': '0d359f4b-dbac-4b25-81ad-e06b681fec5c'}
-})
-
+  baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+  withCredentials: true,
+  headers: { 'API-KEY': '0d359f4b-dbac-4b25-81ad-e06b681fec5c' },
+});
 
 export type loginAPIRequestType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha: boolean
-}
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: boolean;
+};
 
-export const loginAPI = (data: loginAPIRequestType) => {
-    return instance
-        .post('/auth/login', data)
-        .then((response) => {
-            return response
-        })
+export const loginAPI = (data: loginAPIRequestType): Promise<any> =>
+  instance.post('/auth/login', data).then(response => response);
 
-}
-
-
-export const authMeAPI = () => {
-    return instance
-        .get('auth/me')
-        .then((response): userDataPT => {
-            console.log(response.data)
-            return response.data
-        })
-}
+export const authMeAPI = (): Promise<userDataPT> =>
+  instance.get('auth/me').then(response => response.data);
 
 export const profileAPI = {
-    getUserData: (userID: string) => {
-        return instance
-            .get('profile/' + userID)
-            .then((response): ProfileType => {
-                return response.data
-            })
-    },
+  getUserData: (userID: string): Promise<ProfileType> =>
+    instance.get(`profile/${userID}`).then(response => response.data),
 
-    getUserStatus: (userID: string) => {
-        return instance
-            .get('/profile/status/' + userID)
-            .then((response): string => {
-                    return response.data   // только строка
-                }
-            )
-    },
-    updateUserStatus: (status: string) => {
+  getUserStatus: (userID: string) =>
+    instance.get(`/profile/status/${userID}`).then(
+      (response): string => response.data, // только строка
+    ),
+  updateUserStatus: (status: string) =>
+    instance
+      .put('/profile/status', { status }) // 2 argument -  Media type: application/json
+      .then(state => state.data),
+};
 
-        return instance
-            .put('/profile/status', {status: status}) // 2 argument -  Media type: application/json
-            .then((state) => {
-                return state.data
-            })
-    }
-}
+export const setUserOnPageAPI = (
+  pageID: number,
+  pageSize: number,
+): Promise<UsersStatePT> =>
+  instance.get(`users?page=${pageID}&count=${pageSize}`).then(response => response.data);
 
-// profileStatusAPI("2").then()
+const ONE = 1;
 
-export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {
-    console.log('It is old method')
-    return setUserOnPageAPI(currentPage, pageSize)
+export const setUserDataAPI = (
+  currentPage: number = ONE,
+  pageSize: number = ONE,
+): Promise<UsersStatePT> => setUserOnPageAPI(currentPage, pageSize);
 
-    // instance
-    //     .get(`users?page=${currentPage}&count=${pageSize}`)
-    //     .then((response): UsersStatePT => {
-    //         return response.data
-    //     })
-
-}
-
-export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
-    return instance
-        .get(`users?page=${pageID}&count=${pageSize}`)
-        .then((response): UsersStatePT => {
-            return response.data
-        })
-}
-
-export const followAPI = {   // это просто объект с методами, пушка
-
-    setUnFollow: (userID: number) => {
-        return instance
-            .delete('follow/' + userID)
-            .then((response) => {
-                return response.data
-            })
-    },
-    setFollow: (userID: number) => {
-        return instance
-            .post('follow/' + userID)
-            .then(response => {
-                return response.data
-            })
-    },
-}
+export const followAPI = {
+  // это просто объект с методами, пушка
+  setUnFollow: (userID: number) =>
+    instance.delete(`follow/${userID}`).then(response => response.data),
+  setFollow: (userID: number) =>
+    instance.post(`follow/${userID}`).then(response => response.data),
+};

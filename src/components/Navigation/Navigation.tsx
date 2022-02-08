@@ -1,30 +1,32 @@
-import React from "react";
-import {NavLink} from "react-router-dom";
-import s from './Navigation.module.css'
+import { ReactElement } from 'react';
 
+import { NavLink } from 'react-router-dom';
+import { v1 } from 'uuid';
+
+import style from './Navigation.module.css';
 
 export type sidebarPT = {
-    sidebarPage: Array<ItemPT>
-}
+  sidebarPage: Array<ItemPT>;
+};
 export type ItemPT = {
-    path: string
-    title: string
-}
+  path: string;
+  title: string;
+};
 
-export const Navigation = (state: sidebarPT) => {
-
-
-    return (<div>
-            <nav className={s.navigation}>
-                {state.sidebarPage.map((x, index) =>
-                    <div key={index} className={s.item}>
-                        <NavLink to={x.path}
-                                 className={({isActive}) => isActive ? s.active : ''}> {x.title} </NavLink>
-                    </div>
-                )}
-            </nav>
+export const Navigation = ({ sidebarPage }: sidebarPT): ReactElement => (
+  <div>
+    <nav className={style.navigation}>
+      {sidebarPage.map(el => (
+        <div key={v1()} className={style.item}>
+          <NavLink
+            to={el.path}
+            className={({ isActive }) => (isActive ? style.active : '')}
+          >
+            {' '}
+            {el.title}{' '}
+          </NavLink>
         </div>
-    )
-}
-
-
+      ))}
+    </nav>
+  </div>
+);

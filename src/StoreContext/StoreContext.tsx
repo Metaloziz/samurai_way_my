@@ -1,22 +1,16 @@
-import React from "react";
-import {Store} from "redux";
+export {};
+// import { createContext, ReactElement, ReactNode } from 'react';
 
-export {}
-
-
-type StoreContextPT = {
-    store: Store
-    children: React.ReactNode
-}
-
-
-const StoreContext = React.createContext({} as Store)
-
-
-const Component = (props: StoreContextPT) => {
-
-    return <StoreContext.Provider value={props.store}>
-        {props.children}
-    </StoreContext.Provider>
-
-}
+// import { store } from 'redux_my';
+//
+// type StoreContextPT = {
+//   store: typeof store;
+//   children: ReactNode;
+// };
+//
+// const StoreContext = createContext({} as typeof store);
+//
+// // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const Component = ({ store, children }: StoreContextPT): ReactElement => (
+//   <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
+// );

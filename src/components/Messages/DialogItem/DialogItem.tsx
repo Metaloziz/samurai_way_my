@@ -1,16 +1,21 @@
-import s from "./DialogItem.module.css";
-import {NavLink} from "react-router-dom";
-import React from "react";
+import React, { ReactElement } from 'react';
+
+import { NavLink } from 'react-router-dom';
+
+import style from './DialogItem.module.css';
 
 export type DialogPT = {
-    id: number
-    name: string
-    ava: string
-}
+  id: number;
+  name: string;
+  ava: string;
+};
 
-export let DialogItem = (props: DialogPT) =>
-
-    <div className={s.dialog}>
-        <img alt={'ava'} src={props.ava} title={props.name} id={props.id.toString()}/>
-        <NavLink className={s.navLink} to={'/messages/' + props.id} > {props.name} </NavLink>
-    </div>
+export const DialogItem = ({ ava, name, id }: DialogPT): ReactElement => (
+  <div className={style.dialog}>
+    <img alt="ava" src={ava} title={name} id={id.toString()} />
+    <NavLink className={style.navLink} to={`/messages/${id}`}>
+      {' '}
+      {name}{' '}
+    </NavLink>
+  </div>
+);

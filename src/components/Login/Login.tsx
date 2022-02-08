@@ -1,48 +1,40 @@
-import React from 'react';
-import {FormDataType, LoginForm} from "./LoginForm/LoginForm";
-import {loginAPIRequestType} from "../../api/api";
-import {connect} from "react-redux";
-import {setLoginThunkCreator} from "../../redux/auth_reducer";
+import React, { ReactElement } from 'react';
 
+import { connect } from 'react-redux';
 
-class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
+import { loginAPIRequestType } from '../../api/api';
+import { setLoginThunkCreator } from '../../redux_my/auth_reducer';
 
-    componentDidMount() {
+import { FormDataType, LoginForm } from './LoginForm/LoginForm';
 
-    }
+class LoginContainer extends React.Component<
+  mapStateToPropsType & mapDispatchToPropsType
+> {
+  onSubmit = (formData: FormDataType): void => {
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.setLoginThunkCreator(formData);
+  };
 
-    onSubmit = (formData: FormDataType) => {
-        this.props.setLoginThunkCreator(formData)
-    }
-
-    render() {
-
-        return (
-            <>
-                <div>
-                    LOGIN
-                </div>
-                <LoginForm onSubmit={this.onSubmit}/>
-            </>
-        );
-    }
+  render = (): ReactElement => (
+    <>
+      <div>LOGIN</div>
+      <LoginForm onSubmit={this.onSubmit} />
+    </>
+  );
 }
 
 // <LoginForm onSubmit={onSubmit}/> так это контейнерная компонента, то в onSubmit автоматом попадают пропсы
 
+type mapStateToPropsType = () => void;
 
-type mapStateToPropsType = () => void
-
-const mapStateToProps: mapStateToPropsType = () => {
-    return {}
-}
+const mapStateToProps: mapStateToPropsType = () => ({});
 
 type mapDispatchToPropsType = {
-    setLoginThunkCreator: (userData: loginAPIRequestType) => void
-}
+  setLoginThunkCreator: (userData: loginAPIRequestType) => void;
+};
 
 const mapDispatchToProps: mapDispatchToPropsType = {
-    setLoginThunkCreator: setLoginThunkCreator
-}
+  setLoginThunkCreator,
+};
 
-export const Login = connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+export const Login = connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

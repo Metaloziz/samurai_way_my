@@ -1,24 +1,23 @@
-import {connect} from "react-redux";
-import {Navigation, sidebarPT} from "./Navigation";
-import {actionPT, AppStatePT} from "../../redux/store_redux";
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
+import { AppStatePT } from '../../redux_my/store_redux';
 
-const mapStateToProps = (state: AppStatePT): sidebarPT => {
-    return {
-        sidebarPage: state.sidebarPage
-    }
-}
+import { Navigation, sidebarPT } from './Navigation';
 
-const mapDispatchToProps = (dispatch: (action: actionPT) => void) => {
-    return {
-        test: () => dispatch({type: "SIDE_BAR_TEST"})
-    }
-}
+const mapStateToProps = (state: AppStatePT): sidebarPT => ({
+  sidebarPage: state.sidebarPage,
+});
 
-export const NavigationContainer = connect(mapStateToProps, mapDispatchToProps)(Navigation)
-  
+type mapDispatchToPropsType = (dispatch: Dispatch) => {
+  test: () => void;
+};
 
+const mapDispatchToProps: mapDispatchToPropsType = dispatch => ({
+  test: () => dispatch({ type: 'SIDE_BAR_TEST' }),
+});
 
-
-
-
+export const NavigationContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Navigation);

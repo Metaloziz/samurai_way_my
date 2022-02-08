@@ -1,4 +1,4 @@
-export {}
+export {};
 
 // import React from 'react';
 // import ReactDOM from 'react-dom';
@@ -13,7 +13,7 @@ export {}
 //     updateAddPost,
 //     updateTextMessage,
 //     addTextMessage
-// } from "./redux/state";
+// } from "./redux_my/state";
 // import {BrowserRouter} from "react-router-dom";
 //
 //

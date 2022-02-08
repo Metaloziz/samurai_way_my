@@ -1,38 +1,36 @@
-import React from "react";
-import s from './Content_header.module.css'
-import {ContentHeaderPT} from "../../Profile";
-import {Preloader} from "../../../comonComponents/Preloader";
-import {ProfileStatus} from "../../ProfileStatus/ProfileStatus";
+import { ReactElement } from 'react';
 
-export const ContentHeader = (props: ContentHeaderPT) => {
+import { Preloader } from '../../../comonComponents/Preloader';
+import { ContentHeaderPT } from '../../Profile';
+import { ProfileStatus } from '../../ProfileStatus/ProfileStatus';
 
-    if (!props.profile) {
-        return <Preloader/>
-    }
+import style from './Content_header.module.css';
 
-    // let content = [
-    //     {
-    //         alt: 'forest',
-    //         src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeAnH9q1eO2cMNhym5S0zm0k3i4wvJ3tjLVg&usqp=CAU"
-    //     }
-    // ]
+export const ContentHeader = ({
+  status,
+  profile,
+  updateUserStatusThunkCreator,
+}: ContentHeaderPT): ReactElement => {
+  if (!profile) {
+    return <Preloader />;
+  }
 
-    return (
-        <div className={s.content}>
-            <div className={s.item}>Title
-                {/*<div>*/}
-                {/*    <img alt={content[0].alt} src={content[0].src}/>*/}
-                {/*</div>*/}
-                <img alt={'ava'} src={props.profile.photos.large}/>
-                <ProfileStatus status={props.status}
-                               updateUserStatusThunkCreator={props.updateUserStatusThunkCreator}/>
-                <div>
-                    <div>about me: {props.profile.aboutMe}</div>
-                    <div>contacts: {props.profile.contacts["facebook"]}</div>
-                    <div>lookingForAJob: {props.profile.lookingForAJob ? "true" : "false"}</div>
-                    <div>fullName: {props.profile.fullName}</div>
-                </div>
-            </div>
+  return (
+    <div className={style.content}>
+      <div className={style.item}>
+        Title
+        <img alt="ava" src={profile.photos.large} />
+        <ProfileStatus
+          status={status}
+          updateUserStatusThunkCreator={updateUserStatusThunkCreator}
+        />
+        <div>
+          <div>about me: {profile.aboutMe}</div>
+          <div>contacts: {profile.contacts.facebook}</div>
+          <div>lookingForAJob: {profile.lookingForAJob ? 'true' : 'false'}</div>
+          <div>fullName: {profile.fullName}</div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
