@@ -1,16 +1,8 @@
-.formControl textarea {
+.formControl textarea, .formControl input {
     border: #22ff00 solid 5px;
 }
 
-.formControl input {
-    border: #22ff00 solid 5px;
-}
-
-.error textarea {
-    border: #ff000c solid 5px;
-}
-
-.error input {
+.error textarea, .error input {
     border: #ff000c solid 5px;
 }
 
