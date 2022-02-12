@@ -1,45 +1,43 @@
-import React from "react";
-import s from './Header.module.css'
-import {NavLink} from "react-router-dom";
-
+import React from 'react';
+import s from './Header.module.css';
+import { NavLink } from 'react-router-dom';
 
 type HeaderPT = {
-    data: userDataPT
+  data: userDataPT
 }
 
 export  type userDataPT = {
-    data: {
-        id: number
-        login: string
-        email: string
-    },
-    messages: string[]
-    fieldsErrors: string[]
-    resultCode: number
-    isAuth: boolean
+  data: {
+    id: number
+    login: string
+    email: string
+  },
+  messages: string[]
+  fieldsErrors: string[]
+  resultCode: number
+  isAuth: boolean
 }
 
-export const Header = ({data}: HeaderPT) => {
+export const Header = ({ data }: HeaderPT) => {
 
-    // debugger
+  // debugger
 
+  return (
+    <div className={s.header}>
+      <div>
+        <img alt={'logo'}
+             src='https://pngimage.net/wp-content/uploads/2018/05/circle-effect-png.png' />
+        <div>LOGO</div>
+      </div>
+      <div className={s.loginBlock}>
+        {data.resultCode === 0
+          ? <div>
 
-    return (
-        <div className={s.header}>
-            <div>
-                <img alt={'logo'}
-                     src="https://pngimage.net/wp-content/uploads/2018/05/circle-effect-png.png"/>
-                <div>LOGO</div>
-            </div>
-            <div className={s.loginBlock}>
-                {data.resultCode === 0
-                    ? <div>
-
-                        <div>{data.data.login}</div>
-                    </div>
-                    : <NavLink to={'/login'}>Login</NavLink>}
-                {/*<NavLink to={'/login'}>Login</NavLink>*/}
-            </div>
-        </div>
-    )
-}
+            <div>{data.data.login}</div>
+          </div>
+          : <NavLink to={'/login'}>Login</NavLink>}
+        {/*<NavLink to={'/login'}>Login</NavLink>*/}
+      </div>
+    </div>
+  );
+};

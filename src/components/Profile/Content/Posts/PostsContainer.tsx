@@ -1,18 +1,23 @@
-import {addLikeAC, addPostAC, changePostAC, initialStateProfileType} from "../../../../redux/profile_reducer";
-import {Posts} from "./Posts";
-import {connect} from "react-redux";
-import {AppStatePT} from "../../../../redux/store_redux";
+import {
+  addLikeAC,
+  addPostAC,
+  changePostAC,
+  initialStateProfileType,
+} from 'redux/profile_reducer';
+import { Posts } from './Posts';
+import { connect } from 'react-redux';
+import { AppStatePT } from 'redux/store_redux';
 
 export type profilePagePT = {
-    profilePage: initialStateProfileType
+  profilePage: initialStateProfileType
 }
 
 const mapStateToProps = (state: AppStatePT): profilePagePT => {
-    return {
-        profilePage: state.profilePage
-    }
-}
+  return {
+    profilePage: state.profilePage,
+  };
+};
 
-let obj = {addPostAC, changePostAC, addLikeAC}
+let obj = { addPostAC, changePostAC, addLikeAC };
 
-export const PostsContainer = connect(mapStateToProps, obj)(Posts)
+export const PostsContainer = connect(mapStateToProps, obj)(Posts);
