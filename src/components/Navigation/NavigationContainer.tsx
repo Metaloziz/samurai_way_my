@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Navigation, sidebarPT } from './Navigation';
-import { actionPT, AppStatePT } from '../../redux/store_redux';
+import { actionPT, AppStatePT } from 'redux/store_redux';
 
 const mapStateToProps = (state: AppStatePT): sidebarPT => {
   return {

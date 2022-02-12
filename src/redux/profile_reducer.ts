@@ -1,25 +1,25 @@
 import {v1} from "uuid";
 import {actionPT} from "./store_redux";
 import {Dispatch} from "redux";
-import {profileAPI} from "../api/api";
+import {profileAPI} from 'api/api';
 
 export type addPostATPT = ReturnType<typeof addPostAC>
-export type changePostACPT = ReturnType<typeof changePostAC>
+// export type changePostACPT = ReturnType<typeof changePostAC>
 export type addLikeACPT = ReturnType<typeof addLikeAC>
 export type setUserProfileACPT = ReturnType<typeof setUserProfileAC>
 export type setUserStatusACPT = ReturnType<typeof setUserStatusAC>
 
 export const ADD_POST = 'ADD-POST'
-export const CHANGE_POST = 'CHANGE_POST'
+// export const CHANGE_POST = 'CHANGE_POST'
 export const ADD_LIKE = 'ADD_LIKE'
 export const SET_USER_PROFILE = 'SET_USER_PROFILE'
 export const SET_USER_STATUS = 'SET_USER_STATUS'
 
 export const addPostAC = (value: string) => ({type: ADD_POST, value} as const)
-export const changePostAC = (newText: string) => ({
-    type: CHANGE_POST,
-    newText: newText
-} as const)
+// export const changePostAC = (newText: string) => ({
+//     type: CHANGE_POST,
+//     newText: newText
+// } as const)
 export const addLikeAC = (postID: string) => ({type: ADD_LIKE, postID} as const)
 export const setUserProfileAC = (profile: ProfileType) => ({
     type: SET_USER_PROFILE,
@@ -96,13 +96,13 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
         case ADD_POST:
             let newPost = {
                 id: v1(),
-                message: action.value, // action.newText
+                message: action.value, // action.newText from redux form
                 like: 0,
                 comment: 0
             }
             return {...state, postData: [newPost, ...state.postData], newPostText: ''}
-        case CHANGE_POST:
-            return {...state, newPostText: action.newText}
+        // case CHANGE_POST:
+        //     return {...state, newPostText: action.newText}
         case ADD_LIKE:
             return {
                 ...state, postData: state.postData
@@ -121,7 +121,6 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
 }
 
 export const setUserThunkCreator = (userId: string) => (dispatch: Dispatch) => {
-
     profileAPI.getUserData(userId)
         .then((state) => {
             dispatch(setUserProfileAC(state))
@@ -129,7 +128,6 @@ export const setUserThunkCreator = (userId: string) => (dispatch: Dispatch) => {
 }
 
 export const setUserStatusThunkCreator = (userId: string) => (dispatch: Dispatch) => {
-
     profileAPI.getUserStatus(userId)
         .then((state) => {
             if (state) {
@@ -142,7 +140,6 @@ export const setUserStatusThunkCreator = (userId: string) => (dispatch: Dispatch
 }
 
 export const updateUserStatusThunkCreator = (status: string) => (dispatch: Dispatch) => {
-
     profileAPI.updateUserStatus(status)
         .then((state) => {
             if (state.resultCode === 0) {

@@ -29,9 +29,7 @@ class MessagesClassComponent extends React.Component<mapStateToPropsMessageType 
   };
 
   render() {
-    // if (!this.props.isAuth) return <Navigate to={'/login'}/>
     return <Messages addNewMessage={this.props.addNewMessage}
-      // changeText={this.props.changeText}
                      dialogsPage={this.props.dialogsPage} />;
   }
 }

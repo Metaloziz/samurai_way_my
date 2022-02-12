@@ -11,9 +11,7 @@ class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchTo
   }
 
   onSubmit = (formData: FormDataType) => {
-
     console.log(formData);
-
     this.props.setLoginThunkCreator(formData);
   };
 

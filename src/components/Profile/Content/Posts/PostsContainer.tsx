@@ -1,7 +1,6 @@
 import {
   addLikeAC,
   addPostAC,
-  changePostAC,
   initialStateProfileType,
 } from 'redux/profile_reducer';
 import { Posts } from './Posts';
@@ -18,6 +17,6 @@ const mapStateToProps = (state: AppStatePT): profilePagePT => {
   };
 };
 
-let obj = { addPostAC, changePostAC, addLikeAC };
+let obj = { addPostAC, addLikeAC };
 
 export const PostsContainer = connect(mapStateToProps, obj)(Posts);

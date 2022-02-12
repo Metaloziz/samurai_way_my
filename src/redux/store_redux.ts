@@ -1,7 +1,6 @@
 import {
   addLikeACPT,
   addPostATPT,
-  changePostACPT,
   profile_reducer,
   setUserProfileACPT,
   setUserStatusACPT,
@@ -35,11 +34,11 @@ const reducer = combineReducers({
 export const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 
 // @ts-ignore
-window.store = store
+window.store = store;
 
 export type actionPT =
   addPostATPT
-  | changePostACPT
+  // | changePostACPT
   | addTextMessageATPT
   | sidebarATPT
   | followATPT
