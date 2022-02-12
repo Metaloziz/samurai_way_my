@@ -15,7 +15,7 @@ export type FormDataType = {
 
 const LoginReduxForm = (props: InjectedFormProps<FormDataType>) => {
 
-  let maxLength = useCallback(maxLengthCreator(10), []);
+  let maxLength = useCallback(maxLengthCreator(30), []);
 
   return (
     <form onSubmit={props.handleSubmit}>

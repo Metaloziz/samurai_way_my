@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { UsersStatePT } from 'components/Users/UsersContainer';
 import { userDataPT } from 'components/Header/Header';
 import { ProfileType } from 'redux/profile_reducer';
@@ -16,42 +16,64 @@ export type loginAPIRequestType = {
   captcha: boolean
 }
 
-export const loginAPI = (data: loginAPIRequestType) => {
-  return instance
-    .post('/auth/login', data)
-    .then((response) => {
-      return response;
-    });
-};
+type loginAPIResponseType = {
+  data: {
+    userId: number
+  }
+  fieldsErrors: []
+  messages: []
+  resultCode: number
+}
+//
+// export const loginAPI = (data: loginAPIRequestType) => {
+//   return instance
+//     .post<null, AxiosResponse<loginAPIResponseType>, loginAPIRequestType>('/auth/login', data)
+//     .then((response) => {
+//       return response;
+//     });
+// };
 
-export const authMeAPI = () => {
-  return instance
-    .get('auth/me')
-    .then((response): userDataPT => {
-      console.log(response.data);
-      return response.data;
-    });
-};
+export const authMeAPI = {
 
-export const profileAPI = {
-  getUserData: (userID: string) => {
+  me() {
     return instance
-      .get('profile/' + userID)
-      .then((response): ProfileType => {
+      .get<null, AxiosResponse<userDataPT>>('auth/me')
+      .then((response) => {
+        console.log(response.data);
         return response.data;
       });
   },
 
-  getUserStatus: (userID: string) => {
+  login(data: loginAPIRequestType) {
     return instance
-      .get('/profile/status/' + userID)
-      .then((response): string => {
+      .post<null, AxiosResponse<loginAPIResponseType>, loginAPIRequestType>('/auth/login', data)
+      .then((response) => {
+        return response;
+      });
+  },
+  logout() {
+    return instance.delete('/auth/login');
+  },
+};
+
+export const profileAPI = {
+
+  getUserData(userID: string) {
+    return instance
+      .get<null, AxiosResponse<ProfileType>>('profile/' + userID)
+      .then((response) => {
+        return response.data;
+      });
+  },
+  getUserStatus(userID: string) {
+    return instance
+      .get<null, AxiosResponse<string>>('/profile/status/' + userID)
+      .then((response) => {
           return response.data;   // только строка
         },
       );
   },
-  updateUserStatus: (status: string) => {
-
+  updateUserStatus(status: string) {
     return instance
       .put('/profile/status', { status: status }) // 2 argument -  Media type: application/json
       .then((state) => {
@@ -59,8 +81,6 @@ export const profileAPI = {
       });
   },
 };
-
-// profileStatusAPI("2").then()
 
 export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {
   console.log('It is old method');

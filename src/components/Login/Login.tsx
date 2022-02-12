@@ -1,18 +1,18 @@
 import React from 'react';
 import { FormDataType, LoginForm } from './LoginForm/LoginForm';
 import { connect } from 'react-redux';
-import { setLoginThunkCreator } from 'redux/auth_reducer';
+import { setLoginThunkCreator, setLogoutThunkCreator } from 'redux/auth_reducer';
 import { loginAPIRequestType } from 'api/api';
 
 class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
 
-  componentDidMount() {
-
-  }
-
   onSubmit = (formData: FormDataType) => {
     console.log(formData);
-    // this.props.setLoginThunkCreator(formData);
+    this.props.setLoginThunkCreator(formData);
+  };
+
+  logout = () => {
+    this.props.setLogoutThunkCreator();
   };
 
   render() {
@@ -23,6 +23,7 @@ class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchTo
           LOGIN
         </div>
         <LoginForm onSubmit={this.onSubmit} />
+        <button onClick={this.logout}>logout</button>
       </>
     );
   }
@@ -38,10 +39,12 @@ const mapStateToProps: mapStateToPropsType = () => {
 
 type mapDispatchToPropsType = {
   setLoginThunkCreator: (userData: loginAPIRequestType) => void
+  setLogoutThunkCreator: () => void
 }
 
 const mapDispatchToProps: mapDispatchToPropsType = {
   setLoginThunkCreator: setLoginThunkCreator,
+  setLogoutThunkCreator: setLogoutThunkCreator,
 };
 
 export const Login = connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

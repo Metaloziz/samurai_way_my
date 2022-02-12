@@ -1,7 +1,7 @@
 import { actionPT } from './store_redux';
-import { userDataPT } from '../components/Header/Header';
+import { userDataPT } from 'components/Header/Header';
 import { Dispatch } from 'redux';
-import { authMeAPI, loginAPI, loginAPIRequestType } from '../api/api';
+import { authMeAPI, loginAPIRequestType } from 'api/api';
 
 export type setUserDataACPT = ReturnType<typeof setUserDataAC>
 
@@ -21,7 +21,7 @@ const userDataInitialState: userDataPT = {
   messages: [''],
   fieldsErrors: [''],
   resultCode: 1,
-  isAuth: false,
+  isAuth: false,  // it is not from API
 };
 
 export const auth_reducer = (state = userDataInitialState, action: actionPT): userDataPT => {
@@ -34,7 +34,8 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
 };
 
 export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
-  authMeAPI()
+  authMeAPI
+    .me()
     .then((response) => {
         if (response.resultCode === 0) {
           dispatch(setUserDataAC(response));
@@ -44,18 +45,34 @@ export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
 };
 
 export const setLoginThunkCreator = (userData: loginAPIRequestType) => (dispatch: Dispatch) => {
-  loginAPI(userData)
-    .then((state: any) => {    // any
+  authMeAPI
+    .login(userData)
+    .then((state) => {
         if (state.data.resultCode === 0) {
-          authMeAPI()
+          authMeAPI.me()
             .then((response) => {
                 if (response.resultCode === 0) {
                   dispatch(setUserDataAC(response));
                 } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
               },
             );
-
         }
       },
     );
+};
+export const setLogoutThunkCreator = () => (dispatch: Dispatch) => {
+  authMeAPI
+    .logout()
+    .then((res) => {
+      console.log(res);
+      if (res.data.resultCode === 0) {
+        authMeAPI.me()
+          .then((response) => {
+              if (response.resultCode === 0) {
+                dispatch(setUserDataAC(response));
+              } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
+            },
+          );
+      }
+    });
 };
