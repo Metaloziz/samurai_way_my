@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Header.module.css';
+import style from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 
 type HeaderPT = {
@@ -23,13 +23,13 @@ export const Header = ({ data }: HeaderPT) => {
   // debugger
 
   return (
-    <div className={s.header}>
+    <div className={style.header}>
       <div>
         <img alt={'logo'}
-             src='https://pngimage.net/wp-content/uploads/2018/05/circle-effect-png.png' />
+             src='https://w7.pngwing.com/pngs/200/945/png-transparent-vitruvian-man-vinci-italian-renaissance-drawing-others-white-hand-monochrome.png' />
         <div>LOGO</div>
       </div>
-      <div className={s.loginBlock}>
+      <div className={style.loginBlock}>
         {data.resultCode === 0
           ? <div>
 

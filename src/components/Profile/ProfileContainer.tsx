@@ -21,26 +21,12 @@ export class ProfileContainerAPI extends Component<mapStateToPropsPT
   & { params: PathParamPT }> {
 
   componentDidMount() {
-
     let userID = this.props.params.userId;
-
     if (!userID) {
       userID = '21608';
     }
-
     this.props.setUserThunkCreator(userID);
     this.props.setUserStatusThunkCreator(userID);
-    // let userId = this.props.params.userId
-    //
-    // if (!userId) {
-    //     userId = '2';
-    // }
-    //
-    // profileAPI(userId).then((state) => {
-    //     this.props.setUserProfileAC(state)
-    //     console.log('profileAPI')
-    // })
-    // debugger
   }
 
   render() {

@@ -2,12 +2,17 @@
     /*border: 1px #b71b1b solid;*/
 }
 
-.formControl textarea {
-    border: 5px #b71b1b solid;
+.notError textarea {
+    border: 5px #54b71b solid;
 }
 
-.error {
+.Error textarea {
+    border: 5px #ff000c solid;
+}
 
+.Error span {
+    font-weight: 500;
+    color: red;
 }
 
 

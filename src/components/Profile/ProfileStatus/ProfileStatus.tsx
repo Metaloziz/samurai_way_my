@@ -22,7 +22,7 @@ export class ProfileStatus extends React.Component<ProfileStatusPT> {
   };
 
   changeCallBack = (e: ChangeEvent<HTMLInputElement>) => {  // изменяет н
-    this.setState({ status: e.currentTarget.value.trim() });
+    this.setState({ status: e.currentTarget.value });
   };
 
   componentDidUpdate(prevProps: any, presState: any) {
