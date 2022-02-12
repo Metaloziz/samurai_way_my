@@ -32,6 +32,7 @@ export const Posts = ({ profilePage, addPostAC, addLikeAC }: NewPostPT) => {
                    key={item.id} message={item.message}
                    like={item.like}
                    comment={item.comment} />)}
+
       </div>
     </div>
   );
