@@ -1,8 +1,10 @@
 import React from 'react';
 import { FormDataType, LoginForm } from './LoginForm/LoginForm';
 import { connect } from 'react-redux';
-import { setLoginThunkCreator, setLogoutThunkCreator } from 'redux/auth_reducer';
+import { setLoginThunkCreator } from 'redux/auth_reducer';
 import { loginAPIRequestType } from 'api/api';
+import { AppStatePT } from 'redux/store_redux';
+import { Navigate } from 'react-router-dom';
 
 class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
 
@@ -11,19 +13,15 @@ class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchTo
     this.props.setLoginThunkCreator(formData);
   };
 
-  logout = () => {
-    this.props.setLogoutThunkCreator();
-  };
-
   render() {
 
+    if (this.props.isAuth) return <Navigate to={'/profile'} />;
     return (
       <>
         <div>
           LOGIN
         </div>
         <LoginForm onSubmit={this.onSubmit} />
-        <button onClick={this.logout}>logout</button>
       </>
     );
   }
@@ -31,20 +29,18 @@ class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchTo
 
 // <LoginForm onSubmit={onSubmit}/> так это контейнерная компонента, то в onSubmit автоматом попадают пропсы
 
-type mapStateToPropsType = () => void
+type mapStateToPropsType = { isAuth: boolean }
 
-const mapStateToProps: mapStateToPropsType = () => {
-  return {};
+const mapStateToProps = (state: AppStatePT): mapStateToPropsType => {
+  return { isAuth: state.auth.isAuth };
 };
 
 type mapDispatchToPropsType = {
   setLoginThunkCreator: (userData: loginAPIRequestType) => void
-  setLogoutThunkCreator: () => void
 }
 
 const mapDispatchToProps: mapDispatchToPropsType = {
   setLoginThunkCreator: setLoginThunkCreator,
-  setLogoutThunkCreator: setLogoutThunkCreator,
 };
 
 export const Login = connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

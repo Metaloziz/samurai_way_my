@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 type HeaderPT = {
   data: userDataPT
+  setLogoutThunkCreator: () => void
 }
 
 export  type userDataPT = {
@@ -15,12 +16,10 @@ export  type userDataPT = {
   messages: string[]
   fieldsErrors: string[]
   resultCode: number
-  isAuth: boolean
+  isAuth: boolean  // it is not from API
 }
 
-export const Header = ({ data }: HeaderPT) => {
-
-  // debugger
+export const Header = ({ data, setLogoutThunkCreator }: HeaderPT) => {
 
   return (
     <div className={style.header}>
@@ -31,12 +30,10 @@ export const Header = ({ data }: HeaderPT) => {
       </div>
       <div className={style.loginBlock}>
         {data.resultCode === 0
-          ? <div>
-
-            <div>{data.data.login}</div>
+          ? <div>{data.data.login}
+            <button onClick={setLogoutThunkCreator}>logout</button>
           </div>
           : <NavLink to={'/login'}>Login</NavLink>}
-        {/*<NavLink to={'/login'}>Login</NavLink>*/}
       </div>
     </div>
   );

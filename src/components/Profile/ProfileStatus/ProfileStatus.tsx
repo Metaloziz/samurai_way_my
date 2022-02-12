@@ -1,11 +1,11 @@
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent, Component } from 'react';
 
 type ProfileStatusPT = {
   status: string
   updateUserStatusThunkCreator: (status: string) => void
 }
 
-export class ProfileStatus extends React.Component<ProfileStatusPT> {
+export class ProfileStatus extends Component<ProfileStatusPT> {
 
   state = {
     editMode: false,

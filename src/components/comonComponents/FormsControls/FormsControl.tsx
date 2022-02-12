@@ -4,6 +4,7 @@ import style from './FormsControl.module.css';
 
 interface TextAreaType extends WrappedFieldProps {
   placeholder: string;
+  type: string;
 } // другая запись для разнообразия
 
 export const TextArea = (props: TextAreaType) => {
@@ -24,7 +25,7 @@ export const Input = (props: TextAreaType) => {
 
   return (
     <div className={`${style.formControl} ${showError ? style.error : ''}`}>
-      <input placeholder={props.placeholder} {...props.input} />
+      <input placeholder={props.placeholder} {...props.input} type={props.type} />
       {showError && <div><span>{props.meta.error}</span></div>}
     </div>
   );

@@ -7,16 +7,17 @@ export type setUserDataACPT = ReturnType<typeof setUserDataAC>
 
 export const SET_USER_DATA = 'SET_USER_DATA';
 
-export const setUserDataAC = (data: userDataPT) => ({
+export const setUserDataAC = (data: userDataPT, isAuth: boolean) => ({
   type: SET_USER_DATA,
   data,
+  isAuth,
 } as const);
 
 const userDataInitialState: userDataPT = {
   data: {
-    id: 21608,
-    login: 'AndrewGaity',
-    email: 'andrewgaity@yandex.by',
+    id: 1,
+    login: '',
+    email: '',
   },
   messages: [''],
   fieldsErrors: [''],
@@ -27,7 +28,7 @@ const userDataInitialState: userDataPT = {
 export const auth_reducer = (state = userDataInitialState, action: actionPT): userDataPT => {
   switch (action.type) {
     case SET_USER_DATA:
-      return { ...state, ...action.data, isAuth: true };
+      return { ...state, ...action.data, isAuth: action.isAuth };
     default:
       return state;
   }
@@ -38,7 +39,7 @@ export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
     .me()
     .then((response) => {
         if (response.resultCode === 0) {
-          dispatch(setUserDataAC(response));
+          dispatch(setUserDataAC(response, true));
         } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
       },
     );
@@ -52,10 +53,12 @@ export const setLoginThunkCreator = (userData: loginAPIRequestType) => (dispatch
           authMeAPI.me()
             .then((response) => {
                 if (response.resultCode === 0) {
-                  dispatch(setUserDataAC(response));
+                  dispatch(setUserDataAC(response, true));
                 } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
               },
             );
+        } else {
+          console.warn(state.data.messages[0]);
         }
       },
     );
@@ -68,11 +71,10 @@ export const setLogoutThunkCreator = () => (dispatch: Dispatch) => {
       if (res.data.resultCode === 0) {
         authMeAPI.me()
           .then((response) => {
-              if (response.resultCode === 0) {
-                dispatch(setUserDataAC(response));
-              } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
-            },
-          );
+            if (response.resultCode !== 0) {
+              dispatch(setUserDataAC(response, false));
+            } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
+          });
       }
     });
 };

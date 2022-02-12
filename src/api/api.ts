@@ -49,7 +49,7 @@ export const authMeAPI = {
       .post<null, AxiosResponse<loginAPIResponseType>, loginAPIRequestType>('/auth/login', data)
       .then((response) => {
         return response;
-      });
+      }).catch((res) => res);
   },
   logout() {
     return instance.delete('/auth/login');

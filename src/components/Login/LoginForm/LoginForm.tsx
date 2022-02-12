@@ -20,7 +20,7 @@ const LoginReduxForm = (props: InjectedFormProps<FormDataType>) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field type={'text'}
+        <Field type='text'
                name={'email'}
                placeholder={'login'}
                component={Input}
@@ -28,7 +28,7 @@ const LoginReduxForm = (props: InjectedFormProps<FormDataType>) => {
         />
       </div>
       <div>
-        <Field type={'password'}
+        <Field type='password'
                name={'password'}
                placeholder={'password'}
                component={Input}
