@@ -1,9 +1,11 @@
-import { ReactElement } from 'react';
+import s from './NavFriends.module.css'
+import React from "react";
 
-import style from './NavFriends.module.css';
 
-export const NavFriends = (): ReactElement => (
-  <div>
-    <div className={style.navFriends}>Friendssssss</div>
-  </div>
-);
+export const NavFriends = () => {
+    return (
+        <div>
+        <div className={s.navFriends}>Friendssssss</div>
+        </div>
+    )
+}

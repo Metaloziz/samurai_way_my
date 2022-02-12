@@ -1,4 +1,4 @@
-export {};
+export {}
 // export type setLoginACPT = ReturnType<typeof setLoginAC>
 //
 // const initialState: loginAPIRequestType = {
@@ -18,3 +18,4 @@ export {};
 //     let a = action
 //     return state
 // }
+

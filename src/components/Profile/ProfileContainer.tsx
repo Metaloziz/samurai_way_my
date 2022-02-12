@@ -1,96 +1,98 @@
-import { Component, ComponentType, ReactElement } from 'react';
-
-import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { compose } from 'redux';
-
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import React, {Component} from "react";
+import {Profile} from "./Profile";
+import {connect} from "react-redux";
 import {
-  ProfileType,
-  setUserStatusThunkCreator,
-  setUserThunkCreator,
-  updateUserStatusThunkCreator,
-} from '../../redux_my/profile_reducer';
-import { AppStatePT } from '../../redux_my/store_redux';
+    ProfileType,
+    setUserStatusThunkCreator,
+    setUserThunkCreator,
+    updateUserStatusThunkCreator
+} from "../../redux/profile_reducer";
+import {AppStatePT} from "../../redux/store_redux";
+import {useParams} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
-import { Profile } from './Profile';
 
 type PathParamPT = {
-  userId: string;
-};
+    userId: string
+}
 
-export class ProfileContainerAPI extends Component<
-  mapStateToPropsPT & mapDispatchToPropsType & { params: PathParamPT }
-> {
-  componentDidMount = (): void => {
-    // eslint-disable-next-line react/destructuring-assignment
-    let userID = this.props.params.userId;
+export class ProfileContainerAPI extends Component<mapStateToPropsPT
+    & mapDispatchToPropsType
+    & { params: PathParamPT }> {
 
-    if (!userID) {
-      userID = '21608';
+
+    componentDidMount() {
+
+        let userID = this.props.params.userId
+
+        if (!userID) {
+            userID = '21608';
+        }
+
+        this.props.setUserThunkCreator(userID)
+        this.props.setUserStatusThunkCreator(userID)
+        // let userId = this.props.params.userId
+        //
+        // if (!userId) {
+        //     userId = '2';
+        // }
+        //
+        // profileAPI(userId).then((state) => {
+        //     this.props.setUserProfileAC(state)
+        //     console.log('profileAPI')
+        // })
+        // debugger
     }
 
-    // eslint-disable-next-line react/destructuring-assignment
-    this.props.setUserThunkCreator(userID);
-    // eslint-disable-next-line react/destructuring-assignment
-    this.props.setUserStatusThunkCreator(userID);
-    // let userId = this.props.params.userId
-    //
-    // if (!userId) {
-    //     userId = '2';
-    // }
-    //
-    // profileAPI(userId).then((state) => {
-    //     this.props.setUserProfileAC(state)
-    //     console.log('profileAPI')
-    // })
-    // debugger
-  };
 
-  render(): ReactElement {
-    const { profile, status, updateUserStatusThunkCreatorESL } = this.props;
+    render() {
+        return <Profile profile={this.props.profile}
+                        status={this.props.status}
+                        updateUserStatusThunkCreator={
+                            this.props.updateUserStatusThunkCreator}/>
 
-    return (
-      <Profile
-        profile={profile}
-        status={status}
-        updateUserStatusThunkCreator={updateUserStatusThunkCreatorESL}
-      />
-    );
-  }
+    }
 }
 
 type mapStateToPropsPT = {
-  profile: ProfileType;
-  status: string;
-};
-const mapStateToProps = (state: AppStatePT): mapStateToPropsPT => ({
-  profile: state.profilePage.profile,
-  status: state.profilePage.status,
-});
+    profile: ProfileType
+    status: string
+}
+const mapStateToProps = (state: AppStatePT): mapStateToPropsPT => {
+    return {
+        profile: state.profilePage.profile,
+        status: state.profilePage.status
+    }
+}
 
 type mapDispatchToPropsType = {
-  setUserThunkCreator: (useId: string) => void;
-  setUserStatusThunkCreator: (status: string) => void;
-  updateUserStatusThunkCreatorESL: (status: string) => void;
-};
+    setUserThunkCreator: (useId: string) => void
+    setUserStatusThunkCreator: (status: string) => void
+    updateUserStatusThunkCreator: (status: string) => void
+}
 const mapDispatchToProps: mapDispatchToPropsType = {
-  setUserThunkCreator,
-  setUserStatusThunkCreator,
-  updateUserStatusThunkCreatorESL: updateUserStatusThunkCreator,
-};
+    setUserThunkCreator: setUserThunkCreator,
+    setUserStatusThunkCreator: setUserStatusThunkCreator,
+    updateUserStatusThunkCreator: updateUserStatusThunkCreator
+}
 
-export const withRouter = (WrappedComponent: typeof Component) => (props: object) => {
-  const params = useParams(); // useParams возвращает объект пары key/value (ключ/значение) параметров URL.
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <WrappedComponent {...props} params={params} />;
-};
+export const withRouter = (WrappedComponent: typeof React.Component) => {
+    return (props: object) => {
+        const params = useParams(); //useParams возвращает объект пары key/value (ключ/значение) параметров URL.
+        return (
+            <WrappedComponent {...props} params={params}/>
+        );
+    }
+}
 
-export const ProfileContainer = compose<ComponentType>(
-  withAuthRedirect,
-  connect(mapStateToProps, mapDispatchToProps),
-  withRouter,
-)(ProfileContainerAPI);
+
+export const ProfileContainer = compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter
+)(ProfileContainerAPI)
+
 
 // const ProfileContainerURL = withRouter(ProfileContainerAPI)
 //
@@ -98,3 +100,5 @@ export const ProfileContainer = compose<ComponentType>(
 //
 // export const ProfileContainer = withAuthRedirect(connectComponent)
 //
+
+

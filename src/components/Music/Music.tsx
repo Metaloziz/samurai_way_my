@@ -1,9 +1,8 @@
-import { ReactElement } from 'react';
+import React from "react";
+import s from "../News/News.module.css";
 
-import style from '../News/News.module.css';
-
-export const Music = (): ReactElement => (
-  <div className={style.header}>
-    <h1>Music</h1>
-  </div>
-);
+export let Music = () => {
+    return (<div className={s.header}>
+        <h1>Music</h1>
+    </div>)
+}

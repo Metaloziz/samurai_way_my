@@ -1,26 +1,22 @@
-import { ReactElement } from 'react';
+import React from 'react';
+import {WrappedFieldProps} from "redux-form";
+import s from './FormsControl.module.css'
 
-import { WrappedFieldProps } from 'redux-form';
-
-import s from './FormsControl.module.css';
 
 interface TextAreaType extends WrappedFieldProps {
-  placeholder: string;
+    placeholder: string
 } // другая запись для разнообразия
 
-export const TextArea = ({ placeholder, input, meta }: TextAreaType): ReactElement => {
-  const showError = meta.touched && meta.error;
 
-  return (
-    <div className={s.formControl}>
-      {/* input is standard props */}
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <textarea placeholder={placeholder} {...input} />
-      {showError && (
-        <div>
-          <span>error</span>
+export const TextArea = (props: TextAreaType) => {
+
+
+    const showError = props.meta.touched && props.meta.error
+
+    return (
+        <div className={s.formControl}>
+            <textarea placeholder={props.placeholder} {...props.input}/>
+            {showError && <div><span>error</span></div>}
         </div>
-      )}
-    </div>
-  );
+    );
 };

@@ -1,36 +1,37 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
+import {connect} from "react-redux";
+import {AppStatePT} from "../redux/store_redux";
+import {Navigate} from "react-router-dom";
 
-import { connect, ConnectedComponent } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 
-import { AppStatePT } from '../redux_my/store_redux';
-
-type PropsTypeFromMDTP = {
-  isAuth: boolean;
-};
-
-type MapStateToPropsType = (state: AppStatePT) => PropsTypeFromMDTP;
-type RedirectComponentType = (props: PropsTypeFromMDTP) => ReactElement;
-
-const mapStateToProps: MapStateToPropsType = state => ({
-  isAuth: state.auth.isAuth,
-});
-
-export function withAuthRedirect<T>(
-  Component: React.ComponentType<T>,
-): ConnectedComponent<RedirectComponentType, Omit<PropsTypeFromMDTP, 'isAuth'>> {
-  //  <T> не работает со стрелочными функциями
-
-  const RedirectComponent: RedirectComponentType = props => {
-    const { isAuth, ...restProps } = props; // Достаём isAuth, т.к. нам не нужно его передавать в компоненту
-
-    if (!isAuth) {
-      return <Navigate to="/login" />;
-    }
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Component {...(restProps as T)} />; // Все что мы закинем сюда, добавит новые ключи в конечной компоненте
-  };
-
-  // let ConnectRedirectComponent = connect(mapStateToProps)(RedirectComponent)
-  return connect(mapStateToProps)(RedirectComponent);
+type mapStateToPropsType = {
+    isAuth: boolean
 }
+
+
+let mapStateToProps = (state: AppStatePT): mapStateToPropsType => {
+
+    return {
+        isAuth: state.auth.isAuth
+    }
+
+}
+
+
+export function withAuthRedirect<T>(Component: React.ComponentType<T>) {  //  <T> не работает со стрелочными функциями
+
+    let RedirectComponent = (props: mapStateToPropsType) => {
+
+        let {isAuth, ...restProps} = props   // Достаём isAuth, т.к. нам не нужно его передавать в компоненту
+
+        if (!isAuth) {
+
+            return <Navigate to={'/login'}/>
+        }
+        return <Component  {...restProps as T}/> // Все что мы закинем сюда, добавит новые ключи в конечной компоненте
+    }
+
+    // let ConnectRedirectComponent = connect(mapStateToProps)(RedirectComponent)
+    return connect(mapStateToProps)(RedirectComponent)
+}
+

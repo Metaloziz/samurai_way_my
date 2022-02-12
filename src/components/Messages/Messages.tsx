@@ -1,46 +1,43 @@
-import { ReactElement } from 'react';
-
-import { AddMessageForm, MessageReduxInputType } from './AddMessageForm/AddMessageForm';
-import { DialogItem } from './DialogItem/DialogItem';
-import style from './Messages.module.css';
+import React from "react";
+import {DialogItem} from "./DialogItem/DialogItem";
+import {MessagesItem} from "./MessagesItem/MessagesItem";
+import s from './Messages.module.css'
 import {
-  mapDispatchToPropsMessageType,
-  mapStateToPropsMessageType,
-} from './MessagesContainer';
-import { MessagesItem } from './MessagesItem/MessagesItem';
+    mapDispatchToPropsMessageType,
+    mapStateToPropsMessageType
+} from "./MessagesContainer";
+import {AddMessageForm, MessageReduxInputType} from "./AddMessageForm/AddMessageForm";
 
-export const Messages = ({
-  addNewMessage,
-  dialogsPage,
-}: Omit<mapStateToPropsMessageType, 'isAuth'> &
-  mapDispatchToPropsMessageType): ReactElement => {
-  const dialogsDataItems = dialogsPage.dialogs.map(item => (
-    <DialogItem key={item.id} id={item.id} name={item.name} ava={item.ava} />
-  ));
 
-  const messagesDataItems = dialogsPage.messages.map(item => (
-    <MessagesItem key={item.id} id={item.id} text={item.text} />
-  ));
+export let Messages = (props: Omit<mapStateToPropsMessageType, "isAuth">
+    & mapDispatchToPropsMessageType) => {
 
-  const addNewPost = (data: MessageReduxInputType): void => {
-    if (data.message) {
-      // check empty
-      addNewMessage(data.message.trim());
-    } else {
-      // eslint-disable-next-line no-console
-      console.warn('field is empty');
+    let dialogsDataItems = props.dialogsPage.dialogs
+        .map((item, index) => <DialogItem key={index} id={item.id} name={item.name}
+                                          ava={item.ava}/>)
+
+    let messagesDataItems = props.dialogsPage.messages
+        .map((item, index) => <MessagesItem key={index} id={item.id} text={item.text}/>)
+
+    let addNewPost = (data: MessageReduxInputType) => {
+
+        if (data.message) {              // check empty
+            props.addNewMessage(data.message.trim())
+        } else {
+            console.warn('field is empty')
+        }
     }
-  };
 
-  return (
-    <div className={style.dialogs}>
-      <div className={style.dialogItems}>{dialogsDataItems}</div>
-      <div className={style.messages}>
-        <div>{messagesDataItems}</div>
-        <div>
-          <AddMessageForm onSubmit={addNewPost} />
-        </div>
-      </div>
-    </div>
-  );
-};
+    return (
+        <div className={s.dialogs}>
+            <div className={s.dialogItems}>
+                {dialogsDataItems}
+            </div>
+            <div className={s.messages}>
+                <div>{messagesDataItems}</div>
+                <div>
+                    <AddMessageForm onSubmit={addNewPost}/>
+                </div>
+            </div>
+        </div>)
+}

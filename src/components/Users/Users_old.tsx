@@ -1,29 +1,27 @@
-import React, { ReactElement } from 'react';
-
-import * as axios from 'axios';
-
-import image from './imgAva/user.png';
-import style from './Users.module.css';
+import React from 'react';
+import s from './Users.module.css'
+import * as axios from "axios";
+import image from '../Users/imgAva/user.png'
 
 type UsersPT = {
-  users: UserPT[];
-  // totalCount: number;
-  // error: string;
-};
+    users: UserPT[]
+    totalCount: number
+    error: string
+}
 type UserPT = {
-  id: number;
-  name: string;
-  status: string;
-  photos: {
-    small: string;
-    large: string;
-  };
-  followed: boolean;
-};
+    id: number
+    name: string
+    status: string
+    photos: {
+        small: string
+        large: string
+    }
+    followed: boolean
+}
 type mainPT = {
-  follow: (userID: number) => void;
-  setUsers: (users: UserPT[]) => void;
-};
+    follow: (userID: number) => void
+    setUsers: (users: UserPT[]) => void
+}
 
 // export type usersPT = {
 //     id: number
@@ -38,37 +36,44 @@ type mainPT = {
 //     country: string
 // }
 
-export const Users = ({ follow, setUsers, users }: UsersPT & mainPT): ReactElement => {
-  const callBack = (userID: number): void => follow(Number(userID));
+export const Users = (props: UsersPT & mainPT) => {
 
-  const setCallBack = (): void => {
-    axios.default
-      .get('https://social-network.samuraijs.com/api/1.0/users')
-      .then(state => {
-        setUsers(state.data.items);
-      });
-  };
+    const callBack = (userID: number) => props.follow(Number(userID))
 
-  return (
-    <div>
-      <button type="button" onClick={setCallBack}>
-        setUsers
-      </button>
-      {users.map(user => (
-        <div id={String(user.id)} key={user.id} className={style.main_div}>
-          <div>
-            <img alt="ava" src={user.photos.small || image} />
-          </div>
-          <div>{user.name}</div>
-          <div>{user.status}</div>
-          {/* <div>{user.location.country}</div> */}
-          {/* <div>{user.location.city}</div> */}
-          {user.followed ? 'followed' : 'unFollowed'}
-          <button type="button" onClick={() => callBack(user.id)}>
-            follow
-          </button>
+    const setCallBack = () => {
+        axios.default
+            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .then((state) => {
+                props.setUsers(state.data.items)
+            })
+    }
+
+
+    return (
+        <div>
+            <button onClick={setCallBack}>setUsers</button>
+            {props.users.map((user) => {
+
+                return <div id={String(user.id)} key={user.id} className={s.main_div}>
+                    <div><img alt={'ava'} src={user.photos.small || image}/></div>
+                    <div>{user.name}</div>
+                    <div>{user.status}</div>
+                    {/*<div>{user.location.country}</div>*/}
+                    {/*<div>{user.location.city}</div>*/}
+
+                    {user.followed ? 'followed' : 'unFollowed'}
+
+                    <button onClick={() => callBack(user.id)}>follow</button>
+                </div>
+            })}
         </div>
-      ))}
-    </div>
-  );
+    );
 };
+
+
+
+
+
+
+
+
