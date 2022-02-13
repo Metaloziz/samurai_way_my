@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component, ComponentType } from 'react';
 import { Profile } from './Profile';
 import { connect } from 'react-redux';
 import {
@@ -8,9 +8,9 @@ import {
   updateUserStatusThunkCreator,
 } from 'redux/profile_reducer';
 import { AppStatePT } from 'redux/store_redux';
-import { useParams } from 'react-router-dom';
 import { withAuthRedirect } from 'hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { withRouter } from 'utils/withRouter/WithRouter';
 
 type PathParamPT = {
   userId: string
@@ -62,16 +62,7 @@ const mapDispatchToProps: mapDispatchToPropsType = {
   updateUserStatusThunkCreator: updateUserStatusThunkCreator,
 };
 
-export const withRouter = (WrappedComponent: typeof React.Component) => {
-  return (props: object) => {
-    const params = useParams(); //useParams возвращает объект пары key/value (ключ/значение) параметров URL.
-    return (
-      <WrappedComponent {...props} params={params} />
-    );
-  };
-};
-
-export const ProfileContainer = compose<React.ComponentType>(
+export const ProfileContainer = compose<ComponentType>(
   withAuthRedirect,
   connect(mapStateToProps, mapDispatchToProps),
   withRouter,

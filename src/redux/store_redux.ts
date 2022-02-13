@@ -19,6 +19,7 @@ import { auth_reducer, setUserDataACPT } from './auth_reducer';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
+import { app_reducer, setInitializedAPPACPT } from 'redux/app_reducer';
 
 export type AppStatePT = ReturnType<typeof reducer>
 
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   users: users_reducer,
   auth: auth_reducer,
   form: formReducer,   // redux-form
+  app: app_reducer,
 });
 
 export const store = createStore(reducer, applyMiddleware(thunkMiddleware));
@@ -50,3 +52,4 @@ export type actionPT =
   | setUserProfileACPT
   | setUserDataACPT
   | setUserStatusACPT
+  | setInitializedAPPACPT

@@ -5,15 +5,11 @@ import { AppStatePT } from 'redux/store_redux';
 import { Component } from 'react';
 
 type mapDispatchToPropsPT = {
-  setUserDataThunkCreator: () => void
+  // setUserDataThunkCreator: () => void
   setLogoutThunkCreator: () => void
 }
 
 export class HeaderContainerAPI extends Component<userDataPT & mapDispatchToPropsPT> {
-
-  componentDidMount = () => {
-    this.props.setUserDataThunkCreator();
-  };
 
   render() {
     return (
@@ -26,7 +22,6 @@ export class HeaderContainerAPI extends Component<userDataPT & mapDispatchToProp
 const mapStateToProps = (state: AppStatePT): userDataPT => state.auth;
 
 const mapDispatchToProps: mapDispatchToPropsPT = {
-  setUserDataThunkCreator,
   setLogoutThunkCreator,
 };
 
