@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { Input } from 'components/comonComponents/FormsControls/FormsControl';
 import { maxLengthCreator, requiredField } from 'utils/validators/validators';
+import style from './LoginForm.module.css';
 
 export type FormDataType = {
   email: string
@@ -39,6 +40,9 @@ const LoginReduxForm = (props: InjectedFormProps<FormDataType>) => {
         <Field type={'checkbox'}
                name={'remember me'}
                component={'input'} /> remember me
+      </div>
+      <div className={style.errorMessage}>
+        {props.error}
       </div>
       <div>
         <button>Login</button>

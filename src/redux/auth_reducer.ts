@@ -2,6 +2,7 @@ import { actionPT } from './store_redux';
 import { userDataPT } from 'components/Header/Header';
 import { Dispatch } from 'redux';
 import { authMeAPI, loginAPIRequestType } from 'api/api';
+import { stopSubmit } from 'redux-form';
 
 export type setUserDataACPT = ReturnType<typeof setUserDataAC>
 
@@ -58,6 +59,12 @@ export const setLoginThunkCreator = (userData: loginAPIRequestType) => (dispatch
               },
             );
         } else {
+          let action = stopSubmit('LOGIN', {
+            _error: state.data.messages[0] ? state.data.messages[0] : 'something is wrong',
+            // email: 'email is wrong',
+            // password: 'password is wrong',
+          });
+          dispatch(action);
           console.warn(state.data.messages[0]);
         }
       },

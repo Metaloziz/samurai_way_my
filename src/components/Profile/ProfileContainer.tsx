@@ -23,7 +23,7 @@ export class ProfileContainerAPI extends Component<mapStateToPropsPT
   componentDidMount() {
     let userID = this.props.params.userId;
     if (!userID) {
-      userID = '21608';
+      userID = this.props.authorisedUserID;
     }
     this.props.setUserThunkCreator(userID);
     this.props.setUserStatusThunkCreator(userID);
@@ -41,11 +41,13 @@ export class ProfileContainerAPI extends Component<mapStateToPropsPT
 type mapStateToPropsPT = {
   profile: ProfileType
   status: string
+  authorisedUserID: string
 }
 const mapStateToProps = (state: AppStatePT): mapStateToPropsPT => {
   return {
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authorisedUserID: state.auth.data.id.toString(),
   };
 };
 
