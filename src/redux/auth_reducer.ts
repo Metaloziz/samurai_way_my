@@ -3,6 +3,7 @@ import { userDataPT } from 'components/Header/Header';
 import { Dispatch } from 'redux';
 import { authMeAPI, loginAPIRequestType } from 'api/api';
 import { stopSubmit } from 'redux-form';
+import { ThunkType } from 'redux/app_reducer';
 
 export type setUserDataACPT = ReturnType<typeof setUserDataAC>
 
@@ -36,8 +37,7 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
 };
 
 export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
-  return authMeAPI
-    .me()
+  return authMeAPI.me()
     .then((response) => {
         if (response.resultCode === 0) {
           dispatch(setUserDataAC(response, true));
@@ -46,18 +46,12 @@ export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
     );
 };
 
-export const setLoginThunkCreator = (userData: loginAPIRequestType) => (dispatch: Dispatch) => {
+export const setLoginThunkCreator = (userData: loginAPIRequestType): ThunkType => async (dispatch) => {
   authMeAPI
     .login(userData)
     .then((state) => {
         if (state.data.resultCode === 0) {
-          authMeAPI.me()
-            .then((response) => {
-                if (response.resultCode === 0) {
-                  dispatch(setUserDataAC(response, true));
-                } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
-              },
-            );
+          dispatch(setUserDataThunkCreator()); // вы зов другой санки
         } else {
           let action = stopSubmit('LOGIN', {
             _error: state.data.messages[0] ? state.data.messages[0] : 'something is wrong',

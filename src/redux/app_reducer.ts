@@ -1,7 +1,8 @@
-import { actionPT } from 'redux/store_redux';
+import { actionPT, BaseThunkType } from 'redux/store_redux';
 import { Dispatch } from 'redux';
-import { setUserDataAC } from 'redux/auth_reducer';
+import { setUserDataAC, setUserDataThunkCreator } from 'redux/auth_reducer';
 import { authMeAPI } from 'api/api';
+import { FormAction } from 'redux-form';
 
 export type setInitializedAPPACPT = ReturnType<typeof setInitializedAPPAC>
 
@@ -30,16 +31,11 @@ export const app_reducer = (state = userDataInitialState, action: actionPT): use
   }
 };
 
-export const initializeThunkCreator = () => (dispatch: Dispatch) => {
+export type ThunkType = BaseThunkType<actionPT | FormAction> //типизация для вызова санки внутри санки
 
-  let promise = authMeAPI
-    .me()
-    .then((response) => {
-        if (response.resultCode === 0) {
-          dispatch(setUserDataAC(response, true));
-        } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
-      },
-    );
+export const initializeThunkCreator = (): ThunkType => async (dispatch) => {
+
+  let promise = dispatch(setUserDataThunkCreator());
 
   Promise.all([promise])
     .then(() => {

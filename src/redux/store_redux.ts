@@ -16,8 +16,8 @@ import {
   users_reducer,
 } from './users_reducer';
 import { auth_reducer, setUserDataACPT } from './auth_reducer';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import { Action, applyMiddleware, combineReducers, createStore } from 'redux';
+import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
 import { app_reducer, setInitializedAPPACPT } from 'redux/app_reducer';
 
@@ -53,3 +53,8 @@ export type actionPT =
   | setUserDataACPT
   | setUserStatusACPT
   | setInitializedAPPACPT
+
+
+export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStatePT, unknown, A>
+
+
