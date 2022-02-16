@@ -4,9 +4,14 @@ import { userDataPT } from 'components/Header/Header';
 import { ProfileType } from 'redux/profile_reducer';
 
 const instance = axios.create({
-  baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+  //baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+  // baseURL: process.env['BASE_URL'],
+  // baseURL: process.env['BASE_URL '],
+   baseURL: process.env.REACT_APP_BASE_URL,
+  // baseURL: process.env.BASE_URL as string,
   withCredentials: true,
-  headers: { 'API-KEY': 'b728554e-a804-44ec-ba30-3f649781c6f1' },
+  // headers: { 'API-KEY': '6d28cae1-0bac-4f22-abce-7f5967410738' },
+  headers: { 'API-KEY': process.env.REACT_APP_API_KEY as string },
 });
 
 export type loginAPIRequestType = {
