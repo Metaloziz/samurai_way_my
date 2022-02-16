@@ -7,7 +7,7 @@ import { DialogPT } from './DialogItem/DialogItem';
 import { MessagePT } from './MessagesItem/MessagesItem';
 import React from 'react';
 import { withAuthRedirect } from 'hoc/withAuthRedirect';
-import { selectAuth, selectDialogsPage } from 'utils/selectors/selectUsers';
+import { selectAuth, selectDialogsPage } from 'utils/selectors/selectors';
 
 export type mapStateToPropsMessageType = {
   dialogsPage: dialogsItemsPT

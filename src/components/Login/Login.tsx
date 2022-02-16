@@ -31,8 +31,10 @@ class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchTo
 
 type mapStateToPropsType = { isAuth: boolean }
 
+
+
 const mapStateToProps = (state: AppStatePT): mapStateToPropsType => {
-  return { isAuth: state.auth.isAuth };
+  return selectIsAuth(state);
 };
 
 type mapDispatchToPropsType = {

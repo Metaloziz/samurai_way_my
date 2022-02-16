@@ -14,7 +14,7 @@ import { withRouter } from 'utils/withRouter/WithRouter';
 import {
   selectAuthorisedUserID,
   selectProfilePage, selectProfilePageStatus,
-} from 'utils/selectors/selectUsers';
+} from 'utils/selectors/selectors';
 
 type PathParamPT = {
   userId: string
