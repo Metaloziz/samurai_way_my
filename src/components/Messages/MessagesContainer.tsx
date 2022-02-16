@@ -7,6 +7,7 @@ import { DialogPT } from './DialogItem/DialogItem';
 import { MessagePT } from './MessagesItem/MessagesItem';
 import React from 'react';
 import { withAuthRedirect } from 'hoc/withAuthRedirect';
+import { selectAuth, selectDialogsPage } from 'utils/selectors/selectUsers';
 
 export type mapStateToPropsMessageType = {
   dialogsPage: dialogsItemsPT
@@ -36,8 +37,8 @@ class MessagesClassComponent extends React.Component<mapStateToPropsMessageType 
 
 const mapStateToProps = (state: AppStatePT): mapStateToPropsMessageType => {
   return {
-    dialogsPage: state.dialogsPage,
-    isAuth: state.auth.isAuth, // add
+    dialogsPage: selectDialogsPage(state),
+    isAuth: selectAuth(state), // add
   };
 };
 

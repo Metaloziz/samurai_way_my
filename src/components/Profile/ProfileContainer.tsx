@@ -11,6 +11,10 @@ import { AppStatePT } from 'redux/store_redux';
 import { withAuthRedirect } from 'hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { withRouter } from 'utils/withRouter/WithRouter';
+import {
+  selectAuthorisedUserID,
+  selectProfilePage, selectProfilePageStatus,
+} from 'utils/selectors/selectUsers';
 
 type PathParamPT = {
   userId: string
@@ -43,11 +47,12 @@ type mapStateToPropsPT = {
   status: string
   authorisedUserID: string
 }
+
 const mapStateToProps = (state: AppStatePT): mapStateToPropsPT => {
   return {
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authorisedUserID: state.auth.data.id.toString(),
+    profile: selectProfilePage(state),
+    status: selectProfilePageStatus(state),
+    authorisedUserID: selectAuthorisedUserID(state),
   };
 };
 
