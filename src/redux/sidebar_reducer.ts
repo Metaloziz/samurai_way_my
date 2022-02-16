@@ -1,5 +1,5 @@
 import { actionPT } from './store_redux';
-import { ItemPT } from '../components/Navigation/Navigation';
+import { ItemPT } from 'components/Navigation/Navigation';
 
 export type sidebarATPT = ReturnType<typeof sidebarAC>
 

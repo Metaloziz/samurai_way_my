@@ -1,4 +1,4 @@
-import s from "./DialogItem.module.css";
+import style from "./DialogItem.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
 
@@ -10,7 +10,7 @@ export type DialogPT = {
 
 export let DialogItem = (props: DialogPT) =>
 
-    <div className={s.dialog}>
+    <div className={style.dialog}>
         <img alt={'ava'} src={props.ava} title={props.name} id={props.id.toString()}/>
-        <NavLink className={s.navLink} to={'/messages/' + props.id} > {props.name} </NavLink>
+        <NavLink className={style.navLink} to={'/messages/' + props.id} > {props.name} </NavLink>
     </div>

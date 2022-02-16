@@ -49,7 +49,7 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
 }
 
 const mapStateToProps: mapStateToPropsType = (state: AppStatePT): UsersStatePT => {
-  return selectUsers(state)
+  return selectUsers(state);
 };
 
 let mapDispatchToProps: mapDispatchToPropsPT = {
