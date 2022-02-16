@@ -1,7 +1,5 @@
 import { actionPT, BaseThunkType } from 'redux/store_redux';
-import { Dispatch } from 'redux';
-import { setUserDataAC, setUserDataThunkCreator } from 'redux/auth_reducer';
-import { authMeAPI } from 'api/api';
+import { setUserDataThunkCreator } from 'redux/auth_reducer';
 import { FormAction } from 'redux-form';
 
 export type setInitializedAPPACPT = ReturnType<typeof setInitializedAPPAC>
@@ -35,7 +33,7 @@ export type ThunkType = BaseThunkType<actionPT | FormAction> //типизаци�
 
 export const initializeThunkCreator = (): ThunkType => async (dispatch) => {
 
-  let promise = dispatch(setUserDataThunkCreator());
+  let promise = dispatch(setUserDataThunkCreator()); // вызов второй санки
 
   Promise.all([promise])
     .then(() => {
