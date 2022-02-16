@@ -5,6 +5,7 @@ import { setLoginThunkCreator } from 'redux/auth_reducer';
 import { loginAPIRequestType } from 'api/api';
 import { AppStatePT } from 'redux/store_redux';
 import { Navigate } from 'react-router-dom';
+import { selectIsAuth } from 'utils/selectors/selectors';
 
 class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
 
@@ -30,8 +31,6 @@ class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchTo
 // <LoginForm onSubmit={onSubmit}/> так это контейнерная компонента, то в onSubmit автоматом попадают пропсы
 
 type mapStateToPropsType = { isAuth: boolean }
-
-
 
 const mapStateToProps = (state: AppStatePT): mapStateToPropsType => {
   return selectIsAuth(state);

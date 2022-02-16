@@ -13,7 +13,6 @@ export const SET_INITIALIZED = 'SET_INITIALIZED';
 export const setInitializedAPPAC = (initialized: boolean) => ({
   type: SET_INITIALIZED,
   initialized,
-
 } as const);
 
 const userDataInitialState: userDataInitialStateType = {
