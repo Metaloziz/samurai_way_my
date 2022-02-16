@@ -1,6 +1,6 @@
 import { Header, userDataPT } from './Header';
 import { connect } from 'react-redux';
-import { setLogoutThunkCreator, setUserDataThunkCreator } from 'redux/auth_reducer';
+import { setLogoutThunkCreator } from 'redux/auth_reducer';
 import { AppStatePT } from 'redux/store_redux';
 import { Component } from 'react';
 

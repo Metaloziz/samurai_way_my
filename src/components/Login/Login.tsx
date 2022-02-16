@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormDataType, LoginForm } from './LoginForm/LoginForm';
 import { connect } from 'react-redux';
 import { setLoginThunkCreator } from 'redux/auth_reducer';
@@ -6,8 +5,9 @@ import { loginAPIRequestType } from 'api/api';
 import { AppStatePT } from 'redux/store_redux';
 import { Navigate } from 'react-router-dom';
 import { selectIsAuth } from 'utils/selectors/selectors';
+import { Component } from 'react';
 
-class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
+class LoginContainer extends Component<mapStateToPropsType & mapDispatchToPropsType> {
 
   onSubmit = (formData: FormDataType) => {
     console.log(formData);

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { Input } from 'components/comonComponents/FormsControls/FormsControl';
 import { maxLengthCreator, requiredField } from 'utils/validators/validators';
