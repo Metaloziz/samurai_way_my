@@ -3,6 +3,9 @@ import style from './Content_header.module.css';
 import { ContentHeaderPT } from '../../Profile';
 import { Preloader } from '../../../comonComponents/Preloader';
 import { ProfileStatus } from '../../ProfileStatus/ProfileStatus';
+import {
+  ProfileStatusWithHooks,
+} from 'components/Profile/ProfileStatus/ProfileStatusWithHooks';
 
 export const ContentHeader = (props: ContentHeaderPT) => {
 
@@ -24,8 +27,10 @@ export const ContentHeader = (props: ContentHeaderPT) => {
         {/*    <img alt={content[0].alt} src={content[0].src}/>*/}
         {/*</div>*/}
         <img alt={'ava'} src={props.profile.photos.large} />
-        <ProfileStatus status={props.status}
-                       updateUserStatusThunkCreator={props.updateUserStatusThunkCreator} />
+        {/* <ProfileStatus status={props.status} */}
+        {/*                updateUserStatusThunkCreator={props.updateUserStatusThunkCreator} /> */}
+        <ProfileStatusWithHooks status={props.status}
+                                updateUserStatusThunkCreator={props.updateUserStatusThunkCreator} />
         <div>
           <div>about me: {props.profile.aboutMe}</div>
           <div>contacts: {props.profile.contacts['facebook']}</div>

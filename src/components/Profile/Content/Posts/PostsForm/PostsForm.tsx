@@ -1,5 +1,5 @@
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { TextArea } from 'components/comonComponents/FormsControls/FormsControl';
 import { maxLengthCreator, requiredField } from 'utils/validators/validators';
 
@@ -11,7 +11,7 @@ export type PostsReduxFormType = {
 
 const PostsReduxForm = memo((props: InjectedFormProps<PostsReduxFormType>) => {
 
-  let maxLength15 = useCallback(maxLengthCreator(15), []);
+  let maxLength15 = useCallback(maxLengthCreator(15), [15]);
 
   return (
     <form onSubmit={props.handleSubmit}>

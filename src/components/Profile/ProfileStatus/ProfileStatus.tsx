@@ -21,7 +21,7 @@ export class ProfileStatus extends Component<ProfileStatusPT> {
     this.props.updateUserStatusThunkCreator(this.state.status.trim());
   };
 
-  changeCallBack = (e: ChangeEvent<HTMLInputElement>) => {  // изменяет н
+  changeTextHandle = (e: ChangeEvent<HTMLInputElement>) => {  // изменяет н
     this.setState({ status: e.currentTarget.value });
   };
 
@@ -41,7 +41,7 @@ export class ProfileStatus extends Component<ProfileStatusPT> {
               onBlur={this.setEditModFalse}
               autoFocus
               type={'text'}
-              onChange={this.changeCallBack}
+              onChange={this.changeTextHandle}
               // defaultValue={this.state.status}
               value={this.state.status} /></div>
             : <div>

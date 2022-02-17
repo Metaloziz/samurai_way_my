@@ -11,7 +11,7 @@ import { Users } from './Users';
 import { Preloader } from '../comonComponents/Preloader';
 import { withAuthRedirect } from 'hoc/withAuthRedirect';
 import { compose } from 'redux';
-import { selectUsers, selectUsersSuper } from 'utils/selectors/selectors';
+import { selectUsersSuper } from 'utils/selectors/selectors';
 
 export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatchToPropsPT> {
 
