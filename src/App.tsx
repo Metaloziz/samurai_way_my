@@ -23,7 +23,6 @@ class App extends Component<mapDispatchToPropsPT & userDataInitialStateType> {
   };
 
   render() {
-
     if (!this.props.initialized) {
       return <Preloader />;
     }

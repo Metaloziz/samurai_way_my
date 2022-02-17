@@ -8,6 +8,11 @@ import { Provider } from 'react-redux'; // !!!!!!!!!!!!!! new component
 import App from 'App';
 // import {store} from "./redux/store";
 
+setInterval(() => {
+  store.dispatch({ type: 'FACE' });
+  console.log('tick');
+}, 3000);
+
 let renderEntireTree = () => {
   ReactDOM.render(
     <BrowserRouter>

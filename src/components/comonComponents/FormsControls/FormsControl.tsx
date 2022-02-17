@@ -1,12 +1,13 @@
 import { WrappedFieldProps } from 'redux-form';
 import style from './FormsControl.module.css';
+import { memo } from 'react';
 
 interface TextAreaType extends WrappedFieldProps {
   placeholder: string;
   type: string;
 } // другая запись для разнообразия
 
-export const TextArea = (props: TextAreaType) => {
+export const TextArea = memo((props: TextAreaType) => {
 
   const showError = props.meta.touched && props.meta.error;
 
@@ -16,9 +17,9 @@ export const TextArea = (props: TextAreaType) => {
       {showError && <div><span>{props.meta.error}</span></div>}
     </div>
   );
-};
+});
 
-export const Input = (props: TextAreaType) => {
+export const Input = memo((props: TextAreaType) => {
 
   const showError = props.meta.touched && props.meta.error;
 
@@ -28,4 +29,4 @@ export const Input = (props: TextAreaType) => {
       {showError && <div><span>{props.meta.error}</span></div>}
     </div>
   );
-};
+});

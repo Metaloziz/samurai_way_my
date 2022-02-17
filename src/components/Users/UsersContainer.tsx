@@ -11,7 +11,7 @@ import { Users } from './Users';
 import { Preloader } from '../comonComponents/Preloader';
 import { withAuthRedirect } from 'hoc/withAuthRedirect';
 import { compose } from 'redux';
-import { selectUsers } from 'utils/selectors/selectors';
+import { selectUsers, selectUsersSuper } from 'utils/selectors/selectors';
 
 export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatchToPropsPT> {
 
@@ -48,8 +48,8 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
   }
 }
 
-const mapStateToProps: mapStateToPropsType = (state: AppStatePT): UsersStatePT => {
-  return selectUsers(state);
+const mapStateToProps: mapStateToPropsType = (state) => {
+  return selectUsersSuper(state);
 };
 
 let mapDispatchToProps: mapDispatchToPropsPT = {
