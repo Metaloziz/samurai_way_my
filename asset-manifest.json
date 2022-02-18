@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/samurai_way_my/static/css/main.1445a93f.chunk.css",
+    "main.js": "/samurai_way_my/static/js/main.44cff17d.chunk.js",
+    "main.js.map": "/samurai_way_my/static/js/main.44cff17d.chunk.js.map",
+    "runtime-main.js": "/samurai_way_my/static/js/runtime-main.6145eaa3.js",
+    "runtime-main.js.map": "/samurai_way_my/static/js/runtime-main.6145eaa3.js.map",
+    "static/js/2.cda80713.chunk.js": "/samurai_way_my/static/js/2.cda80713.chunk.js",
+    "static/js/2.cda80713.chunk.js.map": "/samurai_way_my/static/js/2.cda80713.chunk.js.map",
+    "static/js/3.fdc9c80e.chunk.js": "/samurai_way_my/static/js/3.fdc9c80e.chunk.js",
+    "static/js/3.fdc9c80e.chunk.js.map": "/samurai_way_my/static/js/3.fdc9c80e.chunk.js.map",
+    "index.html": "/samurai_way_my/index.html",
+    "static/css/main.1445a93f.chunk.css.map": "/samurai_way_my/static/css/main.1445a93f.chunk.css.map",
+    "static/js/2.cda80713.chunk.js.LICENSE.txt": "/samurai_way_my/static/js/2.cda80713.chunk.js.LICENSE.txt",
+    "static/media/blak_water.3ed3be3a.gif": "/samurai_way_my/static/media/blak_water.3ed3be3a.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6145eaa3.js",
+    "static/js/2.cda80713.chunk.js",
+    "static/css/main.1445a93f.chunk.css",
+    "static/js/main.44cff17d.chunk.js"
+  ]
+}
