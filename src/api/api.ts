@@ -6,7 +6,8 @@ import { ProfileType } from 'redux/profile_reducer';
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   withCredentials: true,
-  headers: { 'API-KEY': process.env.REACT_APP_API_KEY as string },
+  // headers: { 'API-KEY': process.env.REACT_APP_API_KEY as string },
+  headers: { 'API-KEY': '6d28cae1-0bac-4f22-abce-7f5967410738' },
 });
 
 export type loginAPIRequestType = {

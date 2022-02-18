@@ -22,6 +22,8 @@ class LoginContainer extends Component<mapStateToPropsType & mapDispatchToPropsT
         <div>
           LOGIN
         </div>
+        <div>Email: free@samuraijs.com</div>
+        <div>Password: free</div>
         <LoginForm onSubmit={this.onSubmit} />
       </>
     );
