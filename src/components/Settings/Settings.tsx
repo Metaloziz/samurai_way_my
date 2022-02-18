@@ -1,8 +1,8 @@
-import s from "../News/News.module.css";
+import style from "../News/News.module.css";
 import React from "react";
 
 export let Settings = () => {
-    return (<div className={s.header}>
+    return (<div className={style.header}>
         <h1>Settings</h1>
     </div>)
 }

@@ -1,6 +1,6 @@
-import React from 'react';
+import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
-import s from './Navigation.module.css';
+import style from './Navigation.module.css';
 
 export type sidebarPT = {
   sidebarPage: Array<ItemPT>
@@ -10,19 +10,19 @@ export type ItemPT = {
   title: string
 }
 
-export const Navigation = (state: sidebarPT) => {
+export const Navigation = memo((state: sidebarPT) => {
 
   return (<div>
-      <nav className={s.navigation}>
+      <nav className={style.navigation}>
         {state.sidebarPage.map((x, index) =>
-          <div key={index} className={s.item}>
+          <div key={index} className={style.item}>
             <NavLink to={x.path}
-                     className={({ isActive }) => isActive ? s.active : ''}> {x.title} </NavLink>
+                     className={({ isActive }) => isActive ? style.active : ''}> {x.title} </NavLink>
           </div>,
         )}
       </nav>
     </div>
   );
-};
+});
 
 

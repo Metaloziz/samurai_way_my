@@ -1,4 +1,4 @@
-import { ChangeEvent, memo, useState } from 'react';
+import { ChangeEvent, memo, useEffect, useState } from 'react';
 
 type ProfileStatusPT = {
   status: string
@@ -9,6 +9,12 @@ export const ProfileStatusWithHooks = memo((props: ProfileStatusPT) => {
 
   let [editMod, setEditMod] = useState<boolean>(false);
   let [statusText, setStatusText] = useState<string>(props.status);
+
+  useEffect(() => {
+    console.log('effect');
+    setStatusText(props.status);
+
+  }, [props.status]);
 
   const setEditModTrue = () => {
     setEditMod(true);

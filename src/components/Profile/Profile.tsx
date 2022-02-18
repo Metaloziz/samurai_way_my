@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ContentHeader } from './Content/Content_header/ContentHeader';
 import { PostsContainer } from './Content/Posts/PostsContainer';
 import { ProfileType } from 'redux/profile_reducer';
@@ -9,7 +9,7 @@ export type ContentHeaderPT = {
   updateUserStatusThunkCreator: (status: string) => void
 }
 
-export const Profile = (props: ContentHeaderPT) => {
+export const Profile = memo((props: ContentHeaderPT) => {
 
   return (
     <div>
@@ -19,4 +19,4 @@ export const Profile = (props: ContentHeaderPT) => {
       <PostsContainer />
     </div>
   );
-};
+});

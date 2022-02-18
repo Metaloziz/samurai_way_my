@@ -1,5 +1,5 @@
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { maxLengthCreator, requiredField } from 'utils/validators/validators';
 import { TextArea } from 'components/comonComponents/FormsControls/FormsControl';
 
@@ -8,7 +8,7 @@ export type  MessageReduxInputType = {
   // имя поля берётся из name={'message'} в <Filed />
 }
 
-const MessageReduxInput = (props: InjectedFormProps<MessageReduxInputType>) => {
+const MessageReduxInput = memo((props: InjectedFormProps<MessageReduxInputType>) => {
 
   let maxLength15 = useCallback(maxLengthCreator(30), []);
 
@@ -23,6 +23,6 @@ const MessageReduxInput = (props: InjectedFormProps<MessageReduxInputType>) => {
       <button>Add</button>
     </form>
   );
-};
+});
 
 export const AddMessageForm = reduxForm<MessageReduxInputType>({ form: 'MESSAGE' })(MessageReduxInput);

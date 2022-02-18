@@ -25,7 +25,8 @@ export class ProfileStatus extends Component<ProfileStatusPT> {
     this.setState({ status: e.currentTarget.value });
   };
 
-  componentDidUpdate(prevProps: any, presState: any) {
+  componentDidUpdate(prevProps: any, presState: any) { // предыдущие и следующие пропсы
+
     if (prevProps ! === this.props.status) {  // мы не можем использовать здесь хуки
       this.setState({ status: this.props.status });
     }

@@ -1,5 +1,4 @@
 import style from './NavFriends.module.css';
-import React from 'react';
 
 export const NavFriends = () => {
   return (

@@ -1,8 +1,7 @@
-import React from "react";
-import style from "../News/News.module.css";
+import style from '../News/News.module.css';
 
 export let Music = () => {
-    return (<div className={style.header}>
-        <h1>Music</h1>
-    </div>)
-}
+  return (<div className={style.header}>
+    <h1>Music</h1>
+  </div>);
+};

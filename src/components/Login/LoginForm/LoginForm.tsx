@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { Input } from 'components/comonComponents/FormsControls/FormsControl';
 import { maxLengthCreator, requiredField } from 'utils/validators/validators';
@@ -14,7 +14,7 @@ export type FormDataType = {
 // <form onSubmit={props.handleSubmit}>  метод из redux form,
 // который собирает данные из Fields
 
-const LoginReduxForm = (props: InjectedFormProps<FormDataType>) => {
+const LoginReduxForm = memo((props: InjectedFormProps<FormDataType>) => {
 
   let maxLength = useCallback(maxLengthCreator(30), []);
 
@@ -49,6 +49,6 @@ const LoginReduxForm = (props: InjectedFormProps<FormDataType>) => {
       </div>
     </form>
   );
-};
+});
 
 export const LoginForm = reduxForm<FormDataType>({ form: 'LOGIN' })(LoginReduxForm);

@@ -1,5 +1,6 @@
 import style from './Header.module.css';
 import { NavLink } from 'react-router-dom';
+import { memo } from 'react';
 
 type HeaderPT = {
   data: userDataPT
@@ -18,7 +19,7 @@ export  type userDataPT = {
   isAuth: boolean  // it is not from API
 }
 
-export const Header = ({ data, setLogoutThunkCreator }: HeaderPT) => {
+export const Header =memo( ({ data, setLogoutThunkCreator }: HeaderPT) => {
 
   return (
     <div className={style.header}>
@@ -36,4 +37,4 @@ export const Header = ({ data, setLogoutThunkCreator }: HeaderPT) => {
       </div>
     </div>
   );
-};
+});

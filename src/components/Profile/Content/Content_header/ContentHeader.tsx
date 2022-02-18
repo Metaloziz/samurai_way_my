@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 import style from './Content_header.module.css';
 import { ContentHeaderPT } from '../../Profile';
 import { Preloader } from '../../../comonComponents/Preloader';
-import { ProfileStatus } from '../../ProfileStatus/ProfileStatus';
 import {
   ProfileStatusWithHooks,
 } from 'components/Profile/ProfileStatus/ProfileStatusWithHooks';
 
-export const ContentHeader = (props: ContentHeaderPT) => {
+export const ContentHeader = memo((props: ContentHeaderPT) => {
 
   if (!props.profile) {
     return <Preloader />;
@@ -23,9 +22,6 @@ export const ContentHeader = (props: ContentHeaderPT) => {
   return (
     <div className={style.content}>
       <div className={style.item}>Title
-        {/*<div>*/}
-        {/*    <img alt={content[0].alt} src={content[0].src}/>*/}
-        {/*</div>*/}
         <img alt={'ava'} src={props.profile.photos.large} />
         {/* <ProfileStatus status={props.status} */}
         {/*                updateUserStatusThunkCreator={props.updateUserStatusThunkCreator} /> */}
@@ -40,4 +36,4 @@ export const ContentHeader = (props: ContentHeaderPT) => {
       </div>
     </div>
   );
-};
+});

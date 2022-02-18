@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import style from './Posts.module.css';
 import { OldPost } from './Old_post/OldPost';
 import { initialStateProfileType } from 'redux/profile_reducer';
@@ -10,7 +10,7 @@ export type NewPostPT = {
   addLikeAC: (postID: string) => void
 }
 
-export const Posts = ({ profilePage, addPostAC, addLikeAC }: NewPostPT) => {
+export const Posts = memo(({ profilePage, addPostAC, addLikeAC }: NewPostPT) => {
 
   const addNewItem = (data: PostsReduxFormType) => {
     console.log(data);
@@ -36,4 +36,4 @@ export const Posts = ({ profilePage, addPostAC, addLikeAC }: NewPostPT) => {
       </div>
     </div>
   );
-};
+});

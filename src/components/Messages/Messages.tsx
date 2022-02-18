@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { DialogItem } from './DialogItem/DialogItem';
 import { MessagesItem } from './MessagesItem/MessagesItem';
 import style from './Messages.module.css';
@@ -8,7 +8,7 @@ import {
 } from './MessagesContainer';
 import { AddMessageForm, MessageReduxInputType } from './AddMessageForm/AddMessageForm';
 
-export let Messages = (props: Omit<mapStateToPropsMessageType, 'isAuth'>
+export let Messages = memo((props: Omit<mapStateToPropsMessageType, 'isAuth'>
   & mapDispatchToPropsMessageType) => {
 
   let dialogsDataItems = props.dialogsPage.dialogs
@@ -39,4 +39,4 @@ export let Messages = (props: Omit<mapStateToPropsMessageType, 'isAuth'>
         </div>
       </div>
     </div>);
-};
+});

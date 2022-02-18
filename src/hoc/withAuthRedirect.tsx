@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { AppStatePT } from 'redux/store_redux';
 import { Navigate } from 'react-router-dom';
