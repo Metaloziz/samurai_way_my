@@ -34,6 +34,7 @@ class App extends Component<mapDispatchToPropsPT & userDataInitialStateType> {
         <div>
           <Routes>
             <Route path={'/'} element={<Navigate to={'/profile'} />} />
+            <Route path={'/samurai_way_my/'} element={<Navigate to={'/profile'} />} />
             <Route path='/profile' element={<ProfileContainer />}>
               <Route path=':userId' element={<ProfileContainer />} />
             </Route>
