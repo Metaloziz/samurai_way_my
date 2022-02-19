@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import { authMeAPI, loginAPIRequestType } from 'api/api';
 import { stopSubmit } from 'redux-form';
 import { ThunkType } from 'redux/app_reducer';
+import { ResultCode } from 'utils/enum/enum';
 
 export type setUserDataACPT = ReturnType<typeof setUserDataAC>
 
@@ -36,46 +37,39 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
   }
 };
 
-export const setUserDataThunkCreator = () => (dispatch: Dispatch) => {
-  return authMeAPI.me()
-    .then((response) => {
-        if (response.resultCode === 0) {
-          dispatch(setUserDataAC(response, true));
-        } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
-      },
-    );
+export const setUserDataThunkCreator = () => async (dispatch: Dispatch) => {
+  let response = await authMeAPI.me();
+
+  if (response.resultCode === ResultCode.success) {
+    dispatch(setUserDataAC(response, true));
+  } else {
+    console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
+  }
+
 };
 
 export const setLoginThunkCreator = (userData: loginAPIRequestType): ThunkType => async (dispatch) => {
-  authMeAPI
-    .login(userData)
-    .then((state) => {
-        if (state.data.resultCode === 0) {
-          dispatch(setUserDataThunkCreator()); // вы зов другой санки
-        } else {
-          let action = stopSubmit('LOGIN', {
-            _error: state.data.messages[0] ? state.data.messages[0] : 'something is wrong',
-            // email: 'email is wrong',
-            // password: 'password is wrong',
-          });
-          dispatch(action);
-          console.warn(state.data.messages[0]);
-        }
-      },
-    );
-};
-export const setLogoutThunkCreator = () => (dispatch: Dispatch) => {
-  authMeAPI
-    .logout()
-    .then((res) => {
-      console.log(res);
-      if (res.data.resultCode === 0) {
-        authMeAPI.me()
-          .then((response) => {
-            if (response.resultCode !== 0) {
-              dispatch(setUserDataAC(response, false));
-            } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
-          });
-      }
+  let response = await authMeAPI.login(userData);
+
+  if (response.data.resultCode === ResultCode.success) {
+    await dispatch(setUserDataThunkCreator()); // вызов другой санки
+  } else {
+    let action = stopSubmit('LOGIN', {
+      _error: response.data.messages[0] ? response.data.messages[0] : 'something is wrong',
+      // email: 'email is wrong',
+      // password: 'password is wrong',
     });
+    dispatch(action);
+    console.warn(response.data.messages[0]);
+  }
+};
+export const setLogoutThunkCreator = () => async (dispatch: Dispatch) => {
+  let response = await authMeAPI.logout();
+
+  if (response.data.resultCode === ResultCode.success) {
+    let response = await authMeAPI.me();
+    if (response.resultCode !== ResultCode.success) {
+      dispatch(setUserDataAC(response, false));
+    } else console.warn(' You are not authorised. ResultCode: ' + response.resultCode);
+  }
 };

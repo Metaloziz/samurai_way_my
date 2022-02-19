@@ -17,14 +17,18 @@ export type loginAPIRequestType = {
   captcha: boolean
 }
 
-type loginAPIResponseType = {
-  data: {
-    userId: number
-  }
+type CommonResponseType<T = {}> = {
+  data: T
   fieldsErrors: []
   messages: []
   resultCode: number
 }
+
+type loginAPIResponseType = {
+  userId: number
+}
+
+type payloadStatusType = { status: string };
 
 export const authMeAPI = {
 
@@ -39,13 +43,13 @@ export const authMeAPI = {
 
   login(data: loginAPIRequestType) {
     return instance
-      .post<null, AxiosResponse<loginAPIResponseType>, loginAPIRequestType>('/auth/login', data)
+      .post<null, AxiosResponse<CommonResponseType<loginAPIResponseType>>, loginAPIRequestType>('/auth/login', data)
       .then((response) => {
         return response;
       }).catch((res) => res);
   },
   logout() {
-    return instance.delete('/auth/login');
+    return instance.delete<null, AxiosResponse<CommonResponseType>>('/auth/login');
   },
 };
 
@@ -68,45 +72,49 @@ export const profileAPI = {
   },
   updateUserStatus(status: string) {
     return instance
-      .put('/profile/status', { status: status }) // 2 argument -  Media type: application/json
+      .put<null, AxiosResponse<CommonResponseType>, payloadStatusType>('/profile/status', { status }) // 2 argument -  Media type: application/json
       .then((state) => {
         return state.data;
       });
   },
 };
+//
+// export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {
+//   console.log('It is old method');
+//   return setUserOnPageAPI(currentPage, pageSize);
+//
+// };
 
-export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {
-  console.log('It is old method');
-  return setUserOnPageAPI(currentPage, pageSize);
-
-  // instance
-  //     .get(`users?page=${currentPage}&count=${pageSize}`)
-  //     .then((response): UsersStatePT => {
-  //         return response.data
-  //     })
-
+export const UserAPI = {
+  setUserOnPageAPI(pageID: number, pageSize: number) {
+    return instance
+      .get(`users?page=${pageID}&count=${pageSize}`)
+      .then((response): UsersStatePT => {
+        return response.data;
+      });
+  },
 };
 
-export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
-  return instance
-    .get(`users?page=${pageID}&count=${pageSize}`)
-    .then((response): UsersStatePT => {
-      return response.data;
-    });
-};
+// export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
+//   return instance
+//     .get(`users?page=${pageID}&count=${pageSize}`)
+//     .then((response): UsersStatePT => {
+//       return response.data;
+//     });
+// };
 
 export const followAPI = {   // это просто объект с методами, пушка
 
   setUnFollow: (userID: number) => {
     return instance
-      .delete('follow/' + userID)
+      .delete<null, AxiosResponse<CommonResponseType>>('follow/' + userID)
       .then((response) => {
         return response.data;
       });
   },
   setFollow: (userID: number) => {
     return instance
-      .post('follow/' + userID)
+      .post<null, AxiosResponse<CommonResponseType>>('follow/' + userID)
       .then(response => {
         return response.data;
       });

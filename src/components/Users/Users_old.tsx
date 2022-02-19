@@ -23,7 +23,7 @@ type mainPT = {
   setUsers: (users: UserPT[]) => void
 }
 
-export const Users = memo((props: UsersPT & mainPT) => {
+const Users = memo((props: UsersPT & mainPT) => {
 
   const callBack = (userID: number) => props.follow(Number(userID));
 

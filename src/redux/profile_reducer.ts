@@ -2,6 +2,7 @@ import { v1 } from 'uuid';
 import { actionPT } from './store_redux';
 import { Dispatch } from 'redux';
 import { profileAPI } from 'api/api';
+import { ResultCode } from 'utils/enum/enum';
 
 export type addPostATPT = ReturnType<typeof addPostAC>
 // export type changePostACPT = ReturnType<typeof changePostAC>
@@ -123,32 +124,30 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
   }
 };
 
-export const setUserThunkCreator = (userId: string) => (dispatch: Dispatch) => {
-  profileAPI.getUserData(userId)
-    .then((state) => {
-      dispatch(setUserProfileAC(state));
-    });
+export const setUserThunkCreator = (userId: string) => async (dispatch: Dispatch) => {
+  let response = await profileAPI.getUserData(userId);
+
+  dispatch(setUserProfileAC(response));
+
 };
 
-export const setUserStatusThunkCreator = (userId: string) => (dispatch: Dispatch) => {
-  profileAPI.getUserStatus(userId)
-    .then((state) => {
-      if (state) {
-        dispatch(setUserStatusAC(state));
-      } else {
-        dispatch(setUserStatusAC('status from API is null'));
-      }
-      // dispatch(setUserStatusAC('status is null'))
-    });
+export const setUserStatusThunkCreator = (userId: string) => async (dispatch: Dispatch) => {
+  let response = await profileAPI.getUserStatus(userId);
+
+  if (response) {
+    dispatch(setUserStatusAC(response));
+  } else {
+    dispatch(setUserStatusAC('status from API is null'));
+  }
 };
 
-export const updateUserStatusThunkCreator = (status: string) => (dispatch: Dispatch) => {
-  profileAPI.updateUserStatus(status)
-    .then((state) => {
-      if (state.resultCode === 0) {
-        dispatch(setUserStatusAC(status));  // если запрос успешный, то обнови статус на тот, который отправил
-      }
-    });
+export const updateUserStatusThunkCreator = (status: string) => async (dispatch: Dispatch) => {
+  let response = await profileAPI.updateUserStatus(status);
+
+  console.log(response);
+  if (response.resultCode === ResultCode.success) {
+    dispatch(setUserStatusAC(status));  // если запрос успешный, то обнови статус на тот, который отправил
+  }
 };
 
 

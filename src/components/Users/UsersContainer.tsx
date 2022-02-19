@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { AppStatePT } from 'redux/store_redux';
 import {
   followThunkCreator,
-  getUsersThunkCreator,
-  sePageThunkCreator,
+  // getUsersThunkCreator,
+  setPageThunkCreator,
   unFollowThunkCreator,
 } from 'redux/users_reducer';
 import { Users } from './Users';
@@ -16,11 +16,11 @@ import { selectUsersSuper } from 'utils/selectors/selectors';
 export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatchToPropsPT> {
 
   componentDidMount = () => {
-    this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
+    this.props.setPageThunkCreator(this.props.currentPage, this.props.pageSize);
   };
 
   setPage = (pageID: number) => {
-    this.props.sePageThunkCreator(pageID, this.props.pageSize);
+    this.props.setPageThunkCreator(pageID, this.props.pageSize);
   };
 
   unFollow = (userID: number) => {
@@ -53,8 +53,8 @@ const mapStateToProps: mapStateToPropsType = (state) => {
 };
 
 let mapDispatchToProps: mapDispatchToPropsPT = {
-  getUsersThunkCreator,
-  sePageThunkCreator,
+  // getUsersThunkCreator,
+  setPageThunkCreator,
   unFollowThunkCreator,
   followThunkCreator,
 };
@@ -67,8 +67,8 @@ export const UsersContainer = compose<React.ComponentType>(
 type mapStateToPropsType = (state: AppStatePT) => UsersStatePT
 
 export type mapDispatchToPropsPT = {
-  getUsersThunkCreator: (currentPage: number, pageSize: number) => void
-  sePageThunkCreator: (pageID: number, pageSize: number) => void
+  // getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+  setPageThunkCreator: (pageID: number, pageSize: number) => void
   unFollowThunkCreator: (userID: number) => void
   followThunkCreator: (userID: number) => void
 }
