@@ -5,7 +5,7 @@ import { AppStatePT } from 'redux/store_redux';
 import { compose, Dispatch } from 'redux';
 import { DialogPT } from './DialogItem/DialogItem';
 import { MessagePT } from './MessagesItem/MessagesItem';
-import React from 'react';
+import { Component, ComponentType } from 'react';
 import { withAuthRedirect } from 'hoc/withAuthRedirect';
 import { selectAuth, selectDialogsPage } from 'utils/selectors/selectors';
 
@@ -23,11 +23,7 @@ export type dialogsItemsPT = {
   // newText: string
 }
 
-class MessagesClassComponent extends React.Component<mapStateToPropsMessageType & mapDispatchToPropsMessageType> {
-
-  onSubmit = (data: any) => {
-    console.log(data);
-  };
+class MessagesClassComponent extends Component<mapStateToPropsMessageType & mapDispatchToPropsMessageType> {
 
   render() {
     return <Messages addNewMessage={this.props.addNewMessage}
@@ -51,7 +47,7 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsMessageType =
 
 // let connectComponent = withAuthRedirect(MessagesClassComponent) // withAuthRedirect проверяет на авторизацию
 
-export const MessagesContainer = compose<React.ComponentType>(
+export const MessagesContainer = compose<ComponentType>(
   connect(mapStateToProps, mapDispatchToProps),
   withAuthRedirect,
 )(MessagesClassComponent);

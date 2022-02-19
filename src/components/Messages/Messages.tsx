@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { DialogItem } from './DialogItem/DialogItem';
 import { MessagesItem } from './MessagesItem/MessagesItem';
 import style from './Messages.module.css';
@@ -18,14 +18,14 @@ export let Messages = memo((props: Omit<mapStateToPropsMessageType, 'isAuth'>
   let messagesDataItems = props.dialogsPage.messages
     .map((item, index) => <MessagesItem key={index} id={item.id} text={item.text} />);
 
-  let addNewPost = (data: MessageReduxInputType) => {
+  let addNewPost = useCallback((data: MessageReduxInputType) => {
     console.log(data);
     if (data.message) {              // check empty
       props.addNewMessage(data.message.trim());
     } else {
       console.warn('field is empty');
     }
-  };
+  }, []);
 
   return (
     <div className={style.dialogs}>

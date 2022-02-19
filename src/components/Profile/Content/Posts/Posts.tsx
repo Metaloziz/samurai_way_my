@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import style from './Posts.module.css';
 import { OldPost } from './Old_post/OldPost';
 import { initialStateProfileType } from 'redux/profile_reducer';
@@ -21,6 +21,10 @@ export const Posts = memo(({ profilePage, addPostAC, addLikeAC }: NewPostPT) => 
     }
   };
 
+  const addLikeHandle = useCallback((postID: string) => {
+    addLikeAC(postID);
+  }, []);
+
   return (
     <div className={style.content}>
       <div className={style.item}>
@@ -28,8 +32,10 @@ export const Posts = memo(({ profilePage, addPostAC, addLikeAC }: NewPostPT) => 
         {/* when submit form — call addNewItem  */}
         <PostForm onSubmit={addNewItem} />
         {profilePage.postData.map((item) =>
-          <OldPost addLike={() => addLikeAC(item.id)}
-                   key={item.id} message={item.message}
+          <OldPost key={item.id}
+                   id={item.id}
+                   addLike={addLikeHandle}
+                   message={item.message}
                    like={item.like}
                    comment={item.comment} />)}
 
