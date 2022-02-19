@@ -11,9 +11,7 @@ export const ProfileStatusWithHooks = memo((props: ProfileStatusPT) => {
   let [statusText, setStatusText] = useState<string>(props.status);
 
   useEffect(() => {
-    console.log('effect');
     setStatusText(props.status);
-
   }, [props.status]);
 
   const setEditModTrue = () => {
@@ -22,7 +20,10 @@ export const ProfileStatusWithHooks = memo((props: ProfileStatusPT) => {
 
   const setEditModFalse = () => {
     setEditMod(false);
-    props.updateUserStatusThunkCreator(statusText);
+    if (statusText) {
+      props.updateUserStatusThunkCreator(statusText);
+    }
+
   };
   const changeTextHandle = (e: ChangeEvent<HTMLInputElement>) => {
     setStatusText(e.currentTarget.value);

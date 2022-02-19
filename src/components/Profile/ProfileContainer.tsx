@@ -29,15 +29,15 @@ export class ProfileContainerAPI extends Component<mapStateToPropsPT
     if (!userID) {
       userID = this.props.authorisedUserID;
     }
-    this.props.setUserThunkCreator(userID);
-    this.props.setUserStatusThunkCreator(userID);
+    this.props.setUser(userID);
+    this.props.setUserStatus(userID);
   }
 
   render() {
     return <Profile profile={this.props.profile}
                     status={this.props.status}
-                    updateUserStatusThunkCreator={
-                      this.props.updateUserStatusThunkCreator} />;
+                    updateUserStatus={
+                      this.props.updateUserStatus} />;
 
   }
 }
@@ -57,14 +57,14 @@ const mapStateToProps = (state: AppStatePT): mapStateToPropsPT => {
 };
 
 type mapDispatchToPropsType = {
-  setUserThunkCreator: (useId: string) => void
-  setUserStatusThunkCreator: (status: string) => void
-  updateUserStatusThunkCreator: (status: string) => void
+  setUser: (useId: string) => void
+  setUserStatus: (status: string) => void
+  updateUserStatus: (status: string) => void
 }
 const mapDispatchToProps: mapDispatchToPropsType = {
-  setUserThunkCreator: setUserThunkCreator,
-  setUserStatusThunkCreator: setUserStatusThunkCreator,
-  updateUserStatusThunkCreator: updateUserStatusThunkCreator,
+  setUser: setUserThunkCreator,
+  setUserStatus: setUserStatusThunkCreator,
+  updateUserStatus: updateUserStatusThunkCreator,
 };
 
 export const ProfileContainer = compose<ComponentType>(

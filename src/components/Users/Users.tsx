@@ -16,8 +16,13 @@ export const Users = memo((props: UsersStatePT & UsersFuncPT) => {
   };
 
   return <div>
-    <Paginator currentPage={props.currentPage} pageSize={props.pageSize}
-               totalCount={props.totalCount} setPage={props.setPage} />
+    <Paginator currentPage={props.currentPage}
+               pageSize={props.pageSize}
+               setPage={props.setPage}
+               totalCount={props.totalCount}
+               portionSize={10}
+
+    />
     {props.items.map((user) => {
         return (
           <User key={user.id} user={user} followCB={followToggle} />

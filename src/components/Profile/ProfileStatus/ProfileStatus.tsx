@@ -2,7 +2,7 @@ import { ChangeEvent, Component } from 'react';
 
 type ProfileStatusPT = {
   status: string
-  updateUserStatusThunkCreator: (status: string) => void
+  updateUserStatus: (status: string) => void
 }
 
 export class ProfileStatus extends Component<ProfileStatusPT> {
@@ -18,7 +18,7 @@ export class ProfileStatus extends Component<ProfileStatusPT> {
 
   setEditModFalse = () => {
     this.setState({ editMode: false });
-    this.props.updateUserStatusThunkCreator(this.state.status.trim());
+    this.props.updateUserStatus(this.state.status.trim());
   };
 
   changeTextHandle = (e: ChangeEvent<HTMLInputElement>) => {  // изменяет н

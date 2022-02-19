@@ -4,7 +4,6 @@ import { Login } from 'components/Login/Login';
 import { Music } from 'components/Music/Music';
 import { Page404 } from 'components/Page404/Page404';
 import { Settings } from 'components/Settings/Settings';
-import { UsersContainer } from 'components/Users/UsersContainer';
 import { HeaderContainer } from 'components/Header/HeaderContainer';
 import { ProfileContainer } from 'components/Profile/ProfileContainer';
 import { MessagesContainer } from 'components/Messages/MessagesContainer';
@@ -15,6 +14,7 @@ import { Component } from 'react';
 import { initializeThunkCreator, userDataInitialStateType } from 'redux/app_reducer';
 import { AppStatePT } from 'redux/store_redux';
 import { Preloader } from 'components/comonComponents/Preloader';
+import { UsersContainer } from 'components/Users/UsersContainer';
 
 class App extends Component<mapDispatchToPropsPT & userDataInitialStateType> {
 

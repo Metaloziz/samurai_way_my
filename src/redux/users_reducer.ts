@@ -48,7 +48,7 @@ let usersState: UsersStatePT = {
       followed: false,
       isFetchingUser: false,  // add this key  myself
     }],
-  pageSize: 3,
+  pageSize: 4,
   totalCount: 36,
   error: 'Error',
   currentPage: 1,

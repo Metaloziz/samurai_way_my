@@ -6,7 +6,7 @@ import { ProfileType } from 'redux/profile_reducer';
 export type ContentHeaderPT = {
   profile: ProfileType
   status: string
-  updateUserStatusThunkCreator: (status: string) => void
+  updateUserStatus: (status: string) => void
 }
 
 export const Profile = memo((props: ContentHeaderPT) => {
@@ -15,7 +15,7 @@ export const Profile = memo((props: ContentHeaderPT) => {
     <div>
       <ContentHeader profile={props.profile}
                      status={props.status}
-                     updateUserStatusThunkCreator={props.updateUserStatusThunkCreator} />
+                     updateUserStatus={props.updateUserStatus} />
       <PostsContainer />
     </div>
   );
