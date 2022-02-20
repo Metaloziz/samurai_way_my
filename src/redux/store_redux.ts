@@ -2,7 +2,7 @@ import {
   addLikeACPT,
   addPostATPT,
   profile_reducer, setPhotoACPT,
-  setUserProfileACPT,
+  setUserProfileACPT, setUserProfileDataACPT,
   setUserStatusACPT,
 } from './profile_reducer';
 import { addTextMessageATPT, dialogs_reducer } from './dialogs_reducer';
@@ -69,6 +69,7 @@ export type actionPT =
   | setUserStatusACPT
   | setInitializedAPPACPT
   | setPhotoACPT
+  | setUserProfileDataACPT
 
 export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStatePT, unknown, A>
 

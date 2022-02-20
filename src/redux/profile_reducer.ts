@@ -10,6 +10,7 @@ export type addLikeACPT = ReturnType<typeof addLikeAC>
 export type setUserProfileACPT = ReturnType<typeof setUserProfileAC>
 export type setUserStatusACPT = ReturnType<typeof setUserStatusAC>
 export type setPhotoACPT = ReturnType<typeof setPhotoAC>
+export type setUserProfileDataACPT = ReturnType<typeof setUserProfileDataAC>
 
 export const ADD_POST = 'ADD-POST';
 export const SET_PHOTO = 'SET_PHOTO';
@@ -17,6 +18,7 @@ export const SET_PHOTO = 'SET_PHOTO';
 export const ADD_LIKE = 'ADD_LIKE';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_USER_STATUS = 'SET_USER_STATUS';
+export const SET_USER_PROFILE_DATA = 'SET_USER_PROFILE_DATA';
 
 export const addPostAC = (value: string) => ({
   type: ADD_POST,
@@ -40,6 +42,12 @@ export const setPhotoAC = (file: ResponsePutPhoto) => ({
   type: SET_PHOTO,
   file,
 } as const);
+export const setUserProfileDataAC = (data: ProfileDataType) => {
+  return {
+    type: SET_USER_PROFILE_DATA,
+    data,
+  } as const;
+};
 
 export type initialStateProfileType = {
   postData: Array<PostDataType>
@@ -56,16 +64,36 @@ export type PostDataType = {
 }
 
 export type ProfileType = {    // data from API
-  aboutMe: string
-  contacts: { [key: string]: string }
+  userId: number
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string
-  userId: number
+  contacts: ContactsType
+  aboutMe: string
   photos: {
     small: string
     large: string
   }
+}
+
+export type ProfileDataType = {
+  // userId: number
+  AboutMe: string
+  lookingForAJob: boolean
+  lookingForAJobDescription: string
+  fullName: string
+  contacts: ContactsType
+}
+
+export type ContactsType = {
+  github: string
+  vk: string
+  facebook: string
+  instagram: string
+  twitter: string
+  website: string
+  youtube: string
+  mainLink: string
 }
 
 const initialState: initialStateProfileType =
@@ -87,7 +115,16 @@ const initialState: initialStateProfileType =
     newPostText: 'stock',
     profile: {
       aboutMe: 'stock',
-      contacts: {},
+      contacts: {
+        vk: 'stock',
+        github: 'stock',
+        facebook: 'stock',
+        instagram: 'stock',
+        mainLink: 'stock',
+        twitter: 'stock',
+        website: 'stock',
+        youtube: 'stock',
+      },
       lookingForAJob: false,
       lookingForAJobDescription: 'stock',
       fullName: 'test',
@@ -129,6 +166,33 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
       return {
         ...state, profile: { ...state.profile, photos: action.file.photos },
       };
+    case SET_USER_PROFILE_DATA:
+
+      let {
+        lookingForAJobDescription,
+        lookingForAJob,
+        AboutMe,
+        fullName,
+        contacts,
+      } = action.data;
+
+      return {
+        ...state,
+        profile: {
+          aboutMe: AboutMe,
+          contacts: {
+            ...contacts,
+          },
+          lookingForAJob: false,
+          lookingForAJobDescription: lookingForAJobDescription,
+          fullName: fullName,
+          userId: 0,
+          photos: {
+            small: 'stock',
+            large: 'stock',
+          },
+        },
+      };
     default:
       return state;
   }
@@ -163,8 +227,14 @@ export const updateUserStatusThunkCreator = (status: string) => async (dispatch:
 export const putPhotoThunkCreator = (file: File) => async (dispatch: Dispatch) => {
 
   let response = await profileAPI.putPhoto(file);
-  console.log(response);
   if (response.resultCode === ResultCode.success) {
     dispatch(setPhotoAC(response.data));
+  }
+};
+
+export const petProfileDataThunkCreator = (data: ProfileDataType) => async (dispatch: Dispatch) => {
+  let response = await profileAPI.updateUserData(data);
+  if (response.resultCode === ResultCode.success) {
+    dispatch(setUserProfileDataAC(data));
   }
 };

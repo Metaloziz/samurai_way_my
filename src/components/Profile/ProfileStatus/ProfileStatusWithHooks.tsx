@@ -2,7 +2,7 @@ import { ChangeEvent, memo, useEffect, useState } from 'react';
 
 type ProfileStatusPT = {
   status: string
-  updateUserStatusThunkCreator: (status: string) => void
+  updateUserStatus: (status: string) => void
 }
 
 export const ProfileStatusWithHooks = memo((props: ProfileStatusPT) => {
@@ -21,7 +21,7 @@ export const ProfileStatusWithHooks = memo((props: ProfileStatusPT) => {
   const setEditModFalse = () => {
     setEditMod(false);
     if (statusText) {
-      props.updateUserStatusThunkCreator(statusText);
+      props.updateUserStatus(statusText);
     }
 
   };

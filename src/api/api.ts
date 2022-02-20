@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { UsersStatePT } from 'components/Users/UsersContainer';
 import { userDataPT } from 'components/Header/Header';
-import { ProfileType } from 'redux/profile_reducer';
+import { ProfileDataType, ProfileType } from 'redux/profile_reducer';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
@@ -92,6 +92,13 @@ export const profileAPI = {
       .put<null, AxiosResponse<CommonResponseType>, payloadStatusType>('/profile/status', { status }) // 2 argument -  Media type: application/json
       .then((state) => {
         return state.data;
+      });
+  },
+  updateUserData(data: ProfileDataType) {
+    return instance
+      .put<null, AxiosResponse<CommonResponseType>>('/profile', { ...data })
+      .then((response) => {
+        return response.data;
       });
   },
 };

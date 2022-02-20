@@ -2,6 +2,7 @@ import { Component, ComponentType } from 'react';
 import { Profile } from './Profile';
 import { connect } from 'react-redux';
 import {
+  petProfileDataThunkCreator, ProfileDataType,
   ProfileType, putPhotoThunkCreator,
   setUserStatusThunkCreator,
   setUserThunkCreator,
@@ -39,6 +40,7 @@ export class ProfileContainerAPI extends Component<mapStateToPropsPT
                     profile={this.props.profile}
                     status={this.props.status}
                     savePhoto={this.props.setPhoto}
+                    setProfileData={this.props.setProfileData}
                     updateUserStatus={
                       this.props.updateUserStatus} />;
 
@@ -64,12 +66,14 @@ type mapDispatchToPropsType = {
   setUserStatus: (status: string) => void
   updateUserStatus: (status: string) => void
   setPhoto: (file: File) => void
+  setProfileData: (data: ProfileDataType) => void
 }
 const mapDispatchToProps: mapDispatchToPropsType = {
   setUser: setUserThunkCreator,
   setUserStatus: setUserStatusThunkCreator,
   updateUserStatus: updateUserStatusThunkCreator,
   setPhoto: putPhotoThunkCreator,
+  setProfileData: petProfileDataThunkCreator,
 };
 
 const ProfileContainer = compose<ComponentType>(

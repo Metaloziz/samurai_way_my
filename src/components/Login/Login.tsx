@@ -10,7 +10,6 @@ import { Component } from 'react';
 class LoginContainer extends Component<mapStateToPropsType & mapDispatchToPropsType> {
 
   onSubmit = (formData: FormDataType) => {
-    console.log(formData);
     this.props.setLoginThunkCreator(formData);
   };
 
