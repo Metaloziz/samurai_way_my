@@ -6,8 +6,7 @@ import { ProfileType } from 'redux/profile_reducer';
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   withCredentials: true,
-  // headers: { 'API-KEY': process.env.REACT_APP_API_KEY as string },
-  headers: { 'API-KEY': '6d28cae1-0bac-4f22-abce-7f5967410738' },
+  headers: { 'API-KEY': process.env.REACT_APP_API_KEY as string },
 });
 
 export type loginAPIRequestType = {
@@ -36,7 +35,6 @@ export const authMeAPI = {
     return instance
       .get<null, AxiosResponse<userDataPT>>('auth/me')
       .then((response) => {
-        console.log(response.data);
         return response.data;
       });
   },
@@ -53,8 +51,27 @@ export const authMeAPI = {
   },
 };
 
-export const profileAPI = {
+export type ResponsePutPhoto = {
+  photos: {
+    small: string
+    large: string
+  }
+}
 
+export const profileAPI = {
+  putPhoto(image: File) {
+    let formData = new FormData();
+    formData.append('image', image);
+    return instance
+      .put<null, AxiosResponse<CommonResponseType<ResponsePutPhoto>>>('/profile/photo', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((response) => {
+        return response.data;
+      });
+  },
   getUserData(userID: string) {
     return instance
       .get<null, AxiosResponse<ProfileType>>('profile/' + userID)
@@ -78,32 +95,18 @@ export const profileAPI = {
       });
   },
 };
-//
-// export const setUserDataAPI = (currentPage: number = 1, pageSize: number = 1) => {
-//   console.log('It is old method');
-//   return setUserOnPageAPI(currentPage, pageSize);
-//
-// };
 
 export const UserAPI = {
   setUserOnPageAPI(pageID: number, pageSize: number) {
     return instance
-      .get(`users?page=${pageID}&count=${pageSize}`)
-      .then((response): UsersStatePT => {
+      .get<null, AxiosResponse<UsersStatePT>>(`users?page=${pageID}&count=${pageSize}`)
+      .then((response) => {
         return response.data;
       });
   },
 };
 
-// export const setUserOnPageAPI = (pageID: number, pageSize: number) => {
-//   return instance
-//     .get(`users?page=${pageID}&count=${pageSize}`)
-//     .then((response): UsersStatePT => {
-//       return response.data;
-//     });
-// };
-
-export const followAPI = {   // это просто объект с методами, пушка
+export const followAPI = {
 
   setUnFollow: (userID: number) => {
     return instance

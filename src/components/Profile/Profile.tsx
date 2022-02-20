@@ -4,6 +4,8 @@ import { PostsContainer } from './Content/Posts/PostsContainer';
 import { ProfileType } from 'redux/profile_reducer';
 
 export type ContentHeaderPT = {
+  userId: string
+  savePhoto: (file: File) => void
   profile: ProfileType
   status: string
   updateUserStatus: (status: string) => void
@@ -14,6 +16,8 @@ export const Profile = memo((props: ContentHeaderPT) => {
   return (
     <div>
       <ContentHeader profile={props.profile}
+                     savePhoto={props.savePhoto}
+                     userId={props.userId}
                      status={props.status}
                      updateUserStatus={props.updateUserStatus} />
       <PostsContainer />

@@ -43,26 +43,4 @@ describe('ProfileStatus component', () => {
     expect(h2.children[0]).toBe(testText);
   });
 
-  test.skip('input should be displayed in edit mode', () => {
-    const component = create(<ProfileStatus status={testText}
-                                            updateUserStatus={updateUserStatusThunkCreator} />);
-    const element = component.root;
-    let div = element.findByType('div');
-    div.props.onClick();
-    let input = element.findByType('input');
-    expect(input.props.value).toBe(testText);
-    expect(() => {
-      element.findByType('h2');
-    }).toThrow();
-  });
-
-  test.skip('callback should be called', () => {
-    const mockCallback = jest.fn();
-    const component = create(<ProfileStatus status={testText}
-                                            updateUserStatus={mockCallback} />);
-    const element = component.getInstance();
-    // @ts-ignore
-    element.deactivateEditMode();
-    expect(mockCallback.mock.calls.length).toBe(0);
-  });
 });

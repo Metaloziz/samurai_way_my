@@ -1,22 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import { store } from 'redux/store_redux'; // new store
-import { Provider } from 'react-redux'; // !!!!!!!!!!!!!! new component
-import App from 'App';
+import { AppHoc } from 'AppHOC';
 // import {store} from "./redux/store";
 
 let renderEntireTree = () => {
-  ReactDOM.render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>,
-    document.getElementById('root'),
-  );
+  ReactDOM.render(<AppHoc />, document.getElementById('root'));
 };
 renderEntireTree(); // first render
 store.subscribe(renderEntireTree); // next render

@@ -47,7 +47,9 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsMessageType =
 
 // let connectComponent = withAuthRedirect(MessagesClassComponent) // withAuthRedirect проверяет на авторизацию
 
-export const MessagesContainer = compose<ComponentType>(
+const MessagesContainer = compose<ComponentType>(
   connect(mapStateToProps, mapDispatchToProps),
   withAuthRedirect,
 )(MessagesClassComponent);
+
+export default MessagesContainer;

@@ -1,8 +1,8 @@
-import style from "../News/News.module.css";
-import React from "react";
+import style from '../News/News.module.css';
 
-export let Settings = () => {
-    return (<div className={style.header}>
-        <h1>Settings</h1>
-    </div>)
-}
+const Settings = () => {
+  return (<div className={style.header}>
+    <h1>Settings</h1>
+  </div>);
+};
+export default Settings;

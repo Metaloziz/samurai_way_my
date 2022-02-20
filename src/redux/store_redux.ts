@@ -1,7 +1,7 @@
 import {
   addLikeACPT,
   addPostATPT,
-  profile_reducer,
+  profile_reducer, setPhotoACPT,
   setUserProfileACPT,
   setUserStatusACPT,
 } from './profile_reducer';
@@ -68,6 +68,7 @@ export type actionPT =
   | setUserDataACPT
   | setUserStatusACPT
   | setInitializedAPPACPT
+  | setPhotoACPT
 
 export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStatePT, unknown, A>
 

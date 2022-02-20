@@ -2,7 +2,7 @@ import { Component, ComponentType } from 'react';
 import { Profile } from './Profile';
 import { connect } from 'react-redux';
 import {
-  ProfileType,
+  ProfileType, putPhotoThunkCreator,
   setUserStatusThunkCreator,
   setUserThunkCreator,
   updateUserStatusThunkCreator,
@@ -31,11 +31,14 @@ export class ProfileContainerAPI extends Component<mapStateToPropsPT
     }
     this.props.setUser(userID);
     this.props.setUserStatus(userID);
+
   }
 
   render() {
-    return <Profile profile={this.props.profile}
+    return <Profile userId={this.props.params.userId}
+                    profile={this.props.profile}
                     status={this.props.status}
+                    savePhoto={this.props.setPhoto}
                     updateUserStatus={
                       this.props.updateUserStatus} />;
 
@@ -60,24 +63,21 @@ type mapDispatchToPropsType = {
   setUser: (useId: string) => void
   setUserStatus: (status: string) => void
   updateUserStatus: (status: string) => void
+  setPhoto: (file: File) => void
 }
 const mapDispatchToProps: mapDispatchToPropsType = {
   setUser: setUserThunkCreator,
   setUserStatus: setUserStatusThunkCreator,
   updateUserStatus: updateUserStatusThunkCreator,
+  setPhoto: putPhotoThunkCreator,
 };
 
-export const ProfileContainer = compose<ComponentType>(
+const ProfileContainer = compose<ComponentType>(
   withAuthRedirect,
   connect(mapStateToProps, mapDispatchToProps),
   withRouter,
 )(ProfileContainerAPI);
 
-// const ProfileContainerURL = withRouter(ProfileContainerAPI)
-//
-// let connectComponent = connect(mapStateToProps, mapDispatchToProps)(ProfileContainerURL)
-//
-// export const ProfileContainer = withAuthRedirect(connectComponent)
-//
+export default ProfileContainer;
 
 

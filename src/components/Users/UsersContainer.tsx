@@ -59,10 +59,12 @@ let mapDispatchToProps: mapDispatchToPropsPT = {
   followThunkCreator,
 };
 
-export const UsersContainer = compose<React.ComponentType>(
+const UsersContainer = compose<React.ComponentType>(
   withAuthRedirect,
   connect(mapStateToProps, mapDispatchToProps),
 )(UsersAPIcontainer);
+
+export default UsersContainer;
 
 type mapStateToPropsType = (state: AppStatePT) => UsersStatePT
 

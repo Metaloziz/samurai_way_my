@@ -1,7 +1,7 @@
 import { v1 } from 'uuid';
 import { actionPT } from './store_redux';
 import { Dispatch } from 'redux';
-import { profileAPI } from 'api/api';
+import { profileAPI, ResponsePutPhoto } from 'api/api';
 import { ResultCode } from 'utils/enum/enum';
 
 export type addPostATPT = ReturnType<typeof addPostAC>
@@ -9,8 +9,10 @@ export type addPostATPT = ReturnType<typeof addPostAC>
 export type addLikeACPT = ReturnType<typeof addLikeAC>
 export type setUserProfileACPT = ReturnType<typeof setUserProfileAC>
 export type setUserStatusACPT = ReturnType<typeof setUserStatusAC>
+export type setPhotoACPT = ReturnType<typeof setPhotoAC>
 
 export const ADD_POST = 'ADD-POST';
+export const SET_PHOTO = 'SET_PHOTO';
 // export const CHANGE_POST = 'CHANGE_POST'
 export const ADD_LIKE = 'ADD_LIKE';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -33,6 +35,10 @@ export const setUserProfileAC = (profile: ProfileType) => ({
 export const setUserStatusAC = (status: string) => ({
   type: SET_USER_STATUS,
   status,
+} as const);
+export const setPhotoAC = (file: ResponsePutPhoto) => ({
+  type: SET_PHOTO,
+  file,
 } as const);
 
 export type initialStateProfileType = {
@@ -119,6 +125,10 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
       return { ...state, profile: action.profile };
     case SET_USER_STATUS:
       return { ...state, status: action.status };
+    case SET_PHOTO:
+      return {
+        ...state, profile: { ...state.profile, photos: action.file.photos },
+      };
     default:
       return state;
   }
@@ -150,4 +160,11 @@ export const updateUserStatusThunkCreator = (status: string) => async (dispatch:
   }
 };
 
+export const putPhotoThunkCreator = (file: File) => async (dispatch: Dispatch) => {
 
+  let response = await profileAPI.putPhoto(file);
+  console.log(response);
+  if (response.resultCode === ResultCode.success) {
+    dispatch(setPhotoAC(response.data));
+  }
+};

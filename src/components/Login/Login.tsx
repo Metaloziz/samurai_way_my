@@ -46,4 +46,6 @@ const mapDispatchToProps: mapDispatchToPropsType = {
   setLoginThunkCreator: setLoginThunkCreator,
 };
 
-export const Login = connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+const Login = connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+
+export default Login;
