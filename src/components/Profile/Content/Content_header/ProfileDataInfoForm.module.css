@@ -4,3 +4,7 @@
     width: 90vh;
     justify-content: space-between;
 }
+
+.error {
+    color: maroon;
+}

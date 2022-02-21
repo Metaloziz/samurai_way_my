@@ -1,9 +1,10 @@
 import { actionPT } from './store_redux';
 import { dialogsItemsPT } from 'components/Messages/MessagesContainer';
+import { ADD_TEXT_MESSAGE } from 'redux/constTypeAC/constTypies';
 
 export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>
 
-export const ADD_TEXT_MESSAGE = 'ADD_TEXT_MESSAGE';
+
 
 export const addTextMessageAC = (value: string) => ({
   type: ADD_TEXT_MESSAGE,

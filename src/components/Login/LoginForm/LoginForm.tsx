@@ -18,7 +18,6 @@ const LoginReduxForm = memo((props: InjectedFormProps<FormDataType>) => {
 
   let maxLength = useCallback(maxLengthCreator(30), []);
 
-
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
@@ -43,7 +42,7 @@ const LoginReduxForm = memo((props: InjectedFormProps<FormDataType>) => {
                component={'input'} /> remember me
       </div>
       <div className={style.errorMessage}>
-        {props.error}
+        {props.error} {/* попадает сюда если сработал stopSubmit AC*/}
       </div>
       <div>
         <button>Login</button>

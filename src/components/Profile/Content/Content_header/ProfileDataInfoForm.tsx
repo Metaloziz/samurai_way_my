@@ -1,4 +1,4 @@
-import { ContactsType, ProfileDataType } from 'redux/profile_reducer';
+import { ProfileDataType } from 'redux/profile_reducer';
 import React, { useCallback } from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { maxLengthCreator, requiredField } from 'utils/validators/validators';
@@ -8,7 +8,7 @@ import { Input } from 'components/comonComponents/FormsControls/FormsControl';
 
 const ReduxForm = ({
                      initialValues,
-                     handleSubmit,
+                     handleSubmit, error,
                    }: InjectedFormProps<ProfileDataType>) => {
 
   let maxLength = useCallback(maxLengthCreator(100), []);
@@ -28,7 +28,7 @@ const ReduxForm = ({
             type='checkbox'
             name={'lookingForAJob'}
             component={Input}
-            validate={[requiredField, maxLength]} />
+          />
         </div>
         <div>
           <b>lookingForAJobDescription:</b>
@@ -51,6 +51,8 @@ const ReduxForm = ({
           </div>;
         })}
       </div>
+      <div className={style.error}>{error}</div>
+      {/* попадает сюда если сработал stopSubmit AC*/}
       <button>add</button>
     </form>
   );

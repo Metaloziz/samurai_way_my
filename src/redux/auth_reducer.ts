@@ -5,10 +5,9 @@ import { authMeAPI, loginAPIRequestType } from 'api/api';
 import { stopSubmit } from 'redux-form';
 import { ThunkType } from 'redux/app_reducer';
 import { ResultCode } from 'utils/enum/enum';
+import { SET_USER_DATA } from 'redux/constTypeAC/constTypies';
 
 export type setUserDataACPT = ReturnType<typeof setUserDataAC>
-
-export const SET_USER_DATA = 'SET_USER_DATA';
 
 export const setUserDataAC = (data: userDataPT, isAuth: boolean) => ({
   type: SET_USER_DATA,
@@ -56,8 +55,8 @@ export const setLoginThunkCreator = (userData: loginAPIRequestType): ThunkType =
   } else {
     let action = stopSubmit('LOGIN', {
       _error: response.data.messages[0] ? response.data.messages[0] : 'something is wrong',
-      // email: 'email is wrong',
-      // password: 'password is wrong',
+      // ['email']: 'email is wrong',
+      // ['passwor' + 'd']: 'password is wrong',
     });
     dispatch(action);
     console.warn(response.data.messages[0]);

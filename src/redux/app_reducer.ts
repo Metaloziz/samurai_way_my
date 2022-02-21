@@ -1,14 +1,13 @@
 import { actionPT, BaseThunkType } from 'redux/store_redux';
 import { setUserDataThunkCreator } from 'redux/auth_reducer';
 import { FormAction } from 'redux-form';
+import { SET_INITIALIZED } from 'redux/constTypeAC/constTypies';
 
 export type setInitializedAPPACPT = ReturnType<typeof setInitializedAPPAC>
 
 export type userDataInitialStateType = {
   initialized: boolean
 }
-
-export const SET_INITIALIZED = 'APP_REDUCER/SET_INITIALIZED';
 
 export const setInitializedAPPAC = (initialized: boolean) => ({
   type: SET_INITIALIZED,

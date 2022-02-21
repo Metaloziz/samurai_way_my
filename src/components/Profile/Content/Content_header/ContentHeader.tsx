@@ -34,17 +34,10 @@ export const ContentHeader = memo(({
   };
 
   const setProfileDataCB = (props: ProfileDataType) => {
-    setEditMod(false);
-    setProfileData({
-      aboutMe: props.aboutMe,
-      lookingForAJobDescription: props.lookingForAJobDescription,
-      fullName: props.fullName,
-      lookingForAJob: true,
-      contacts: {
-        ...props.contacts,
-      },
-    }, `${profile.userId}`);
+    // setEditMod(false);
+    setProfileData(props, `${profile.userId}`);
     console.log(props);
+
   };
 
   if (!profile) {

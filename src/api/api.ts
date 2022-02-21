@@ -19,7 +19,7 @@ export type loginAPIRequestType = {
 type CommonResponseType<T = {}> = {
   data: T
   fieldsErrors: []
-  messages: []
+  messages: string[]
   resultCode: number
 }
 

@@ -10,7 +10,7 @@ import {
 } from 'redux/profile_reducer';
 import { AppStatePT } from 'redux/store_redux';
 import { withAuthRedirect } from 'hoc/withAuthRedirect';
-import { compose } from 'redux';
+import { compose, Dispatch } from 'redux';
 import { withRouter } from 'utils/withRouter/WithRouter';
 import {
   selectAuthorisedUserID,
@@ -66,7 +66,7 @@ type mapDispatchToPropsType = {
   setUserStatus: (status: string) => void
   updateUserStatus: (status: string) => void
   setPhoto: (file: File) => void
-  setProfileData: (data: ProfileDataType, userId: string) => void
+  setProfileData: (data: ProfileDataType, userId: string) => (dispatch: Dispatch) => Promise<void>
 }
 const mapDispatchToProps: mapDispatchToPropsType = {
   setUser: setUserThunkCreator,

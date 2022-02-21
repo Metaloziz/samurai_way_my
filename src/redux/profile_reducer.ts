@@ -3,6 +3,13 @@ import { actionPT } from './store_redux';
 import { Dispatch } from 'redux';
 import { profileAPI, ResponsePutPhoto } from 'api/api';
 import { ResultCode } from 'utils/enum/enum';
+import {
+  ADD_LIKE,
+  ADD_POST,
+  SET_PHOTO,
+  SET_USER_PROFILE, SET_USER_PROFILE_DATA, SET_USER_STATUS,
+} from 'redux/constTypeAC/constTypies';
+import { stopSubmit } from 'redux-form';
 
 export type addPostATPT = ReturnType<typeof addPostAC>
 export type addLikeACPT = ReturnType<typeof addLikeAC>
@@ -11,18 +18,11 @@ export type setUserStatusACPT = ReturnType<typeof setUserStatusAC>
 export type setPhotoACPT = ReturnType<typeof setPhotoAC>
 export type setUserProfileDataACPT = ReturnType<typeof setUserProfileDataAC>
 
-export const ADD_POST = 'ADD-POST';
-export const SET_PHOTO = 'SET_PHOTO';
-export const ADD_LIKE = 'ADD_LIKE';
-export const SET_USER_PROFILE = 'SET_USER_PROFILE';
-export const SET_USER_STATUS = 'SET_USER_STATUS';
-export const SET_USER_PROFILE_DATA = 'SET_USER_PROFILE_DATA';
 export const addPostAC = (value: string) => ({
   type: ADD_POST,
   value,
   id: v1(),
 } as const);
-
 export const addLikeAC = (postID: string) => ({ type: ADD_LIKE, postID } as const);
 export const setUserProfileAC = (profile: ProfileType) => ({
   type: SET_USER_PROFILE,
@@ -222,7 +222,17 @@ export const putPhotoThunkCreator = (file: File) => async (dispatch: Dispatch) =
 export const setProfileDataThunkCreator = (data: ProfileDataType, userId: string) => async (dispatch: Dispatch) => {
   let response = await profileAPI.updateUserData(data);
   if (response.resultCode === ResultCode.success) {
-    let response = await profileAPI.getUserData(userId); // дублирование
+    let response = await profileAPI.getUserData(userId); // дублирование .. как запустить вторую санку ?
     dispatch(setUserProfileAC(response));
+  } else {
+
+    let action = stopSubmit('PROFILE', {
+
+      // contacts: { vk: 'error' }, нужно распарсить строку
+
+      _error: response.messages[0] ? response.messages[0] : 'something is wrong',
+
+    });
+    dispatch(action);
   }
 };
