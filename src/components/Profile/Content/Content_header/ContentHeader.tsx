@@ -65,7 +65,6 @@ export const ContentHeader = memo(({
         {editMod
           ? <ProfileDataInfoForm onSubmit={setProfileDataCB} />
           : <ProfileDataInfo profile={profile} />
-          // : <hr />
         }
 
       </div>

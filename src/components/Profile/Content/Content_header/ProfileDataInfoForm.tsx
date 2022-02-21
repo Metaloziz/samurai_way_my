@@ -15,22 +15,23 @@ const ReduxForm = (props: InjectedFormProps<ProfileDataInfoFormPT>) => {
 
   let arr = ['aboutMe', 'lookingForAJob',
     'lookingForAJobDescription', 'fullName',
-    'github', 'vk', 'facebook', 'instagram', 'twitter', 'website', 'youtube', 'mainLink'];
+    'github', 'vk', 'facebook', 'instagram', 'twitter', 'website', 'youtube', 'mainLink',
+  ];
 
   return (
 
     <form onSubmit={props.handleSubmit}>
       <div>
         {arr.map((el) => {
-          return <div className={style.item} key={el}><b>{el}:</b><Field
-            type='text'
-            name={el}
-            placeholder={el}
-            component={Input}
-            validate={[requiredField, maxLength]} />
+          return <div className={style.item} key={el}><b>{el}:</b>
+            <Field
+              type='text'
+              name={el}
+              placeholder={el}
+              component={Input}
+              validate={[requiredField, maxLength]} />
           </div>;
         })}
-
       </div>
       <button>add</button>
     </form>

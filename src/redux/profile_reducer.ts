@@ -96,46 +96,45 @@ export type ContactsType = {
   mainLink: string
 }
 
-const initialState: initialStateProfileType =
-  {
-    postData: [
-      {
-        id: v1(),
-        message: 'Kiss me hard before you go Summertime sadness',
-        like: 2,
-        comment: 4,
-      },
-      {
-        id: v1(),
-        message: 'I just wanted you to know That baby you\'re the best',
-        like: 7,
-        comment: 8,
-      },
-    ],    // it is not from API
-    newPostText: 'stock',
-    profile: {
-      aboutMe: 'stock',
-      contacts: {
-        vk: 'stock',
-        github: 'stock',
-        facebook: 'stock',
-        instagram: 'stock',
-        mainLink: 'stock',
-        twitter: 'stock',
-        website: 'stock',
-        youtube: 'stock',
-      },
-      lookingForAJob: false,
-      lookingForAJobDescription: 'stock',
-      fullName: 'test',
-      userId: 0,
-      photos: {
-        small: 'stock',
-        large: 'stock',
-      },
+const initialState: initialStateProfileType = {
+  postData: [
+    {
+      id: v1(),
+      message: 'Kiss me hard before you go Summertime sadness',
+      like: 2,
+      comment: 4,
     },
-    status: 'default status',
-  };
+    {
+      id: v1(),
+      message: 'I just wanted you to know That baby you\'re the best',
+      like: 7,
+      comment: 8,
+    },
+  ],    // it is not from API
+  newPostText: 'stock',
+  profile: {
+    userId: 0,
+    lookingForAJob: false,
+    lookingForAJobDescription: 'stock',
+    fullName: 'test',
+    contacts: {
+      vk: 'stock',
+      github: 'stock',
+      facebook: 'stock',
+      instagram: 'stock',
+      mainLink: 'stock',
+      twitter: 'stock',
+      website: 'stock',
+      youtube: 'stock',
+    },
+    aboutMe: 'stock',
+    photos: {
+      small: 'stock',
+      large: 'stock',
+    },
+  },
+  status: 'default status',
+};
 
 export const profile_reducer = (state = initialState, action: actionPT): initialStateProfileType => {
 

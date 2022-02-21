@@ -33,7 +33,7 @@ export const authMeAPI = {
 
   me() {
     return instance
-      .get<null, AxiosResponse<userDataPT>>('auth/me')
+      .get< userDataPT>('auth/me')
       .then((response) => {
         return response.data;
       });
