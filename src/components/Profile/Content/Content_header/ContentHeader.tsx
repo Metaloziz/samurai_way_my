@@ -11,8 +11,9 @@ import {
 } from 'components/Profile/Content/Content_header/ProfileDataInfo';
 import { AvatarImage } from 'components/Profile/Content/Content_header/AvatarImage';
 import {
-  ProfileDataInfoForm, ProfileDataInfoFormPT,
+  ProfileDataInfoForm,
 } from 'components/Profile/Content/Content_header/ProfileDataInfoForm';
+import { ProfileDataType } from 'redux/profile_reducer';
 
 export const ContentHeader = memo(({
                                      profile,
@@ -32,17 +33,17 @@ export const ContentHeader = memo(({
     setEditMod(!editMod);
   };
 
-  const setProfileDataCB = (props: ProfileDataInfoFormPT) => {
+  const setProfileDataCB = (props: ProfileDataType) => {
     setEditMod(false);
     setProfileData({
-      AboutMe: props.profile.aboutMe,
-      lookingForAJobDescription: props.profile.lookingForAJobDescription,
-      fullName: props.profile.fullName,
+      aboutMe: props.aboutMe,
+      lookingForAJobDescription: props.lookingForAJobDescription,
+      fullName: props.fullName,
       lookingForAJob: true,
       contacts: {
-        ...props.profile.contacts,
+        ...props.contacts,
       },
-    });
+    }, `${profile.userId}`);
     console.log(props);
   };
 
@@ -63,7 +64,7 @@ export const ContentHeader = memo(({
 
         {!userId && <button onClick={setEditModHandle}>change editMod</button>}
         {editMod
-          ? <ProfileDataInfoForm onSubmit={setProfileDataCB} />
+          ? <ProfileDataInfoForm initialValues={profile} onSubmit={setProfileDataCB} />
           : <ProfileDataInfo profile={profile} />
         }
 

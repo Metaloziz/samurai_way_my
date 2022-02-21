@@ -1,35 +1,53 @@
-import { ProfileType } from 'redux/profile_reducer';
+import { ContactsType, ProfileDataType } from 'redux/profile_reducer';
 import React, { useCallback } from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { maxLengthCreator, requiredField } from 'utils/validators/validators';
-import { Input } from 'components/comonComponents/FormsControls/FormsControl';
 import style from './ProfileDataInfoForm.module.css';
+import { FieldsCreator } from 'utils/fieldsCreator/fieldsCreator';
+import { Input } from 'components/comonComponents/FormsControls/FormsControl';
 
-export type ProfileDataInfoFormPT = {
-  profile: ProfileType
-}
+const ReduxForm = ({
+                     initialValues,
+                     handleSubmit,
+                   }: InjectedFormProps<ProfileDataType>) => {
 
-const ReduxForm = (props: InjectedFormProps<ProfileDataInfoFormPT>) => {
+  let maxLength = useCallback(maxLengthCreator(100), []);
 
-  let maxLength = useCallback(maxLengthCreator(30), []);
-
-  let arr = ['aboutMe', 'lookingForAJob',
-    'lookingForAJobDescription', 'fullName',
-    'github', 'vk', 'facebook', 'instagram', 'twitter', 'website', 'youtube', 'mainLink',
-  ];
+  // let arr: Array<keyof ContactsType> = [];
+  //
+  // if (initialValues.contacts) {
+  //   arr = Object.keys(initialValues.contacts) as Array<keyof ContactsType>;
+  // }
 
   return (
 
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
-        {arr.map((el) => {
+        <div><b>lookingForAJob:</b>
+          <Field
+            type='checkbox'
+            name={'lookingForAJob'}
+            component={Input}
+            validate={[requiredField, maxLength]} />
+        </div>
+        <div>
+          <b>lookingForAJobDescription:</b>
+          <FieldsCreator value={'lookingForAJobDescription'} maxLength={maxLength} />
+        </div>
+        <div><b>fullName:</b>
+          <FieldsCreator value={'fullName'} maxLength={maxLength} />
+        </div>
+        <div><b>about me:</b>
+          <FieldsCreator value={'aboutMe'} maxLength={maxLength} /></div>
+      </div>
+      <b>Contacts:</b>
+      <div>
+        {Object.keys(initialValues.contacts!).map((el) => {
+
           return <div className={style.item} key={el}><b>{el}:</b>
-            <Field
-              type='text'
-              name={el}
-              placeholder={el}
-              component={Input}
-              validate={[requiredField, maxLength]} />
+
+            <FieldsCreator value={`contacts.` + el} maxLength={maxLength} />
+
           </div>;
         })}
       </div>
@@ -38,4 +56,4 @@ const ReduxForm = (props: InjectedFormProps<ProfileDataInfoFormPT>) => {
   );
 };
 
-export const ProfileDataInfoForm = reduxForm<ProfileDataInfoFormPT>({ form: 'PROFILE' })(ReduxForm);
+export const ProfileDataInfoForm = reduxForm<ProfileDataType>({ form: 'PROFILE' })(ReduxForm);

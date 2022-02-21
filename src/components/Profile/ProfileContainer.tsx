@@ -2,7 +2,7 @@ import { Component, ComponentType } from 'react';
 import { Profile } from './Profile';
 import { connect } from 'react-redux';
 import {
-  petProfileDataThunkCreator, ProfileDataType,
+  setProfileDataThunkCreator, ProfileDataType,
   ProfileType, putPhotoThunkCreator,
   setUserStatusThunkCreator,
   setUserThunkCreator,
@@ -66,14 +66,14 @@ type mapDispatchToPropsType = {
   setUserStatus: (status: string) => void
   updateUserStatus: (status: string) => void
   setPhoto: (file: File) => void
-  setProfileData: (data: ProfileDataType) => void
+  setProfileData: (data: ProfileDataType, userId: string) => void
 }
 const mapDispatchToProps: mapDispatchToPropsType = {
   setUser: setUserThunkCreator,
   setUserStatus: setUserStatusThunkCreator,
   updateUserStatus: updateUserStatusThunkCreator,
   setPhoto: putPhotoThunkCreator,
-  setProfileData: petProfileDataThunkCreator,
+  setProfileData: setProfileDataThunkCreator,
 };
 
 const ProfileContainer = compose<ComponentType>(

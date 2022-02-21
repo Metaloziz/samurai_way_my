@@ -33,7 +33,7 @@ export const authMeAPI = {
 
   me() {
     return instance
-      .get< userDataPT>('auth/me')
+      .get<userDataPT>('auth/me')
       .then((response) => {
         return response.data;
       });
@@ -41,7 +41,7 @@ export const authMeAPI = {
 
   login(data: loginAPIRequestType) {
     return instance
-      .post<null, AxiosResponse<CommonResponseType<loginAPIResponseType>>, loginAPIRequestType>('/auth/login', data)
+      .post<null, AxiosResponse<CommonResponseType<loginAPIResponseType>>>('/auth/login', data)
       .then((response) => {
         return response;
       }).catch((res) => res);

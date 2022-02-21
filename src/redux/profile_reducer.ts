@@ -5,7 +5,6 @@ import { profileAPI, ResponsePutPhoto } from 'api/api';
 import { ResultCode } from 'utils/enum/enum';
 
 export type addPostATPT = ReturnType<typeof addPostAC>
-// export type changePostACPT = ReturnType<typeof changePostAC>
 export type addLikeACPT = ReturnType<typeof addLikeAC>
 export type setUserProfileACPT = ReturnType<typeof setUserProfileAC>
 export type setUserStatusACPT = ReturnType<typeof setUserStatusAC>
@@ -14,21 +13,16 @@ export type setUserProfileDataACPT = ReturnType<typeof setUserProfileDataAC>
 
 export const ADD_POST = 'ADD-POST';
 export const SET_PHOTO = 'SET_PHOTO';
-// export const CHANGE_POST = 'CHANGE_POST'
 export const ADD_LIKE = 'ADD_LIKE';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_USER_STATUS = 'SET_USER_STATUS';
 export const SET_USER_PROFILE_DATA = 'SET_USER_PROFILE_DATA';
-
 export const addPostAC = (value: string) => ({
   type: ADD_POST,
   value,
   id: v1(),
 } as const);
-// export const changePostAC = (newText: string) => ({
-//     type: CHANGE_POST,
-//     newText: newText
-// } as const)
+
 export const addLikeAC = (postID: string) => ({ type: ADD_LIKE, postID } as const);
 export const setUserProfileAC = (profile: ProfileType) => ({
   type: SET_USER_PROFILE,
@@ -63,13 +57,8 @@ export type PostDataType = {
   comment: number
 }
 
-export type ProfileType = {    // data from API
+export type ProfileType = ProfileDataType & {
   userId: number
-  lookingForAJob: boolean
-  lookingForAJobDescription: string
-  fullName: string
-  contacts: ContactsType
-  aboutMe: string
   photos: {
     small: string
     large: string
@@ -77,12 +66,11 @@ export type ProfileType = {    // data from API
 }
 
 export type ProfileDataType = {
-  // userId: number
-  AboutMe: string
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string
   contacts: ContactsType
+  aboutMe: string
 }
 
 export type ContactsType = {
@@ -111,7 +99,7 @@ const initialState: initialStateProfileType = {
       comment: 8,
     },
   ],    // it is not from API
-  newPostText: 'stock',
+  newPostText: 'stock', // it is not from API
   profile: {
     userId: 0,
     lookingForAJob: false,
@@ -170,7 +158,7 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
       let {
         lookingForAJobDescription,
         lookingForAJob,
-        AboutMe,
+        aboutMe,
         fullName,
         contacts,
       } = action.data;
@@ -178,7 +166,7 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
       return {
         ...state,
         profile: {
-          aboutMe: AboutMe,
+          aboutMe: aboutMe,
           contacts: {
             ...contacts,
           },
@@ -231,9 +219,10 @@ export const putPhotoThunkCreator = (file: File) => async (dispatch: Dispatch) =
   }
 };
 
-export const petProfileDataThunkCreator = (data: ProfileDataType) => async (dispatch: Dispatch) => {
+export const setProfileDataThunkCreator = (data: ProfileDataType, userId: string) => async (dispatch: Dispatch) => {
   let response = await profileAPI.updateUserData(data);
   if (response.resultCode === ResultCode.success) {
-    dispatch(setUserProfileDataAC(data));
+    let response = await profileAPI.getUserData(userId); // дублирование
+    dispatch(setUserProfileAC(response));
   }
 };

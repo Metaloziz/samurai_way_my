@@ -9,7 +9,7 @@ export type ContentHeaderPT = {
   profile: ProfileType
   status: string
   updateUserStatus: (status: string) => void
-  setProfileData: (data: ProfileDataType) => void
+  setProfileData: (data: ProfileDataType, userId: string) => void
 }
 
 export const Profile = memo((props: ContentHeaderPT) => {
