@@ -16,7 +16,7 @@ export type loginAPIRequestType = {
   captcha: boolean
 }
 
-type CommonResponseType<T = {}> = {
+export type CommonResponseType<T = {}> = {
   data: T
   fieldsErrors: []
   messages: string[]

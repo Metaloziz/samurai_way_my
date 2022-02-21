@@ -16,6 +16,7 @@ import {
   selectAuthorisedUserID,
   selectProfilePage, selectProfilePageStatus,
 } from 'utils/selectors/selectors';
+import { CommonResponseType } from 'api/api';
 
 type PathParamPT = {
   userId: string
@@ -66,7 +67,7 @@ type mapDispatchToPropsType = {
   setUserStatus: (status: string) => void
   updateUserStatus: (status: string) => void
   setPhoto: (file: File) => void
-  setProfileData: (data: ProfileDataType, userId: string) => (dispatch: Dispatch) => Promise<void>
+  setProfileData: (data: ProfileDataType, userId: string, setEditMod: (value: boolean) => void) => void
 }
 const mapDispatchToProps: mapDispatchToPropsType = {
   setUser: setUserThunkCreator,

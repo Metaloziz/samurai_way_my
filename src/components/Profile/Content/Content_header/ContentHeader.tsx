@@ -35,9 +35,9 @@ export const ContentHeader = memo(({
 
   const setProfileDataCB = (props: ProfileDataType) => {
     // setEditMod(false);
-    setProfileData(props, `${profile.userId}`);
-    console.log(props);
+    setProfileData(props, `${profile.userId}`, setEditMod);
 
+    console.log(props);
   };
 
   if (!profile) {

@@ -219,19 +219,16 @@ export const putPhotoThunkCreator = (file: File) => async (dispatch: Dispatch) =
   }
 };
 
-export const setProfileDataThunkCreator = (data: ProfileDataType, userId: string) => async (dispatch: Dispatch) => {
+export const setProfileDataThunkCreator = (data: ProfileDataType, userId: string, setEditMod: (value: boolean) => void) => async (dispatch: Dispatch) => {
   let response = await profileAPI.updateUserData(data);
   if (response.resultCode === ResultCode.success) {
     let response = await profileAPI.getUserData(userId); // дублирование .. как запустить вторую санку ?
     dispatch(setUserProfileAC(response));
+    setEditMod(false)
   } else {
-
     let action = stopSubmit('PROFILE', {
-
       // contacts: { vk: 'error' }, нужно распарсить строку
-
       _error: response.messages[0] ? response.messages[0] : 'something is wrong',
-
     });
     dispatch(action);
   }
