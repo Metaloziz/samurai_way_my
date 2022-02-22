@@ -1,5 +1,5 @@
 import { userDataPT } from 'components/Header/Header';
-import { auth_reducer, setUserDataAC } from 'redux/auth_reducer';
+import { auth_reducer, getCaptchaAC, setUserDataAC } from 'redux/auth_reducer';
 
 let userDataInitialState: userDataPT;
 
@@ -14,6 +14,7 @@ beforeEach(() => {
     fieldsErrors: [''],
     resultCode: 1,
     isAuth: false,  // it is not from API
+    captchaURL: '',
   };
 });
 
@@ -29,6 +30,7 @@ test('authorised signature test', () => {
     fieldsErrors: ['pump'],
     resultCode: 439,
     isAuth: true,  // it is not from API
+    captchaURL: '',
   };
 
   let action = setUserDataAC(newData, true);
@@ -38,6 +40,18 @@ test('authorised signature test', () => {
   expect(endState).not.toBe(userDataInitialState);
   expect(endState.isAuth).toBe(true);
   expect(endState.data).toBe(newData.data);
+});
+
+test('get captcha url', () => {
+
+  let captchaURL = 'some url';
+
+  let action = getCaptchaAC(captchaURL);
+
+  let endState = auth_reducer(userDataInitialState, action);
+
+  expect(endState).not.toBe(userDataInitialState);
+  expect(endState.captchaURL).toBe(captchaURL);
 });
 
 
