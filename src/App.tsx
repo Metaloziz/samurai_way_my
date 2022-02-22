@@ -3,24 +3,33 @@ import { HeaderContainer } from 'components/Header/HeaderContainer';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import React, { Component, lazy, Suspense } from 'react';
 import { NavigationContainer } from 'components/Navigation/NavigationContainer';
-import { userDataInitialStateType } from 'redux/app_reducer';
+import { UserDataInitialStateType } from 'redux/app_reducer';
 import { Preloader } from 'components/comonComponents/Preloader';
-import { mapDispatchToPropsPT } from 'AppHOC';
+import { MapDispatchPT } from 'AppHOC';
 
-const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'));
-const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
-const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
 const News = lazy(() => import('components/News/News'));
 const Login = lazy(() => import('components/Login/Login'));
 const Music = lazy(() => import('components/Music/Music'));
 const Page404 = lazy(() => import('components/Page404/Page404'));
 const Settings = lazy(() => import('components/Settings/Settings'));
+const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
+const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
+const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'));
 
-class App extends Component<mapDispatchToPropsPT & userDataInitialStateType> {
+class App extends Component<MapDispatchPT & UserDataInitialStateType> {
+
+  catchAllUnhandledErrors = () => {
+    console.warn('Внимание: Необработанная ошибка Promise. Позор вам! ');
+  };
 
   componentDidMount = () => {
-    this.props.initializeThunkCreator();
+    this.props.initializeTC();
+    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
   };
+
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+  }
 
   render() {
     if (!this.props.initialized) {

@@ -9,6 +9,10 @@
     font-weight: 600;
 }
 
+.main_div2 {
+    background-color: rgba(0, 255, 157, 0.42);
+}
+
 .main_div img {
     width: 100px;
     height: 100px;

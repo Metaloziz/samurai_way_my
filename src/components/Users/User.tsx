@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import stockImage from 'components/Users/imgAva/user.png';
 import { memo } from 'react';
 import { UserPT } from 'components/Users/UsersContainer';
+import cn from 'classnames';
 
 type UserType = {
   user: UserPT
@@ -16,7 +17,8 @@ export const User = memo(({ user, followCB }: UserType) => {
   };
 
   return <div
-    id={String(user.id)} className={style.main_div}>
+    id={String(user.id)}
+    className={cn(style.main_div, user.followed && style.main_div2)}>
     <div>
       <NavLink to={'/profile/' + user.id}>
         <img alt={'ava'} src={user.photos.small || stockImage} />

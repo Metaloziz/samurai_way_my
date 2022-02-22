@@ -203,11 +203,12 @@ export const setUserStatusThunkCreator = (userId: string) => async (dispatch: Di
 };
 
 export const updateUserStatusThunkCreator = (status: string) => async (dispatch: Dispatch) => {
-  let response = await profileAPI.updateUserStatus(status);
-
+  let response = await profileAPI.updateUserStatus({ status });
   console.log(response);
   if (response.resultCode === ResultCode.success) {
     dispatch(setUserStatusAC(status));  // если запрос успешный, то обнови статус на тот, который отправил
+  } else {
+    console.warn(response.messages[0]);
   }
 };
 
@@ -224,7 +225,7 @@ export const setProfileDataThunkCreator = (data: ProfileDataType, userId: string
   if (response.resultCode === ResultCode.success) {
     let response = await profileAPI.getUserData(userId); // дублирование .. как запустить вторую санку ?
     dispatch(setUserProfileAC(response));
-    setEditMod(false)
+    setEditMod(false);
   } else {
     let action = stopSubmit('PROFILE', {
       // contacts: { vk: 'error' }, нужно распарсить строку

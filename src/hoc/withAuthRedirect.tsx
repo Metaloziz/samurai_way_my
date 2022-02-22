@@ -1,20 +1,21 @@
 import { connect } from 'react-redux';
 import { AppStatePT } from 'redux/store_redux';
 import { Navigate } from 'react-router-dom';
+import { ComponentType } from 'react';
 
-type mapStateToPropsType = {
+type MapStatePT = {
   isAuth: boolean
 }
 
-let mapStateToProps = (state: AppStatePT): mapStateToPropsType => {
+let mapStateToProps = (state: AppStatePT): MapStatePT => {
   return {
     isAuth: state.auth.isAuth,
   };
 };
 
-export function withAuthRedirect<T>(Component: React.ComponentType<T>) {  //  <T> не работает со стрелочными функциями
+export function withAuthRedirect<T>(Component: ComponentType<T>) {  //  <T> не работает со стрелочными функциями
 
-  let RedirectComponent = (props: mapStateToPropsType) => {
+  let RedirectComponent = (props: MapStatePT) => {
 
     let { isAuth, ...restProps } = props;   // Достаём isAuth, т.к. нам не нужно его передавать в компоненту
 

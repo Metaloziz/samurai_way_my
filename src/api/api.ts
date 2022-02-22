@@ -27,8 +27,6 @@ type loginAPIResponseType = {
   userId: number
 }
 
-type payloadStatusType = { status: string };
-
 type getCaptchaURLPT = {
   url: string
 }
@@ -44,7 +42,7 @@ export const authMeAPI = {
   },
   login(data: loginAPIRequestType) {
     return instance
-      .post<null, AxiosResponse<CommonResponseType<loginAPIResponseType>>>('/auth/login', data)
+      .post<CommonResponseType<loginAPIResponseType>>('/auth/login', data)
       .then((response) => {
         return response;
       }).catch((res) => res);
@@ -69,7 +67,7 @@ export const profileAPI = {
     let formData = new FormData();
     formData.append('image', image);
     return instance
-      .put<null, AxiosResponse<CommonResponseType<ResponsePutPhoto>>>('/profile/photo', formData, {
+      .put<CommonResponseType<ResponsePutPhoto>>('/profile/photo', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -80,29 +78,29 @@ export const profileAPI = {
   },
   getUserData(userID: string) {
     return instance
-      .get<null, AxiosResponse<ProfileType>>('profile/' + userID)
+      .get<ProfileType>('profile/' + userID)
       .then((response) => {
         return response.data;
       });
   },
   getUserStatus(userID: string) {
     return instance
-      .get<null, AxiosResponse<string>>('/profile/status/' + userID)
+      .get<string>('/profile/status/' + userID)
       .then((response) => {
           return response.data;   // только строка
         },
-      );
+      ).catch(rej => rej);
   },
-  updateUserStatus(status: string) {
+  updateUserStatus(status: { status: string }) {
     return instance
-      .put<null, AxiosResponse<CommonResponseType>, payloadStatusType>('/profile/status', { status }) // 2 argument -  Media type: application/json
+      .put<CommonResponseType>('/profile/status', status) // 2 argument -  Media type: application/json
       .then((state) => {
         return state.data;
       });
   },
   updateUserData(data: ProfileDataType) {
     return instance
-      .put<null, AxiosResponse<CommonResponseType>>('/profile', { ...data })
+      .put<CommonResponseType>('/profile', { ...data })
       .then((response) => {
         return response.data;
       });
@@ -112,7 +110,7 @@ export const profileAPI = {
 export const UserAPI = {
   setUserOnPageAPI(pageID: number, pageSize: number) {
     return instance
-      .get<null, AxiosResponse<UsersStatePT>>(`users?page=${pageID}&count=${pageSize}`)
+      .get<UsersStatePT>(`users?page=${pageID}&count=${pageSize}`)
       .then((response) => {
         return response.data;
       });
@@ -123,15 +121,15 @@ export const followAPI = {
 
   setUnFollow: (userID: number) => {
     return instance
-      .delete<null, AxiosResponse<CommonResponseType>>('follow/' + userID)
+      .delete<CommonResponseType>('follow/' + userID)
       .then((response) => {
         return response.data;
       });
   },
   setFollow: (userID: number) => {
     return instance
-      .post<null, AxiosResponse<CommonResponseType>>('follow/' + userID)
-      .then(response => {
+      .post<CommonResponseType>('follow/' + userID)
+      .then((response) => {
         return response.data;
       });
   },

@@ -5,7 +5,7 @@ import { SET_INITIALIZED } from 'redux/constTypeAC/constTypies';
 
 export type setInitializedAPPACPT = ReturnType<typeof setInitializedAPPAC>
 
-export type userDataInitialStateType = {
+export type UserDataInitialStateType = {
   initialized: boolean
 }
 
@@ -14,11 +14,11 @@ export const setInitializedAPPAC = (initialized: boolean) => ({
   initialized,
 } as const);
 
-const userDataInitialState: userDataInitialStateType = {
+const userDataInitialState: UserDataInitialStateType = {
   initialized: false,
 };
 
-export const app_reducer = (state = userDataInitialState, action: actionPT): userDataInitialStateType => {
+export const app_reducer = (state = userDataInitialState, action: actionPT): UserDataInitialStateType => {
   switch (action.type) {
     case SET_INITIALIZED:
       return { ...state, initialized: action.initialized };
@@ -29,7 +29,7 @@ export const app_reducer = (state = userDataInitialState, action: actionPT): use
 
 
 
-export const initializeThunkCreator = (): ThunkType => async (dispatch) => {
+export const initializeTC = (): ThunkType => async (dispatch) => {
 
   let promise = dispatch(setUserDataThunkCreator()); // вызов второй санки // всегда возвращается promise
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import { AppStatePT } from 'redux/store_redux';
 import {
@@ -13,7 +13,7 @@ import { withAuthRedirect } from 'hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { selectUsersSuper } from 'utils/selectors/selectors';
 
-export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatchToPropsPT> {
+export class UsersAPIcontainer extends Component<UsersStatePT & mapDispatchToPropsPT> {
 
   componentDidMount = () => {
     this.props.setPageThunkCreator(this.props.currentPage, this.props.pageSize);
@@ -48,7 +48,7 @@ export class UsersAPIcontainer extends React.Component<UsersStatePT & mapDispatc
   }
 }
 
-const mapStateToProps: mapStateToPropsType = (state) => {
+const mapStateToProps = (state: AppStatePT): UsersStatePT => {
   return selectUsersSuper(state);
 };
 
@@ -59,14 +59,12 @@ let mapDispatchToProps: mapDispatchToPropsPT = {
   followThunkCreator,
 };
 
-const UsersContainer = compose<React.ComponentType>(
+const UsersContainer = compose<ComponentType>(
   withAuthRedirect,
   connect(mapStateToProps, mapDispatchToProps),
 )(UsersAPIcontainer);
 
 export default UsersContainer;
-
-type mapStateToPropsType = (state: AppStatePT) => UsersStatePT
 
 export type mapDispatchToPropsPT = {
   // getUsersThunkCreator: (currentPage: number, pageSize: number) => void

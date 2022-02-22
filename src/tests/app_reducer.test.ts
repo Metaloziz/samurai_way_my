@@ -1,10 +1,10 @@
 import {
   app_reducer,
   setInitializedAPPAC,
-  userDataInitialStateType,
+  UserDataInitialStateType,
 } from 'redux/app_reducer';
 
-let userDataInitialState: userDataInitialStateType;
+let userDataInitialState: UserDataInitialStateType;
 
 beforeEach(() => {
   userDataInitialState = {
