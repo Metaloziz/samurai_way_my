@@ -17,4 +17,4 @@ export function FieldsCreator({ maxLength, value }: FieldsCreatorType) {
         validate={[requiredField, maxLength]} />
     </div>
   );
-};
+}

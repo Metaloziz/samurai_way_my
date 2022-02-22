@@ -1,7 +1,7 @@
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import React, { memo, useCallback } from 'react';
 import { maxLengthCreator, requiredField } from 'utils/validators/validators';
-import { TextArea } from 'components/comonComponents/FormsControls/FormsControl';
+import { Input } from 'components/comonComponents/FormsControls/FormsControl';
 
 export type  MessageReduxInputType = {
   message: string   // этот ключ не используется для отбора данных,
@@ -16,7 +16,8 @@ const MessageReduxInput = memo((props: InjectedFormProps<MessageReduxInputType>)
     <form onSubmit={props.handleSubmit}>
       <Field type={'text'}
              name={'message'}
-             component={TextArea}
+             typeComponent={'textarea'}
+             component={Input}
              placeholder={'some text'}
              validate={[requiredField, maxLength15]}
       />

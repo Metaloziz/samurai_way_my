@@ -1,6 +1,6 @@
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import React, { memo, useCallback } from 'react';
-import { TextArea } from 'components/comonComponents/FormsControls/FormsControl';
+import { Input } from 'components/comonComponents/FormsControls/FormsControl';
 import { maxLengthCreator, requiredField } from 'utils/validators/validators';
 
 // let maxLength = maxLengthCreator(2)
@@ -18,7 +18,8 @@ const PostsReduxForm = memo((props: InjectedFormProps<PostsReduxFormType>) => {
       <div>
         <Field type={'text'}
                name={'textPost'}
-               component={TextArea}
+               typeComponent={'textarea'}
+               component={Input}
                placeholder={'test'}
                validate={[requiredField, maxLength15]}
         />

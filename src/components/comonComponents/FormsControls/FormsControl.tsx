@@ -4,29 +4,38 @@ import { memo } from 'react';
 
 interface TextAreaType extends WrappedFieldProps {
   placeholder: string;
-  type: string;
+  inputType: string;
+  typeComponent: 'input' | 'textarea';
 } // другая запись для разнообразия
 
-export const TextArea = memo((props: TextAreaType) => {
+export const Input = memo(({
+                             inputType,
+                             placeholder,
+                             meta,
+                             input,
+                             typeComponent,
+                           }: TextAreaType) => {
 
-  const showError = props.meta.touched && props.meta.error;
+  const showError = meta.touched && meta.error;
 
   return (
     <div className={`${style.formControl} ${showError ? style.error : ''}`}>
-      <textarea placeholder={props.placeholder} {...props.input} />
-      {showError && <div><span>{props.meta.error}</span></div>}
+      {typeComponent == 'textarea'
+        ? <textarea placeholder={placeholder} {...input} />
+        : <input placeholder={placeholder} {...input} type={inputType} />}
+      {showError && <div><span>{meta.error}</span></div>}
     </div>
   );
 });
 
-export const Input = memo((props: TextAreaType) => {
-
-  const showError = props.meta.touched && props.meta.error;
-
-  return (
-    <div className={`${style.formControl} ${showError ? style.error : ''}`}>
-      <input placeholder={props.placeholder} {...props.input} type={props.type} />
-      {showError && <div><span>{props.meta.error}</span></div>}
-    </div>
-  );
-});
+// export const Input = memo(({ input, placeholder, inputType, meta }: TextAreaType) => {
+//
+//   const showError = meta.touched && meta.error;
+//
+//   return (
+//     <div className={`${style.formControl} ${showError ? style.error : ''}`}>
+//       <input placeholder={placeholder} {...input} type={inputType} />
+//       {showError && <div><span>{meta.error}</span></div>}
+//     </div>
+//   );
+// });

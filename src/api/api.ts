@@ -31,6 +31,13 @@ type getCaptchaURLPT = {
   url: string
 }
 
+export type ResponsePutPhoto = {
+  photos: {
+    small: string
+    large: string
+  }
+}
+
 export const authMeAPI = {
 
   me() {
@@ -54,13 +61,6 @@ export const authMeAPI = {
     return instance.get<getCaptchaURLPT>('/security/get-captcha-url');
   },
 };
-
-export type ResponsePutPhoto = {
-  photos: {
-    small: string
-    large: string
-  }
-}
 
 export const profileAPI = {
   putPhoto(image: File) {
