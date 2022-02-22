@@ -13,7 +13,7 @@ export type loginAPIRequestType = {
   email: string
   password: string
   rememberMe: boolean
-  captcha: boolean
+  captchaURL: string
 }
 
 export type CommonResponseType<T = {}> = {
@@ -29,6 +29,10 @@ type loginAPIResponseType = {
 
 type payloadStatusType = { status: string };
 
+type getCaptchaURLPT = {
+  url: string
+}
+
 export const authMeAPI = {
 
   me() {
@@ -38,7 +42,6 @@ export const authMeAPI = {
         return response.data;
       });
   },
-
   login(data: loginAPIRequestType) {
     return instance
       .post<null, AxiosResponse<CommonResponseType<loginAPIResponseType>>>('/auth/login', data)
@@ -48,6 +51,9 @@ export const authMeAPI = {
   },
   logout() {
     return instance.delete<null, AxiosResponse<CommonResponseType>>('/auth/login');
+  },
+  getCaptchaURL() {
+    return instance.get<getCaptchaURLPT>('/security/get-captcha-url');
   },
 };
 

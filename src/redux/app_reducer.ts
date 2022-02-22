@@ -1,4 +1,4 @@
-import { actionPT, BaseThunkType } from 'redux/store_redux';
+import { actionPT, BaseThunkType, ThunkType } from 'redux/store_redux';
 import { setUserDataThunkCreator } from 'redux/auth_reducer';
 import { FormAction } from 'redux-form';
 import { SET_INITIALIZED } from 'redux/constTypeAC/constTypies';
@@ -27,7 +27,7 @@ export const app_reducer = (state = userDataInitialState, action: actionPT): use
   }
 };
 
-export type ThunkType = BaseThunkType<actionPT | FormAction> //типизация для вызова санки внутри санки
+
 
 export const initializeThunkCreator = (): ThunkType => async (dispatch) => {
 

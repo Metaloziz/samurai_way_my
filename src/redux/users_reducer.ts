@@ -3,6 +3,12 @@ import { UserPT, UsersStatePT } from 'components/Users/UsersContainer';
 import { Dispatch } from 'redux';
 import { followAPI, UserAPI } from 'api/api';
 import { ResultCode } from 'utils/enum/enum';
+import {
+  CHANGE_PAGE,
+  FOLLOW,
+  SET_USERS,
+  TOGGLE_IS_FETCHING_PAGE, TOGGLE_IS_FETCHING_USER,
+} from 'redux/constTypeAC/constTypies';
 
 type API_methodType = typeof followAPI.setUnFollow
 
@@ -11,12 +17,6 @@ export type setUsersATPT = ReturnType<typeof setUsersAC>
 export type changePageACPT = ReturnType<typeof changePageAC>
 export type toggleIsFetchingPageACPT = ReturnType<typeof toggleIsFetchingPageAC>
 export type toggleIsFetchingUserACPT = ReturnType<typeof toggleIsFetchingUserAC>
-
-export const FOLLOW = 'FOLLOW';
-export const SET_USERS = 'SET_USERS';
-export const CHANGE_PAGE = 'CHANGE_PAGE';
-export const TOGGLE_IS_FETCHING_PAGE = 'TOGGLE_IS_FETCHING_PAGE';
-export const TOGGLE_IS_FETCHING_USER = 'TOGGLE_IS_FETCHING_USER';
 
 export const followAC = (userID: number) => ({ type: FOLLOW, userID } as const);
 export const setUsersAC = (users: UserPT[], totalCount: number) => ({

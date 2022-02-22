@@ -17,3 +17,4 @@ export const selectAuthorisedUserID = (state: AppStatePT) => state.auth.data.id.
 export const selectDialogsPage = (state: AppStatePT) => state.dialogsPage;
 export const selectAuth = (state: AppStatePT) => state.auth.isAuth;
 export const selectIsAuth = (state: AppStatePT) => ({ isAuth: state.auth.isAuth });
+export const selectCaptcha = (state: AppStatePT) => ({ captchaURL: state.auth.captchaURL });

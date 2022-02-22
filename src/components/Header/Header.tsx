@@ -13,6 +13,7 @@ export  type userDataPT = {
   fieldsErrors: string[]
   resultCode: number
   isAuth: boolean  // it is not from API
+  captchaURL: string  // it is from another API
 }
 
 export  type DataHeaderType = {

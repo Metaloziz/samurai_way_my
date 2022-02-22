@@ -4,13 +4,14 @@ import { setLoginThunkCreator } from 'redux/auth_reducer';
 import { loginAPIRequestType } from 'api/api';
 import { AppStatePT } from 'redux/store_redux';
 import { Navigate } from 'react-router-dom';
-import { selectIsAuth } from 'utils/selectors/selectors';
+import { selectCaptcha, selectIsAuth } from 'utils/selectors/selectors';
 import { Component } from 'react';
 
 class LoginContainer extends Component<mapStateToPropsType & mapDispatchToPropsType> {
 
   onSubmit = (formData: FormDataType) => {
     this.props.setLoginThunkCreator(formData);
+
   };
 
   render() {
@@ -23,7 +24,7 @@ class LoginContainer extends Component<mapStateToPropsType & mapDispatchToPropsT
         </div>
         <div>Email: free@samuraijs.com</div>
         <div>Password: free</div>
-        <LoginForm onSubmit={this.onSubmit} />
+        <LoginForm onSubmit={this.onSubmit} captchaURL={this.props.captchaURL} />
       </>
     );
   }
@@ -31,10 +32,10 @@ class LoginContainer extends Component<mapStateToPropsType & mapDispatchToPropsT
 
 // <LoginForm onSubmit={onSubmit}/> так это контейнерная компонента, то в onSubmit автоматом попадают пропсы
 
-type mapStateToPropsType = { isAuth: boolean }
+type mapStateToPropsType = { isAuth: boolean, captchaURL: string }
 
 const mapStateToProps = (state: AppStatePT): mapStateToPropsType => {
-  return selectIsAuth(state);
+  return { ...selectIsAuth(state), ...selectCaptcha(state) };
 };
 
 type mapDispatchToPropsType = {

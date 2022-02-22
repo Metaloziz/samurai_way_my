@@ -15,7 +15,7 @@ import {
   toggleIsFetchingUserACPT,
   users_reducer,
 } from './users_reducer';
-import { auth_reducer, setUserDataACPT } from './auth_reducer';
+import { auth_reducer, getCaptchaACPT, setUserDataACPT } from './auth_reducer';
 import {
   Action,
   applyMiddleware,
@@ -25,7 +25,7 @@ import {
   Store,
 } from 'redux';
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
-import { reducer as formReducer } from 'redux-form';
+import { FormAction, reducer as formReducer } from 'redux-form';
 import { app_reducer, setInitializedAPPACPT } from 'redux/app_reducer';
 
 export type AppStatePT = ReturnType<typeof reducer>
@@ -70,7 +70,11 @@ export type actionPT =
   | setInitializedAPPACPT
   | setPhotoACPT
   | setUserProfileDataACPT
+  | getCaptchaACPT
 
 export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStatePT, unknown, A>
+
+export type ThunkType = BaseThunkType<actionPT | FormAction> //типизация для вызова санки внутри санки
+
 
 
