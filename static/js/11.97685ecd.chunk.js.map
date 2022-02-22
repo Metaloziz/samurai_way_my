@@ -1,1 +1,0 @@
-{"version":3,"sources":["components/Page404/Page404.tsx"],"names":["Page404"],"mappings":"2HAOeA,UAPC,WACd,OAAQ","file":"static/js/11.97685ecd.chunk.js","sourcesContent":["const Page404 = () => {\r\n  return (<div>\r\n      404\r\n    </div>\r\n  );\r\n};\r\n\r\nexport default Page404;"],"sourceRoot":""}
