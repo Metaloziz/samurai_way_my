@@ -2,7 +2,7 @@ import {
   addLikeAC,
   addPostAC,
   initialStateProfileType,
-  profile_reducer, ProfileType, setUserProfileAC,
+  profile_reducer, ProfileType, setUserProfileAC, setUserStatusAC,
 } from 'redux/profile_reducer';
 
 let profileInitialState: initialStateProfileType;
@@ -108,6 +108,19 @@ test('set user profile data', () => {
   expect(endState.profile.contacts.github).toBe(profile.contacts.github);
   expect(endState.profile.contacts.website).toBe(profile.contacts.website);
   expect(endState.profile.photos.small).toBe(profile.photos.small);
+
+});
+
+test('set user status', () => {
+
+  let status = 'shelf';
+
+  let action = setUserStatusAC(status);
+
+  let endState = profile_reducer(profileInitialState, action);
+
+  expect(endState).not.toBe(profileInitialState);
+  expect(endState.status).toBe(status);
 
 });
 
