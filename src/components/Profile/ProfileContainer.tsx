@@ -29,23 +29,40 @@ export class ProfileContainerAPI extends Component<mapStateToPropsPT
   & { params: PathParamPT }> {
 
   componentDidMount() {
-    let userID = this.props.params.userId;
+    let {
+      setUserStatus,
+      setUser,
+      authorisedUserID,
+      params,
+    } = this.props;
+
+    let userID = params.userId;
     if (!userID) {
-      userID = this.props.authorisedUserID;
+      userID = authorisedUserID;
     }
-    this.props.setUser(userID);
-    this.props.setUserStatus(userID);
+    setUser(userID);
+    setUserStatus(userID);
 
   }
 
   render() {
-    return <Profile userId={this.props.params.userId}
-                    profile={this.props.profile}
-                    status={this.props.status}
-                    savePhoto={this.props.setPhoto}
-                    setProfileData={this.props.setProfileData}
+
+    let {
+      profile,
+      setProfileData,
+      updateUserStatus,
+      status,
+      params,
+      setPhoto,
+    } = this.props;
+
+    return <Profile userId={params.userId}
+                    profile={profile}
+                    status={status}
+                    savePhoto={setPhoto}
+                    setProfileData={setProfileData}
                     updateUserStatus={
-                      this.props.updateUserStatus} />;
+                      updateUserStatus} />;
 
   }
 }

@@ -13,21 +13,25 @@ export type mapStateToPropsMessageType = {
   dialogsPage: dialogsItemsPT
   isAuth: boolean
 };
-export type mapDispatchToPropsMessageType = {
-  addNewMessage: (value: string) => void
-  // changeText: (newText: string) => void
-};
+
 export type dialogsItemsPT = {
   dialogs: Array<DialogPT>
   messages: Array<MessagePT>
   // newText: string
 }
+export type mapDispatchToPropsMessageType = {
+  addNewMessage: (value: string) => void
+  // changeText: (newText: string) => void
+};
 
 class MessagesClassComponent extends Component<mapStateToPropsMessageType & mapDispatchToPropsMessageType> {
 
   render() {
-    return <Messages addNewMessage={this.props.addNewMessage}
-                     dialogsPage={this.props.dialogsPage} />;
+
+    let { addNewMessage, dialogsPage } = this.props;
+
+    return <Messages addNewMessage={addNewMessage}
+                     dialogsPage={dialogsPage} />;
   }
 }
 

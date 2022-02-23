@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import { DialogItem } from './DialogItem/DialogItem';
 import { MessagesItem } from './MessagesItem/MessagesItem';
 import style from './Messages.module.css';
@@ -8,20 +8,20 @@ import {
 } from './MessagesContainer';
 import { AddMessageForm, MessageReduxInputType } from './AddMessageForm/AddMessageForm';
 
-export let Messages = memo((props: Omit<mapStateToPropsMessageType, 'isAuth'>
-  & mapDispatchToPropsMessageType) => {
+export let Messages: FC<Omit<mapStateToPropsMessageType, 'isAuth'>
+  & mapDispatchToPropsMessageType> = memo(({ dialogsPage, addNewMessage }) => {
 
-  let dialogsDataItems = props.dialogsPage.dialogs
+  let dialogsDataItems = dialogsPage.dialogs
     .map((item, index) => <DialogItem key={index} id={item.id} name={item.name}
                                       ava={item.ava} />);
 
-  let messagesDataItems = props.dialogsPage.messages
+  let messagesDataItems = dialogsPage.messages
     .map((item, index) => <MessagesItem key={index} id={item.id} text={item.text} />);
 
   let addNewPost = useCallback((data: MessageReduxInputType) => {
     console.log(data);
     if (data.message) {              // check empty
-      props.addNewMessage(data.message.trim());
+      addNewMessage(data.message.trim());
     } else {
       console.warn('field is empty');
     }
