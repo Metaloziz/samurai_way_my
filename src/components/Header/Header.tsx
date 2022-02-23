@@ -22,7 +22,7 @@ export  type DataHeaderType = {
 
 export const Header = memo(({
                               data,
-                              setLogoutThunkCreator,
+                              setLogoutTC,
                             }: DataHeaderType & mapDispatchToPropsPT) => {
 
   return (
@@ -35,7 +35,7 @@ export const Header = memo(({
       <div className={style.loginBlock}>
         {data.resultCode === 0
           ? <div>{data.data.login}
-            <button onClick={setLogoutThunkCreator}>logout</button>
+            <button onClick={setLogoutTC}>logout</button>
           </div>
           : <NavLink to={'/login'}>Login</NavLink>}
       </div>

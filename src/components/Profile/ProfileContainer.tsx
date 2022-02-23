@@ -2,21 +2,23 @@ import { Component, ComponentType } from 'react';
 import { Profile } from './Profile';
 import { connect } from 'react-redux';
 import {
-  setProfileDataThunkCreator, ProfileDataType,
-  ProfileType, putPhotoThunkCreator,
-  setUserStatusThunkCreator,
-  setUserThunkCreator,
-  updateUserStatusThunkCreator,
+  ProfileDataType,
+  ProfileType,
+  putPhotoTC,
+  setProfileDataTC,
+  setUserStatusTC,
+  setUserTC,
+  updateUserStatusTC,
 } from 'redux/profile_reducer';
 import { AppStatePT } from 'redux/store_redux';
 import { withAuthRedirect } from 'hoc/withAuthRedirect';
-import { compose, Dispatch } from 'redux';
+import { compose } from 'redux';
 import { withRouter } from 'utils/withRouter/WithRouter';
 import {
   selectAuthorisedUserID,
-  selectProfilePage, selectProfilePageStatus,
+  selectProfilePage,
+  selectProfilePageStatus,
 } from 'utils/selectors/selectors';
-import { CommonResponseType } from 'api/api';
 
 type PathParamPT = {
   userId: string
@@ -70,11 +72,11 @@ type mapDispatchToPropsType = {
   setProfileData: (data: ProfileDataType, userId: string, setEditMod: (value: boolean) => void) => void
 }
 const mapDispatchToProps: mapDispatchToPropsType = {
-  setUser: setUserThunkCreator,
-  setUserStatus: setUserStatusThunkCreator,
-  updateUserStatus: updateUserStatusThunkCreator,
-  setPhoto: putPhotoThunkCreator,
-  setProfileData: setProfileDataThunkCreator,
+  setUser: setUserTC,
+  setUserStatus: setUserStatusTC,
+  updateUserStatus: updateUserStatusTC,
+  setPhoto: putPhotoTC,
+  setProfileData: setProfileDataTC,
 };
 
 const ProfileContainer = compose<ComponentType>(

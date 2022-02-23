@@ -1,21 +1,20 @@
 import { DataHeaderType, Header } from './Header';
 import { connect } from 'react-redux';
-import { setLogoutThunkCreator } from 'redux/auth_reducer';
+import { setLogoutTC } from 'redux/auth_reducer';
 import { AppStatePT } from 'redux/store_redux';
 import { Component } from 'react';
 
 export type mapDispatchToPropsPT = {
-  setLogoutThunkCreator: () => void
+  setLogoutTC: () => void
 }
 
 export class HeaderContainerAPI extends Component<DataHeaderType & mapDispatchToPropsPT> {
 
   render() {
 
-    let { data, setLogoutThunkCreator } = this.props;
+    let { data, setLogoutTC } = this.props;
     return (
-      <Header data={data}
-              setLogoutThunkCreator={setLogoutThunkCreator}
+      <Header data={data} setLogoutTC={setLogoutTC}
       />
     );
   }
@@ -26,7 +25,7 @@ const mapStateToProps = (state: AppStatePT): DataHeaderType => {
 };
 
 const mapDispatchToProps: mapDispatchToPropsPT = {
-  setLogoutThunkCreator,
+  setLogoutTC: setLogoutTC,
 };
 
 export const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(HeaderContainerAPI);

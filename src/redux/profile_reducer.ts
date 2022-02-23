@@ -185,14 +185,14 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
   }
 };
 
-export const setUserThunkCreator = (userId: string) => async (dispatch: Dispatch) => {
+export const setUserTC = (userId: string) => async (dispatch: Dispatch) => {
   let response = await profileAPI.getUserData(userId);
 
   dispatch(setUserProfileAC(response));
 
 };
 
-export const setUserStatusThunkCreator = (userId: string) => async (dispatch: Dispatch) => {
+export const setUserStatusTC = (userId: string) => async (dispatch: Dispatch) => {
   let response = await profileAPI.getUserStatus(userId);
 
   if (response) {
@@ -202,7 +202,7 @@ export const setUserStatusThunkCreator = (userId: string) => async (dispatch: Di
   }
 };
 
-export const updateUserStatusThunkCreator = (status: string) => async (dispatch: Dispatch) => {
+export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch) => {
   let response = await profileAPI.updateUserStatus({ status });
   console.log(response);
   if (response.resultCode === ResultCode.success) {
@@ -212,7 +212,7 @@ export const updateUserStatusThunkCreator = (status: string) => async (dispatch:
   }
 };
 
-export const putPhotoThunkCreator = (file: File) => async (dispatch: Dispatch) => {
+export const putPhotoTC = (file: File) => async (dispatch: Dispatch) => {
 
   let response = await profileAPI.putPhoto(file);
   if (response.resultCode === ResultCode.success) {
@@ -220,7 +220,7 @@ export const putPhotoThunkCreator = (file: File) => async (dispatch: Dispatch) =
   }
 };
 
-export const setProfileDataThunkCreator = (data: ProfileDataType, userId: string, setEditMod: (value: boolean) => void) => async (dispatch: Dispatch) => {
+export const setProfileDataTC = (data: ProfileDataType, userId: string, setEditMod: (value: boolean) => void) => async (dispatch: Dispatch) => {
   let response = await profileAPI.updateUserData(data);
   if (response.resultCode === ResultCode.success) {
     let response = await profileAPI.getUserData(userId); // дублирование .. как запустить вторую санку ?

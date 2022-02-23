@@ -44,7 +44,7 @@ export const auth_reducer = (state = userDataInitialState, action: actionPT): us
   }
 };
 
-export const setUserDataThunkCreator = () => async (dispatch: Dispatch) => {
+export const setUserDataTC = () => async (dispatch: Dispatch) => {
   let response = await authMeAPI.me();
   if (response.resultCode === ResultCode.success) {
     dispatch(setUserDataAC(response, true));
@@ -53,14 +53,14 @@ export const setUserDataThunkCreator = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const setLoginThunkCreator = (userData: loginAPIRequestType): ThunkType => async (dispatch) => {
+export const setLoginTC = (userData: loginAPIRequestType): ThunkType => async (dispatch) => {
   let response = await authMeAPI.login(userData);
   if (response.data.resultCode === ResultCode.success) {
-    await dispatch(setUserDataThunkCreator()); // вызов другой санки
+    await dispatch(setUserDataTC()); // вызов другой санки
   } else {
 
     if (response.data.resultCode === ResultCode.captcha) {
-      await dispatch(getCaptchaURL_ThunkCreator());
+      await dispatch(getCaptchaURL_TC());
     }
 
     let action = stopSubmit('LOGIN', {
@@ -73,7 +73,7 @@ export const setLoginThunkCreator = (userData: loginAPIRequestType): ThunkType =
   }
 };
 
-export const setLogoutThunkCreator = (): ThunkType => async (dispatch) => {
+export const setLogoutTC = (): ThunkType => async (dispatch) => {
   let response = await authMeAPI.logout();
 
   if (response.data.resultCode === ResultCode.success) {
@@ -85,7 +85,7 @@ export const setLogoutThunkCreator = (): ThunkType => async (dispatch) => {
   }
 };
 
-export const getCaptchaURL_ThunkCreator = () => async (dispatch: Dispatch) => {
+export const getCaptchaURL_TC = () => async (dispatch: Dispatch) => {
 
   let response = await authMeAPI.getCaptchaURL();
   dispatch(getCaptchaAC(response.data.url));

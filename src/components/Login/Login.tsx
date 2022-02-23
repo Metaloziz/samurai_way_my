@@ -1,6 +1,6 @@
 import { FormDataType, LoginForm } from './LoginForm/LoginForm';
 import { connect } from 'react-redux';
-import { setLoginThunkCreator } from 'redux/auth_reducer';
+import { setLoginTC } from 'redux/auth_reducer';
 import { loginAPIRequestType } from 'api/api';
 import { AppStatePT } from 'redux/store_redux';
 import { Navigate } from 'react-router-dom';
@@ -43,7 +43,7 @@ type mapDispatchToPropsType = {
 }
 
 const mapDispatchToProps: mapDispatchToPropsType = {
-  setLoginThunkCreator: setLoginThunkCreator,
+  setLoginThunkCreator: setLoginTC,
 };
 
 const Login = connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
