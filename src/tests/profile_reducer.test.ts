@@ -2,8 +2,9 @@ import {
   addLikeAC,
   addPostAC,
   initialStateProfileType,
-  profile_reducer, ProfileType, setUserProfileAC, setUserStatusAC,
+  profile_reducer, ProfileType, setPhotoAC, setUserProfileAC, setUserStatusAC,
 } from 'redux/profile_reducer';
+import { ResponsePutPhoto } from 'api/api';
 
 let profileInitialState: initialStateProfileType;
 
@@ -107,7 +108,6 @@ test('set user profile data', () => {
   expect(endState).not.toBe(profileInitialState);
   expect(endState.profile.contacts.github).toBe(profile.contacts.github);
   expect(endState.profile.contacts.website).toBe(profile.contacts.website);
-  expect(endState.profile.photos.small).toBe(profile.photos.small);
 
 });
 
@@ -121,6 +121,25 @@ test('set user status', () => {
 
   expect(endState).not.toBe(profileInitialState);
   expect(endState.status).toBe(status);
+
+});
+
+test('set user photo ', () => {
+
+  let file: ResponsePutPhoto = {
+    photos: {
+      small: 'tree',
+      large: 'radio',
+    },
+  };
+
+  let action = setPhotoAC(file);
+
+  let endState = profile_reducer(profileInitialState, action);
+
+  expect(endState).not.toBe(profileInitialState);
+  expect(endState.profile.photos.small).toBe(file.photos.small);
+  expect(endState.profile.photos.large).toBe(file.photos.large);
 
 });
 
