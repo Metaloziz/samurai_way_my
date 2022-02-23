@@ -2,7 +2,7 @@ import {
   addLikeAC,
   addPostAC,
   initialStateProfileType,
-  profile_reducer,
+  profile_reducer, ProfileType, setUserProfileAC,
 } from 'redux/profile_reducer';
 
 let profileInitialState: initialStateProfileType;
@@ -26,7 +26,16 @@ beforeEach(() => {
     newPostText: 'stock',
     profile: {
       aboutMe: 'stock',
-      contacts: {},
+      contacts: {
+        instagram: 'stock',
+        facebook: 'stock',
+        mainLink: 'stock',
+        twitter: 'stock',
+        website: 'stock',
+        youtube: 'stock',
+        github: 'stock',
+        vk: 'stock',
+      },
       lookingForAJob: false,
       lookingForAJobDescription: 'stock',
       fullName: 'test',
@@ -41,7 +50,6 @@ beforeEach(() => {
 });
 
 test('add new post', () => {
-
   // let newPostId = '3';
   let newTitle = 'newPostTitle';
 
@@ -64,7 +72,42 @@ test('add like', () => {
   let endState = profile_reducer(profileInitialState, action);
 
   expect(endState).not.toBe(profileInitialState);
-  expect(endState.postData.filter(el=>el.id == postID)[0].like).toBe(profileInitialState.postData.filter(el=>el.id == postID)[0].like + 1);
+  expect(endState.postData.filter(el => el.id == postID)[0].like).toBe(profileInitialState.postData.filter(el => el.id == postID)[0].like + 1);
+
+});
+
+test('set user profile data', () => {
+
+  let profile: ProfileType = {
+    userId: 1,
+    lookingForAJob: false,
+    lookingForAJobDescription: 'no',
+    photos: {
+      small: 'proof',
+      large: 'drop',
+    },
+    aboutMe: 'burst',
+    fullName: 'flat',
+    contacts: {
+      instagram: 'instagram',
+      facebook: 'facebook',
+      mainLink: 'mainLink',
+      twitter: 'twitter',
+      website: 'website',
+      youtube: 'youtube',
+      github: 'github',
+      vk: 'vk',
+    },
+  };
+
+  let action = setUserProfileAC(profile);
+
+  let endState = profile_reducer(profileInitialState, action);
+
+  expect(endState).not.toBe(profileInitialState);
+  expect(endState.profile.contacts.github).toBe(profile.contacts.github);
+  expect(endState.profile.contacts.website).toBe(profile.contacts.website);
+  expect(endState.profile.photos.small).toBe(profile.photos.small);
 
 });
 
