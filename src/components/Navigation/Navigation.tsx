@@ -3,18 +3,18 @@ import { NavLink } from 'react-router-dom';
 import style from './Navigation.module.css';
 
 export type sidebarPT = {
-  sidebarPage: Array<ItemPT>
+  sidebarPage: ItemPT[]
 }
 export type ItemPT = {
   path: string
   title: string
 }
 
-export const Navigation = memo((state: sidebarPT) => {
+export const Navigation = memo(({ sidebarPage }: sidebarPT) => {
 
   return (<div>
       <nav className={style.navigation}>
-        {state.sidebarPage.map((x, index) =>
+        {sidebarPage.map((x, index) =>
           <div key={index} className={style.item}>
             <NavLink to={x.path}
                      className={({ isActive }) => isActive ? style.active : ''}> {x.title} </NavLink>

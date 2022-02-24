@@ -1,5 +1,4 @@
 import { ProfileType } from 'redux/profile_reducer';
-import React from 'react';
 
 export function ProfileData(props: { profile: ProfileType }) {
   return <div>

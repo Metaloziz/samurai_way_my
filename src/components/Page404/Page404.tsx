@@ -8,7 +8,6 @@ const Page404 = () => (
     </div>
     <div>Page not found!</div>
     <div>—ฅ/ᐠ.̫ .ᐟ\ฅ—</div>
-
   </div>
 );
 

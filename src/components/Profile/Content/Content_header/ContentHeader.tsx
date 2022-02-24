@@ -34,9 +34,7 @@ export const ContentHeader = memo(({
   };
 
   const setProfileDataCB = (props: ProfileDataType) => {
-    // setEditMod(false);
     setProfileData(props, `${profile.userId}`, setEditMod);
-
     console.log(props);
   };
 
@@ -45,7 +43,6 @@ export const ContentHeader = memo(({
   }
 
   return (
-
     <div className={style.content}>
       <div className={style.item}>Title
         <div><img alt={'ava'} src={profile.photos.large || stockAva} /></div>
@@ -53,14 +50,11 @@ export const ContentHeader = memo(({
         <div><span>Status:</span></div>
         <ProfileStatusWithHooks status={status}
                                 updateUserStatus={updateUserStatus} />
-
-
         {!userId && <button onClick={setEditModHandle}>change editMod</button>}
         {editMod
           ? <ProfileDataInfoForm initialValues={profile} onSubmit={setProfileDataCB} />
           : <ProfileDataInfo profile={profile} />
         }
-
       </div>
     </div>
   );

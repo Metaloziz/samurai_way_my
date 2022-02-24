@@ -1,7 +1,7 @@
 import { ProfileDataType } from 'redux/profile_reducer';
 import React, { useCallback } from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
-import { maxLengthCreator, requiredField } from 'utils/validators/validators';
+import { maxLengthCreator } from 'utils/validators/validators';
 import style from './ProfileDataInfoForm.module.css';
 import { FieldsCreator } from 'utils/fieldsCreator/fieldsCreator';
 import { Input } from 'components/comonComponents/FormsControls/FormsControl';
@@ -43,11 +43,8 @@ const ReduxForm = ({
       <b>Contacts:</b>
       <div>
         {Object.keys(initialValues.contacts!).map((el) => {
-
           return <div className={style.item} key={el}><b>{el}:</b>
-
             <FieldsCreator value={`contacts.` + el} maxLength={maxLength} />
-
           </div>;
         })}
       </div>

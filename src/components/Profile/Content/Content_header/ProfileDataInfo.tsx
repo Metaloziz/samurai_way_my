@@ -1,10 +1,5 @@
 import { ContactsType, ProfileType } from 'redux/profile_reducer';
-import {
-  ProfileData,
-} from 'components/Profile/Content/Content_header/ProfileData';
 import style from 'components/Profile/Content/Content_header/Content_header.module.css';
-import React from 'react';
-import { Contacts } from 'components/Profile/Content/Content_header/Contacts';
 
 export const ProfileDataInfo = (props: { profile: ProfileType }) => {
 
