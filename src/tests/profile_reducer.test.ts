@@ -2,7 +2,12 @@ import {
   addLikeAC,
   addPostAC,
   initialStateProfileType,
-  profile_reducer, ProfileType, setPhotoAC, setUserProfileAC, setUserStatusAC,
+  profile_reducer, ProfileDataType,
+  ProfileType,
+  setPhotoAC,
+  setUserProfileAC,
+  setUserProfileDataAC,
+  setUserStatusAC,
 } from 'redux/profile_reducer';
 import { ResponsePutPhoto } from 'api/api';
 
@@ -143,4 +148,32 @@ test('set user photo ', () => {
 
 });
 
+test('set user profile data', () => {
 
+  let profile: ProfileDataType = {
+    lookingForAJob: true,
+    lookingForAJobDescription: 'bell',
+    aboutMe: 'burst',
+    fullName: 'flat',
+    contacts: {
+      instagram: 'instagram',
+      facebook: 'facebook',
+      mainLink: 'mainLink',
+      twitter: 'twitter',
+      website: 'website',
+      youtube: 'youtube',
+      github: 'github',
+      vk: 'vk',
+    },
+  };
+
+  let action = setUserProfileDataAC(profile);
+
+  let endState = profile_reducer(profileInitialState, action);
+
+  expect(endState).not.toBe(profileInitialState);
+  expect(endState.profile.lookingForAJobDescription).toBe(profile.lookingForAJobDescription);
+  expect(endState.profile.lookingForAJob).toBe(profile.lookingForAJob);
+  expect(endState.profile.aboutMe).toBe(profile.aboutMe);
+
+});

@@ -170,7 +170,7 @@ export const profile_reducer = (state = initialState, action: actionPT): initial
           contacts: {
             ...contacts,
           },
-          lookingForAJob: false,
+          lookingForAJob: lookingForAJob,
           lookingForAJobDescription: lookingForAJobDescription,
           fullName: fullName,
           userId: 0,
