@@ -1,4 +1,4 @@
-import { actionPT } from './store_redux';
+import { ActionPT } from './store_redux';
 import { dialogsItemsPT } from 'components/Messages/MessagesContainer';
 import { ADD_TEXT_MESSAGE } from 'redux/constTypeAC/constTypies';
 
@@ -49,7 +49,7 @@ const initialState: dialogsItemsPT =
     ],
   };
 
-export const dialogs_reducer = (state: dialogsItemsPT = initialState, action: actionPT): dialogsItemsPT => {
+export const dialogs_reducer = (state: dialogsItemsPT = initialState, action: ActionPT): dialogsItemsPT => {
 
   switch (action.type) {
     case ADD_TEXT_MESSAGE:

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Navigation, sidebarPT } from './Navigation';
-import { actionPT, AppStatePT } from 'redux/store_redux';
+import { ActionPT, AppStatePT } from 'redux/store_redux';
 
 const mapStateToProps = (state: AppStatePT): sidebarPT => {
   return {
@@ -8,7 +8,7 @@ const mapStateToProps = (state: AppStatePT): sidebarPT => {
   };
 };
 
-const mapDispatchToProps = (dispatch: (action: actionPT) => void) => {
+const mapDispatchToProps = (dispatch: (action: ActionPT) => void) => {
   return {
     test: () => dispatch({ type: 'SIDE_BAR_TEST' }),
   };

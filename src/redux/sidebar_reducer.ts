@@ -1,4 +1,4 @@
-import { actionPT } from './store_redux';
+import { ActionPT } from './store_redux';
 import { ItemPT } from 'components/Navigation/Navigation';
 
 export type sidebarATPT = ReturnType<typeof sidebarAC>
@@ -17,7 +17,7 @@ const SIDE_BAR_TEST = 'SIDE_BAR_TEST';
 
 export const sidebarAC = () => ({ type: SIDE_BAR_TEST } as const);
 
-export const sidebar_reducer = (state: Array<ItemPT> = initialState, action: actionPT): Array<ItemPT> => {
+export const sidebar_reducer = (state: Array<ItemPT> = initialState, action: ActionPT): Array<ItemPT> => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let a = action;

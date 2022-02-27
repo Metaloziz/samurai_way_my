@@ -1,5 +1,5 @@
 import { v1 } from 'uuid';
-import { actionPT } from './store_redux';
+import { ActionPT } from './store_redux';
 import { Dispatch } from 'redux';
 import { profileAPI, ResponsePutPhoto } from 'api/api';
 import { ResultCode } from 'utils/enum/enum';
@@ -124,7 +124,7 @@ const initialState: initialStateProfileType = {
   status: 'default status',
 };
 
-export const profile_reducer = (state = initialState, action: actionPT): initialStateProfileType => {
+export const profile_reducer = (state = initialState, action: ActionPT): initialStateProfileType => {
 
   switch (action.type) {
     case ADD_POST:

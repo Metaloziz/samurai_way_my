@@ -1,8 +1,10 @@
 import {
   addLikeACPT,
   addPostATPT,
-  profile_reducer, setPhotoACPT,
-  setUserProfileACPT, setUserProfileDataACPT,
+  profile_reducer,
+  setPhotoACPT,
+  setUserProfileACPT,
+  setUserProfileDataACPT,
   setUserStatusACPT,
 } from './profile_reducer';
 import { addTextMessageATPT, dialogs_reducer } from './dialogs_reducer';
@@ -16,16 +18,9 @@ import {
   users_reducer,
 } from './users_reducer';
 import { auth_reducer, getCaptchaACPT, setUserDataACPT } from './auth_reducer';
-import {
-  Action,
-  applyMiddleware,
-  combineReducers,
-  compose,
-  createStore,
-  Store,
-} from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux';
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
-import { FormAction, reducer as formReducer } from 'redux-form';
+import { reducer as formReducer } from 'redux-form';
 import { app_reducer, setInitializedAPPACPT } from 'redux/app_reducer';
 
 export type AppStatePT = ReturnType<typeof reducer>
@@ -53,9 +48,8 @@ export const store: Store<AppStatePT> = createStore(reducer, compose(applyMiddle
 // // @ts-ignore
 // window.store = store;
 
-export type actionPT =
+export type ActionPT =
   addPostATPT
-  // | changePostACPT
   | addTextMessageATPT
   | sidebarATPT
   | followATPT
@@ -72,9 +66,4 @@ export type actionPT =
   | setUserProfileDataACPT
   | getCaptchaACPT
 
-export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStatePT, unknown, A>
-
-export type ThunkType = BaseThunkType<actionPT | FormAction> //типизация для вызова санки внутри санки
-
-
-
+export type NewThunkType = ThunkAction<void, AppStatePT, unknown, ActionPT>

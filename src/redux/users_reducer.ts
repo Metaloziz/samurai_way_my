@@ -1,4 +1,4 @@
-import { actionPT } from './store_redux';
+import { ActionPT } from './store_redux';
 import { UserPT, UsersStatePT } from 'components/Users/UsersContainer';
 import { Dispatch } from 'redux';
 import { followAPI, UserAPI } from 'api/api';
@@ -55,7 +55,7 @@ let usersState: UsersStatePT = {
   isFetchingPage: true,          // add this key  myself
 };
 
-export const users_reducer = (state: UsersStatePT = usersState, action: actionPT): UsersStatePT => {
+export const users_reducer = (state: UsersStatePT = usersState, action: ActionPT): UsersStatePT => {
   switch (action.type) {
     case FOLLOW:
       return {

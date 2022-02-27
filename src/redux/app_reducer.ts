@@ -1,6 +1,5 @@
-import { actionPT, BaseThunkType, ThunkType } from 'redux/store_redux';
+import { ActionPT, NewThunkType } from 'redux/store_redux';
 import { setUserDataTC } from 'redux/auth_reducer';
-import { FormAction } from 'redux-form';
 import { SET_INITIALIZED } from 'redux/constTypeAC/constTypies';
 
 export type setInitializedAPPACPT = ReturnType<typeof setInitializedAPPAC>
@@ -18,7 +17,7 @@ const userDataInitialState: UserDataInitialStateType = {
   initialized: false,
 };
 
-export const app_reducer = (state = userDataInitialState, action: actionPT): UserDataInitialStateType => {
+export const app_reducer = (state = userDataInitialState, action: ActionPT): UserDataInitialStateType => {
   switch (action.type) {
     case SET_INITIALIZED:
       return { ...state, initialized: action.initialized };
@@ -27,7 +26,7 @@ export const app_reducer = (state = userDataInitialState, action: actionPT): Use
   }
 };
 
-export const initializeTC = (): ThunkType => async (dispatch) => {
+export const initializeTC = (): NewThunkType => async (dispatch) => {
 
   let promise = dispatch(setUserDataTC()); // вызов второй санки // всегда возвращается promise
 
