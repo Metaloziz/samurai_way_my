@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux';
-import { stopSubmit } from 'redux-form';
 import { v1 } from 'uuid';
 
 import { ActionPT, NewThunkType } from './store_redux';
@@ -230,11 +229,11 @@ export const setProfileDataTC =
       await dispatch(setUserTC(userId));
       setEditMod(false);
     } else {
-      const action = stopSubmit('PROFILE', {
-        _error: response.messages[CommonConstants.zero]
-          ? response.messages[CommonConstants.zero]
-          : 'something is wrong',
-      });
-      dispatch(action);
+      // const action = stopSubmit('PROFILE', {
+      //   _error: response.messages[CommonConstants.zero]
+      //     ? response.messages[CommonConstants.zero]
+      //     : 'something is wrong',
+      // });
+      // dispatch(action);
     }
   };

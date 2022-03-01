@@ -1,5 +1,4 @@
 import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 
 import { authReducer, getCaptchaACPT, setUserDataACPT } from './auth_reducer';
@@ -33,7 +32,6 @@ export const reducer = combineReducers({
   dialogsPage: dialogsReducer,
   users: usersReducer,
   auth: authReducer,
-  form: formReducer, // redux-form
   app: appReducer,
 });
 

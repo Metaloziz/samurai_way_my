@@ -8,6 +8,7 @@ export enum CommonConstants {
   minusOne = -1,
   zero = 0,
   one = 1,
+  two = 2,
 }
 
 export enum MaxLengthSymbols {

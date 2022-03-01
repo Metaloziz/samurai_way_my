@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux';
-import { stopSubmit } from 'redux-form';
 
 import { ActionPT, NewThunkType } from './store_redux';
 
@@ -76,14 +75,13 @@ export const setLoginTC =
       if (response.data.resultCode === ResultCode.captcha) {
         await dispatch(getCaptchaURLTunkCreator());
       }
-      const action = stopSubmit('LOGIN', {
-        _error: response.data.messages[CommonConstants.zero]
-          ? response.data.messages[CommonConstants.zero]
-          : 'something is wrong',
-        // ['email']: 'email is wrong',
-        // ['passwor' + 'd']: 'password is wrong',
-      });
-      dispatch(action);
+      // const action = stopSubmit('LOGIN', {
+      //   _error: response.data.messages[CommonConstants.zero]
+      //     ? response.data.messages[CommonConstants.zero]
+      //     : 'something is wrong',
+      //
+      // });
+      // dispatch(action);
       // eslint-disable-next-line no-console
       console.warn(response.data.messages[CommonConstants.zero]);
     }
