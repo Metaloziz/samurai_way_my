@@ -92,14 +92,6 @@ export const profileAPI = {
   },
 };
 
-export const UserAPI = {
-  setUserOnPageAPI(pageID: number, pageSize: number) {
-    return instance
-      .get<UsersStatePT>(`users?page=${pageID}&count=${pageSize}`)
-      .then(response => response.data);
-  },
-};
-
 export const followAPI = {
   setUnFollow: (userID: number) =>
     instance
@@ -107,4 +99,12 @@ export const followAPI = {
       .then(response => response.data),
   setFollow: (userID: number) =>
     instance.post<CommonResponseType>(`follow/${userID}`).then(response => response.data),
+};
+
+export const userAPI = {
+  setUserOnPageAPI(pageID: number, pageSize: number) {
+    return instance
+      .get<UsersStatePT>(`users?page=${pageID}&count=${pageSize}`)
+      .then(response => response.data);
+  },
 };

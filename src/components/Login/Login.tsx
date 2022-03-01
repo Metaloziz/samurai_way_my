@@ -1,7 +1,7 @@
-import { ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 
 import { connect } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 
 import { LoginForm } from './LoginForm/LoginForm';
 
@@ -10,22 +10,22 @@ import { setLoginTC } from 'redux/auth_reducer';
 import { AppStatePT } from 'redux/store_redux';
 import { selectCaptcha, selectIsAuth } from 'utils/selectors/selectors';
 
-const LoginContainer = (): ReactElement => {
-  // const { isAuth, captchaURL } = this.props;
-
-  if (true) return <Navigate to="/profile" />;
-  return (
-    <div>
-      <div>LOGIN</div>
-      <div>Email: free@samuraijs.com</div>
-      <div>Password: free</div>
-      <LoginForm />
-    </div>
-  );
-};
-
+const LoginContainer: FC<mapDispatchToPropsType & mapStateToPropsType> = ({
+  setLoginHandler,
+  // isAuth,
+  captchaURL,
+}): ReactElement => (
+  // if (isAuth) return <Navigate to="/profile" />;
+  <div>
+    <div>LOGIN</div>
+    <div>Email: free@samuraijs.com</div>
+    <div>Password: free</div>
+    <LoginForm setLoginHandler={setLoginHandler} captchaURL={captchaURL} />
+  </div>
+);
 // <LoginForm onSubmit={onSubmit}/> так это контейнерная компонента, то в onSubmit автоматом попадают пропсы
 
+// eslint-disable-next-line react/no-unused-prop-types
 type mapStateToPropsType = { isAuth: boolean; captchaURL: string };
 
 const mapStateToProps = (state: AppStatePT): mapStateToPropsType => ({

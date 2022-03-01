@@ -2,6 +2,7 @@ import { ActionPT } from './store_redux';
 
 import { dialogsItemsPT } from 'components/Messages/MessagesContainer';
 import { ADD_TEXT_MESSAGE } from 'redux/constTypeAC/constTypies';
+import { CommonConstants } from 'utils/enum/enum';
 
 export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>;
 
@@ -52,7 +53,7 @@ export const dialogsReducer = (
   state: dialogsItemsPT = initialState,
   action: ActionPT,
 ): dialogsItemsPT => {
-  const newPost = { id: 1, text: '' };
+  const newPost = { id: 0, text: '' };
   const copyState = {
     ...state,
     messages: state.messages.map(el => ({ ...el })),
@@ -61,6 +62,7 @@ export const dialogsReducer = (
   switch (action.type) {
     case ADD_TEXT_MESSAGE:
       newPost.text = action.value;
+      newPost.id = state.messages.length + CommonConstants.one;
       copyState.messages.push(newPost);
       return copyState;
     default:

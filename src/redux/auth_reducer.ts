@@ -60,20 +60,21 @@ export const setUserDataTC = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const getCaptchaURLTunkCreator = () => async (dispatch: Dispatch) => {
+export const getCaptchaURLThunkCreator = () => async (dispatch: Dispatch) => {
   const response = await authMeAPI.getCaptchaURL();
   dispatch(getCaptchaAC(response.data.url));
 };
 
-export const setLoginTC =
-  (userData: loginAPIRequestType): NewThunkType =>
-  async dispatch => {
+export const setLoginTC = (userData: loginAPIRequestType): NewThunkType => {
+  // eslint-disable-next-line no-alert
+  alert('asd');
+  return async dispatch => {
     const response = await authMeAPI.login(userData);
     if (response.data.resultCode === ResultCode.success) {
-      await dispatch(setUserDataTC()); // вызов другой санки
+      // await dispatch(setUserDataTC()); // вызов другой санки
     } else {
       if (response.data.resultCode === ResultCode.captcha) {
-        await dispatch(getCaptchaURLTunkCreator());
+        await dispatch(getCaptchaURLThunkCreator());
       }
       // const action = stopSubmit('LOGIN', {
       //   _error: response.data.messages[CommonConstants.zero]
@@ -86,7 +87,7 @@ export const setLoginTC =
       console.warn(response.data.messages[CommonConstants.zero]);
     }
   };
-
+};
 export const setLogoutTC = (): NewThunkType => async dispatch => {
   const response = await authMeAPI.logout();
   if (response.data.resultCode === ResultCode.success) {

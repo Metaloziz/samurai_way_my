@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 
 import { ActionPT } from './store_redux';
 
-import { followAPI, UserAPI } from 'api/api';
+import { followAPI, userAPI } from 'api/api';
 import { UserPT, UsersStatePT } from 'components/Users/UsersContainer';
 import {
   CHANGE_PAGE,
@@ -107,7 +107,7 @@ export const setPageThunkCreator =
   (pageID: number, pageSize: number) => async (dispatch: Dispatch) => {
     dispatch(toggleIsFetchingPageAC(true));
     dispatch(changePageAC(pageID));
-    const response = await UserAPI.setUserOnPageAPI(pageID, pageSize);
+    const response = await userAPI.setUserOnPageAPI(pageID, pageSize);
     dispatch(setUsersAC(response.items, response.totalCount));
     dispatch(toggleIsFetchingPageAC(false));
   };

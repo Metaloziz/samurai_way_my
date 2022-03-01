@@ -10,7 +10,7 @@ import { NavigationContainer } from 'components/Navigation/NavigationContainer';
 import { UserDataInitialStateType } from 'redux/app_reducer';
 
 const News = lazy(() => import('components/News/News'));
-// const Login = lazy(() => import('components/Login/Login'));
+const Login = lazy(() => import('components/Login/Login'));
 const Music = lazy(() => import('components/Music/Music'));
 const Page404 = lazy(() => import('components/Page404/Page404'));
 const Settings = lazy(() => import('components/Settings/Settings'));
@@ -59,7 +59,7 @@ class App extends Component<MapDispatchPT & UserDataInitialStateType> {
               {/* <Route path="/news" element={<News />} /> */}
               <Route path="/music" element={<Music />} />
               <Route path="/settings" element={<Settings />} />
-              {/* <Route path="/login" element={<Login />} /> */}
+              <Route path="/login" element={<Login />} />
               <Route path={'/*'} element={<Page404 />} />
             </Routes>
           </Suspense>

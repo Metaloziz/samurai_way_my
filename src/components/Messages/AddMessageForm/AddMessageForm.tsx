@@ -2,14 +2,19 @@ import { FC, ReactElement } from 'react';
 
 import { useFormik } from 'formik';
 
-import { CommonConstants } from 'utils/enum/enum';
+// import { CommonConstants } from 'utils/enum/enum';
 
-export type MessageReduxInputType = {
-  message: string; // этот ключ не используется для отбора данных,
-  // имя поля берётся из name={'message'} в <Filed />
+export type MessageFormikInputType = {
+  message: string;
 };
 
-export const AddMessageForm: FC = (): ReactElement => {
+type AddMessageFormPropsType = {
+  addNewMessageHandle: (data: MessageFormikInputType) => void;
+};
+
+export const AddMessageForm: FC<AddMessageFormPropsType> = ({
+  addNewMessageHandle,
+}): ReactElement => {
   // const maxLength15 = useCallback(maxLengthCreator(MaxLengthSymbols.messageForm), []);
 
   const formik = useFormik({
@@ -17,10 +22,17 @@ export const AddMessageForm: FC = (): ReactElement => {
       message: '',
     },
     onSubmit: values => {
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, CommonConstants.two));
+      // alert(JSON.stringify(values, null, CommonConstants.two));
+      addNewMessageHandle(values);
+      formik.resetForm();
     },
   });
+  // const resetForm = (): void => {
+  //   setTimeout(() => {
+  //     formik.resetForm();
+  //   }, CommonConstants.two);
+  // };
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <input
