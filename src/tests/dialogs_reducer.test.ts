@@ -1,7 +1,9 @@
 import { dialogsItemsPT } from 'components/Messages/MessagesContainer';
-import { addTextMessageAC, dialogs_reducer } from 'redux/dialogs_reducer';
+import { addTextMessageAC, dialogsReducer } from 'redux/dialogs_reducer';
 
 let dialogsInitialState: dialogsItemsPT;
+const ONE = 1;
+const ZERO = 0;
 
 beforeEach(() => {
   dialogsInitialState = {
@@ -28,16 +30,14 @@ beforeEach(() => {
 });
 
 test('add text message test', () => {
-  let newText = 'court';
+  const newText = 'court';
 
-  let action = addTextMessageAC(newText);
+  const action = addTextMessageAC(newText);
 
-  let endState = dialogs_reducer(dialogsInitialState, action);
+  const endState = dialogsReducer(dialogsInitialState, action);
 
   expect(endState).not.toBe(dialogsInitialState);
-  expect(endState.messages[0]).not.toBe(dialogsInitialState.messages[0]);
-  expect(endState.messages.length).toBe(dialogsInitialState.messages.length + 1);
-  expect(endState.messages[endState.messages.length - 1].text).toBe(newText);
+  expect(endState.messages[ZERO]).not.toBe(dialogsInitialState.messages[ZERO]);
+  expect(endState.messages.length).toBe(dialogsInitialState.messages.length + ONE);
+  expect(endState.messages[endState.messages.length - ONE].text).toBe(newText);
 });
-
-

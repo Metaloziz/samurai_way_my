@@ -1,17 +1,20 @@
+import { ResponsePutPhoto } from 'api/api';
 import {
   addLikeAC,
   addPostAC,
   initialStateProfileType,
-  profile_reducer, ProfileDataType,
+  profileReducer,
+  ProfileDataType,
   ProfileType,
   setPhotoAC,
   setUserProfileAC,
   setUserProfileDataAC,
   setUserStatusAC,
 } from 'redux/profile_reducer';
-import { ResponsePutPhoto } from 'api/api';
 
 let profileInitialState: initialStateProfileType;
+const ONE = 1;
+const ZERO = 0;
 
 beforeEach(() => {
   profileInitialState = {
@@ -24,7 +27,7 @@ beforeEach(() => {
       },
       {
         id: '2',
-        message: 'I just wanted you to know That baby you\'re the best',
+        message: "I just wanted you to know That baby you're the best",
         like: 7,
         comment: 8,
       },
@@ -57,34 +60,35 @@ beforeEach(() => {
 
 test('add new post', () => {
   // let newPostId = '3';
-  let newTitle = 'newPostTitle';
+  const newTitle = 'newPostTitle';
 
-  let action = addPostAC(newTitle);
+  const action = addPostAC(newTitle);
 
-  let endState = profile_reducer(profileInitialState, action);
+  const endState = profileReducer(profileInitialState, action);
 
   expect(endState).not.toBe(profileInitialState);
-  expect(endState.postData.length).toBe(3);
-  expect(endState.postData.filter(el => el.id === action.id).length).toBe(1);
-  expect(endState.postData.filter(el => el.id === action.id)[0].message).toBe(newTitle);
+  expect(endState.postData.length).toBe(profileInitialState.postData.length + ONE);
+  expect(endState.postData.filter(el => el.id === action.id).length).toBe(ONE);
+  expect(endState.postData.filter(el => el.id === action.id)[ZERO].message).toBe(
+    newTitle,
+  );
 });
 
 test('add like', () => {
+  const postID = '2';
 
-  let postID = '2';
+  const action = addLikeAC(postID);
 
-  let action = addLikeAC(postID);
-
-  let endState = profile_reducer(profileInitialState, action);
+  const endState = profileReducer(profileInitialState, action);
 
   expect(endState).not.toBe(profileInitialState);
-  expect(endState.postData.filter(el => el.id == postID)[0].like).toBe(profileInitialState.postData.filter(el => el.id == postID)[0].like + 1);
-
+  expect(endState.postData.filter(el => el.id === postID)[ZERO].like).toBe(
+    profileInitialState.postData.filter(el => el.id === postID)[ZERO].like + ONE,
+  );
 });
 
 test('set user profile data', () => {
-
-  let profile: ProfileType = {
+  const profile: ProfileType = {
     userId: 1,
     lookingForAJob: false,
     lookingForAJobDescription: 'no',
@@ -106,51 +110,45 @@ test('set user profile data', () => {
     },
   };
 
-  let action = setUserProfileAC(profile);
+  const action = setUserProfileAC(profile);
 
-  let endState = profile_reducer(profileInitialState, action);
+  const endState = profileReducer(profileInitialState, action);
 
   expect(endState).not.toBe(profileInitialState);
   expect(endState.profile.contacts.github).toBe(profile.contacts.github);
   expect(endState.profile.contacts.website).toBe(profile.contacts.website);
-
 });
 
 test('set user status', () => {
+  const status = 'shelf';
 
-  let status = 'shelf';
+  const action = setUserStatusAC(status);
 
-  let action = setUserStatusAC(status);
-
-  let endState = profile_reducer(profileInitialState, action);
+  const endState = profileReducer(profileInitialState, action);
 
   expect(endState).not.toBe(profileInitialState);
   expect(endState.status).toBe(status);
-
 });
 
 test('set user photo ', () => {
-
-  let file: ResponsePutPhoto = {
+  const file: ResponsePutPhoto = {
     photos: {
       small: 'tree',
       large: 'radio',
     },
   };
 
-  let action = setPhotoAC(file);
+  const action = setPhotoAC(file);
 
-  let endState = profile_reducer(profileInitialState, action);
+  const endState = profileReducer(profileInitialState, action);
 
   expect(endState).not.toBe(profileInitialState);
   expect(endState.profile.photos.small).toBe(file.photos.small);
   expect(endState.profile.photos.large).toBe(file.photos.large);
-
 });
 
 test('set user profile data', () => {
-
-  let profile: ProfileDataType = {
+  const profile: ProfileDataType = {
     lookingForAJob: true,
     lookingForAJobDescription: 'bell',
     aboutMe: 'burst',
@@ -167,13 +165,14 @@ test('set user profile data', () => {
     },
   };
 
-  let action = setUserProfileDataAC(profile);
+  const action = setUserProfileDataAC(profile);
 
-  let endState = profile_reducer(profileInitialState, action);
+  const endState = profileReducer(profileInitialState, action);
 
   expect(endState).not.toBe(profileInitialState);
-  expect(endState.profile.lookingForAJobDescription).toBe(profile.lookingForAJobDescription);
+  expect(endState.profile.lookingForAJobDescription).toBe(
+    profile.lookingForAJobDescription,
+  );
   expect(endState.profile.lookingForAJob).toBe(profile.lookingForAJob);
   expect(endState.profile.aboutMe).toBe(profile.aboutMe);
-
 });

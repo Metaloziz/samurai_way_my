@@ -1,27 +1,28 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { ReactElement } from 'react';
+
 import { connect, Provider } from 'react-redux';
-import { AppStatePT, store } from 'redux/store_redux';
-import { initializeTC, UserDataInitialStateType } from 'redux/app_reducer';
+import { BrowserRouter } from 'react-router-dom';
+
 import App from 'App';
+import { initializeTC, UserDataInitialStateType } from 'redux/app_reducer';
+import { AppStatePT, store } from 'redux/store_redux';
 
-export const AppHoc = () => {
-  return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Provider store={store}>   {/* context */}
-        <AppContainer />
-      </Provider>
-    </BrowserRouter>
-  );
-};
+export type MapDispatchPT = { initializeTC: () => void };
 
-export type MapDispatchPT = { initializeTC: () => void }
+const mapDispatchToProps: MapDispatchPT = { initializeTC };
 
-const mapDispatchToProps: MapDispatchPT = { initializeTC: initializeTC };
-
-const mapStateToProps = (state: AppStatePT): UserDataInitialStateType => {
-  return { initialized: state.app.initialized };
-};
+const mapStateToProps = (state: AppStatePT): UserDataInitialStateType => ({
+  initialized: state.app.initialized,
+});
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
+export const AppHoc = (): ReactElement => (
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Provider store={store}>
+      {' '}
+      {/* context */}
+      <AppContainer />
+    </Provider>
+  </BrowserRouter>
+);

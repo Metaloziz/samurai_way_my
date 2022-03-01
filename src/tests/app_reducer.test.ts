@@ -1,5 +1,5 @@
 import {
-  app_reducer,
+  appReducer,
   setInitializedAPPAC,
   UserDataInitialStateType,
 } from 'redux/app_reducer';
@@ -13,12 +13,10 @@ beforeEach(() => {
 });
 
 test('initialized test', () => {
-  let action = setInitializedAPPAC(true);
+  const action = setInitializedAPPAC(true);
 
-  let endState = app_reducer(userDataInitialState, action);
+  const endState = appReducer(userDataInitialState, action);
 
   expect(endState).not.toBe(userDataInitialState);
   expect(endState.initialized).toBe(true);
 });
-
-

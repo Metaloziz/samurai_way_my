@@ -1,19 +1,16 @@
-import React from 'react';
-import { Store } from 'redux';
-
 export {};
 
-type StoreContextPT = {
-  store: Store
-  children: React.ReactNode
-}
+// import React from 'react';
 
-const StoreContext = React.createContext({} as Store);
+// import { Store } from 'redux';
 
-const Component = (props: StoreContextPT) => {
-
-  return <StoreContext.Provider value={props.store}>
-    {props.children}
-  </StoreContext.Provider>;
-
-};
+// type StoreContextPT = {
+//   store: Store;
+//   children: React.ReactNode;
+// };
+//
+// const StoreContext = React.createContext({} as Store);
+//
+// const Component = (props: StoreContextPT) => (
+//   <StoreContext.Provider value={props.store}>{props.children}</StoreContext.Provider>
+// );

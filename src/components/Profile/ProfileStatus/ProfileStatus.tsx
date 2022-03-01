@@ -1,55 +1,66 @@
-import { ChangeEvent, Component } from 'react';
+import { ChangeEvent, Component, ReactElement } from 'react';
 
-type ProfileStatusPT = {
-  status: string
-  updateUserStatus: (status: string) => void
-}
+type ProfileStatusStateType = {
+  editMode: boolean;
+  status: string;
+};
 
-export class ProfileStatus extends Component<ProfileStatusPT> {
+export class ProfileStatus extends Component<ProfileStatusPT, ProfileStatusStateType> {
+  constructor(props: ProfileStatusPT) {
+    super(props);
+    const { status } = this.props;
+    this.state = {
+      editMode: false,
+      status,
+    };
+  }
 
-  state = {
-    editMode: false,
-    status: this.props.status,
-  };
+  componentDidUpdate(prevProps: Readonly<ProfileStatusPT>): void {
+    const { status } = this.props;
 
-  setEditModTrue = () => {
-    this.setState({ editMode: true });
-  };
-
-  setEditModFalse = () => {
-    this.setState({ editMode: false });
-    this.props.updateUserStatus(this.state.status.trim());
-  };
-
-  changeTextHandle = (e: ChangeEvent<HTMLInputElement>) => {  // изменяет н
-    this.setState({ status: e.currentTarget.value });
-  };
-
-  componentDidUpdate(prevProps: any, presState: any) { // предыдущие и следующие пропсы
-
-    if (prevProps ! === this.props.status) {  // мы не можем использовать здесь хуки
-      this.setState({ status: this.props.status });
+    if (prevProps.status !== status) {
+      this.setState({ status });
     }
   }
 
-  render() {
+  setEditModTrue = (): void => {
+    this.setState({ editMode: true });
+  };
 
+  setEditModFalse(): void {
+    const { props, state } = this;
+    this.setState({ editMode: false });
+    props.updateUserStatus(state.status.trim());
+  }
+
+  changeTextHandle = (e: ChangeEvent<HTMLInputElement>): void => {
+    this.setState({ status: e.currentTarget.value });
+  };
+
+  render(): ReactElement {
+    const { state, setEditModTrue, changeTextHandle, setEditModFalse, props } = this;
+
+    if (state.editMode) {
+      return (
+        <div>
+          <input
+            onBlur={setEditModFalse}
+            type="text"
+            onChange={changeTextHandle}
+            value={state.status}
+          />
+        </div>
+      );
+    }
     return (
-      <>
-        {
-          this.state.editMode
-            ? <div><input
-              onBlur={this.setEditModFalse}
-              autoFocus
-              type={'text'}
-              onChange={this.changeTextHandle}
-              // defaultValue={this.state.status}
-              value={this.state.status} /></div>
-            : <div>
-              <h2 onDoubleClick={this.setEditModTrue}>{this.props.status}</h2>
-            </div>
-        }
-      </>
+      <div>
+        <h2 onDoubleClick={setEditModTrue}>{props.status}</h2>
+      </div>
     );
   }
 }
+
+type ProfileStatusPT = {
+  status: string;
+  updateUserStatus: (status: string) => void;
+};

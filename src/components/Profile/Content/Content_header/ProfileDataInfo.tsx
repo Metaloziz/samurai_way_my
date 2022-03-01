@@ -1,23 +1,38 @@
-import { ContactsType, ProfileType } from 'redux/profile_reducer';
+import { ReactElement } from 'react';
+
 import style from 'components/Profile/Content/Content_header/Content_header.module.css';
+import { ContactsType, ProfileType } from 'redux/profile_reducer';
 
-export const ProfileDataInfo = (props: { profile: ProfileType }) => {
+type ProfileDataInfoType = {
+  profile: ProfileType;
+};
 
-  let arr = Object.keys(props.profile.contacts) as Array<keyof ContactsType>;
+export const ProfileDataInfo = ({ profile }: ProfileDataInfoType): ReactElement => {
+  const arr = Object.keys(profile.contacts) as Array<keyof ContactsType>;
 
   return (
     <div>
       <div>
-        <div><b>lookingForAJob:</b> {`${props.profile.lookingForAJob}`}</div>
         <div>
-          <b>lookingForAJobDescription:</b> {`${props.profile.lookingForAJobDescription}`}
+          <b>lookingForAJob:</b> {`${profile.lookingForAJob}`}
         </div>
-        <div><b>fullName:</b> {props.profile.fullName}</div>
-        <div><b>about me:</b> {props.profile.aboutMe}</div>
+        <div>
+          <b>lookingForAJobDescription:</b> {`${profile.lookingForAJobDescription}`}
+        </div>
+        <div>
+          <b>fullName:</b> {profile.fullName}
+        </div>
+        <div>
+          <b>about me:</b> {profile.aboutMe}
+        </div>
         <b>Contacts:</b>
       </div>
       <div className={style.contacts}>
-        {arr.map((el) => <div key={el}><b>{el}:</b> {props.profile.contacts[el]}</div>)}
+        {arr.map(el => (
+          <div key={el}>
+            <b>{el}:</b> {profile.contacts[el]}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
+import { ReactElement } from 'react';
+
 import style from '../News/News.module.css';
 
-const Settings = () => {
-  return (<div className={style.header}>
+const Settings = (): ReactElement => (
+  <div className={style.header}>
     <h1>Settings</h1>
-  </div>);
-};
+  </div>
+);
 export default Settings;

@@ -1,5 +1,5 @@
 import { userDataPT } from 'components/Header/Header';
-import { auth_reducer, getCaptchaAC, setUserDataAC } from 'redux/auth_reducer';
+import { authReducer, getCaptchaAC, setUserDataAC } from 'redux/auth_reducer';
 
 let userDataInitialState: userDataPT;
 
@@ -13,14 +13,13 @@ beforeEach(() => {
     messages: [''],
     fieldsErrors: [''],
     resultCode: 1,
-    isAuth: false,  // it is not from API
+    isAuth: false, // it is not from API
     captchaURL: '',
   };
 });
 
 test('authorised signature test', () => {
-
-  let newData: userDataPT = {
+  const newData: userDataPT = {
     data: {
       id: 10,
       login: 'absence',
@@ -29,13 +28,13 @@ test('authorised signature test', () => {
     messages: ['buy'],
     fieldsErrors: ['pump'],
     resultCode: 439,
-    isAuth: true,  // it is not from API
+    isAuth: true, // it is not from API
     captchaURL: '',
   };
 
-  let action = setUserDataAC(newData, true);
+  const action = setUserDataAC(newData, true);
 
-  let endState = auth_reducer(userDataInitialState, action);
+  const endState = authReducer(userDataInitialState, action);
 
   expect(endState).not.toBe(userDataInitialState);
   expect(endState.isAuth).toBe(true);
@@ -43,15 +42,12 @@ test('authorised signature test', () => {
 });
 
 test('get captcha url', () => {
+  const captchaURL = 'some url';
 
-  let captchaURL = 'some url';
+  const action = getCaptchaAC(captchaURL);
 
-  let action = getCaptchaAC(captchaURL);
-
-  let endState = auth_reducer(userDataInitialState, action);
+  const endState = authReducer(userDataInitialState, action);
 
   expect(endState).not.toBe(userDataInitialState);
   expect(endState.captchaURL).toBe(captchaURL);
 });
-
-

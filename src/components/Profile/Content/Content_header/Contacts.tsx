@@ -1,9 +1,11 @@
-import React from 'react';
+export {};
 
-type ContactsPT = {
-  site: string
-  value: string
-}
-export const Contacts = (props: ContactsPT) => {
-  return <div><b>{props.site}:</b> {props.value}</div>;
-};
+// type ContactsPT = {
+//   site: string;
+//   value: string;
+// };
+// export const Contacts = ({ site, value }: ContactsPT): ReactElement => (
+//   <div>
+//     <b>{site}:</b> {value}
+//   </div>
+// );

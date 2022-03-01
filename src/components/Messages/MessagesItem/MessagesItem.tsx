@@ -1,10 +1,14 @@
-import s from './MessagesItem.module.css';
-import React, { memo } from 'react';
+import { memo } from 'react';
+
+import style from './MessagesItem.module.css';
 
 export type MessagePT = {
-  id: number
-  text: string
-}
+  id: number;
+  text: string;
+};
 
-export let MessagesItem = memo((props: MessagePT) =>
-  <div className={s.message}>{props.text}</div>);
+export const MessagesItem = memo((props: MessagePT) => (
+  <div id={props.id.toString()} className={style.message}>
+    {props.text}
+  </div>
+));

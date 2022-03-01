@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
-import { UsersStatePT } from 'components/Users/UsersContainer';
+
 import { userDataPT } from 'components/Header/Header';
+import { UsersStatePT } from 'components/Users/UsersContainer';
 import { ProfileDataType, ProfileType } from 'redux/profile_reducer';
 
 const instance = axios.create({
@@ -10,49 +11,43 @@ const instance = axios.create({
 });
 
 export type loginAPIRequestType = {
-  email: string
-  password: string
-  rememberMe: boolean
-  captchaURL: string
-}
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captchaURL: string;
+};
 
 export type CommonResponseType<T = {}> = {
-  data: T
-  fieldsErrors: []
-  messages: string[]
-  resultCode: number
-}
+  data: T;
+  fieldsErrors: [];
+  messages: string[];
+  resultCode: number;
+};
 
 type loginAPIResponseType = {
-  userId: number
-}
+  userId: number;
+};
 
 type getCaptchaURLPT = {
-  url: string
-}
+  url: string;
+};
 
 export type ResponsePutPhoto = {
   photos: {
-    small: string
-    large: string
-  }
-}
+    small: string;
+    large: string;
+  };
+};
 
 export const authMeAPI = {
-
   me() {
-    return instance
-      .get<userDataPT>('auth/me')
-      .then((response) => {
-        return response.data;
-      });
+    return instance.get<userDataPT>('auth/me').then(response => response.data);
   },
   login(data: loginAPIRequestType) {
     return instance
       .post<CommonResponseType<loginAPIResponseType>>('/auth/login', data)
-      .then((response) => {
-        return response;
-      }).catch((res) => res);
+      .then(response => response)
+      .catch(res => res);
   },
   logout() {
     return instance.delete<null, AxiosResponse<CommonResponseType>>('/auth/login');
@@ -64,7 +59,7 @@ export const authMeAPI = {
 
 export const profileAPI = {
   putPhoto(image: File) {
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('image', image);
     return instance
       .put<CommonResponseType<ResponsePutPhoto>>('/profile/photo', formData, {
@@ -72,38 +67,28 @@ export const profileAPI = {
           'Content-Type': 'multipart/form-data',
         },
       })
-      .then((response) => {
-        return response.data;
-      });
+      .then(response => response.data);
   },
   getUserData(userID: string) {
-    return instance
-      .get<ProfileType>('profile/' + userID)
-      .then((response) => {
-        return response.data;
-      });
+    return instance.get<ProfileType>(`profile/${userID}`).then(response => response.data);
   },
   getUserStatus(userID: string) {
     return instance
-      .get<string>('/profile/status/' + userID)
-      .then((response) => {
-          return response.data;   // только строка
-        },
-      ).catch(rej => rej);
+      .get<string>(`/profile/status/${userID}`)
+      .then(
+        response => response.data, // только строка
+      )
+      .catch(rej => rej);
   },
   updateUserStatus(status: { status: string }) {
     return instance
       .put<CommonResponseType>('/profile/status', status) // 2 argument -  Media type: application/json
-      .then((state) => {
-        return state.data;
-      });
+      .then(state => state.data);
   },
   updateUserData(data: ProfileDataType) {
     return instance
       .put<CommonResponseType>('/profile', { ...data })
-      .then((response) => {
-        return response.data;
-      });
+      .then(response => response.data);
   },
 };
 
@@ -111,26 +96,15 @@ export const UserAPI = {
   setUserOnPageAPI(pageID: number, pageSize: number) {
     return instance
       .get<UsersStatePT>(`users?page=${pageID}&count=${pageSize}`)
-      .then((response) => {
-        return response.data;
-      });
+      .then(response => response.data);
   },
 };
 
 export const followAPI = {
-
-  setUnFollow: (userID: number) => {
-    return instance
-      .delete<CommonResponseType>('follow/' + userID)
-      .then((response) => {
-        return response.data;
-      });
-  },
-  setFollow: (userID: number) => {
-    return instance
-      .post<CommonResponseType>('follow/' + userID)
-      .then((response) => {
-        return response.data;
-      });
-  },
+  setUnFollow: (userID: number) =>
+    instance
+      .delete<CommonResponseType>(`follow/${userID}`)
+      .then(response => response.data),
+  setFollow: (userID: number) =>
+    instance.post<CommonResponseType>(`follow/${userID}`).then(response => response.data),
 };

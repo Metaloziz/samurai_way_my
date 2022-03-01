@@ -1,5 +1,13 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 
-export function AvatarImage(props: { userId: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
-  return <>{!props.userId && <input type={'file'} onChange={props.onChange} />}</>;
-}
+type AvatarImageType = {
+  userId: string;
+  onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export const AvatarImage: FC<AvatarImageType> = ({
+  userId,
+  onChangeHandler,
+}): ReactElement => (
+  <div>{!userId && <input type="file" onChange={onChangeHandler} />}</div>
+);

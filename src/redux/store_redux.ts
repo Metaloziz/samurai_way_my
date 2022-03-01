@@ -1,38 +1,40 @@
+import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux';
+import { reducer as formReducer } from 'redux-form';
+import thunkMiddleware, { ThunkAction } from 'redux-thunk';
+
+import { authReducer, getCaptchaACPT, setUserDataACPT } from './auth_reducer';
+import { addTextMessageATPT, dialogsReducer } from './dialogs_reducer';
 import {
   addLikeACPT,
   addPostATPT,
-  profile_reducer,
+  profileReducer,
   setPhotoACPT,
   setUserProfileACPT,
   setUserProfileDataACPT,
   setUserStatusACPT,
 } from './profile_reducer';
-import { addTextMessageATPT, dialogs_reducer } from './dialogs_reducer';
-import { sidebar_reducer, sidebarATPT } from './sidebar_reducer';
+import { sidebarReducer, sidebarATPT } from './sidebar_reducer';
 import {
   changePageACPT,
   followATPT,
   setUsersATPT,
   toggleIsFetchingPageACPT,
   toggleIsFetchingUserACPT,
-  users_reducer,
+  usersReducer,
 } from './users_reducer';
-import { auth_reducer, getCaptchaACPT, setUserDataACPT } from './auth_reducer';
-import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux';
-import thunkMiddleware, { ThunkAction } from 'redux-thunk';
-import { reducer as formReducer } from 'redux-form';
-import { app_reducer, setInitializedAPPACPT } from 'redux/app_reducer';
 
-export type AppStatePT = ReturnType<typeof reducer>
+import { appReducer, setInitializedAPPACPT } from 'redux/app_reducer';
+
+export type AppStatePT = ReturnType<typeof reducer>;
 
 export const reducer = combineReducers({
-  sidebarPage: sidebar_reducer,
-  profilePage: profile_reducer,
-  dialogsPage: dialogs_reducer,
-  users: users_reducer,
-  auth: auth_reducer,
-  form: formReducer,   // redux-form
-  app: app_reducer,
+  sidebarPage: sidebarReducer,
+  profilePage: profileReducer,
+  dialogsPage: dialogsReducer,
+  users: usersReducer,
+  auth: authReducer,
+  form: formReducer, // redux-form
+  app: appReducer,
 });
 
 declare global {
@@ -43,13 +45,16 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store: Store<AppStatePT> = createStore(reducer, compose(applyMiddleware(thunkMiddleware), composeEnhancers()));
+export const store: Store<AppStatePT> = createStore(
+  reducer,
+  compose(applyMiddleware(thunkMiddleware), composeEnhancers()),
+);
 
 // // @ts-ignore
 // window.store = store;
 
 export type ActionPT =
-  addPostATPT
+  | addPostATPT
   | addTextMessageATPT
   | sidebarATPT
   | followATPT
@@ -64,6 +69,6 @@ export type ActionPT =
   | setInitializedAPPACPT
   | setPhotoACPT
   | setUserProfileDataACPT
-  | getCaptchaACPT
+  | getCaptchaACPT;
 
-export type NewThunkType = ThunkAction<void, AppStatePT, unknown, ActionPT>
+export type NewThunkType = ThunkAction<void, AppStatePT, unknown, ActionPT>;

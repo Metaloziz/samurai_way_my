@@ -1,11 +1,13 @@
 import './App.css';
-import { HeaderContainer } from 'components/Header/HeaderContainer';
+import { Component, lazy, ReactElement, Suspense } from 'react';
+
 import { Navigate, Route, Routes } from 'react-router-dom';
-import React, { Component, lazy, Suspense } from 'react';
+
+import { MapDispatchPT } from 'AppHOC';
+import { Preloader } from 'components/comonComponents/Preloader';
+import { HeaderContainer } from 'components/Header/HeaderContainer';
 import { NavigationContainer } from 'components/Navigation/NavigationContainer';
 import { UserDataInitialStateType } from 'redux/app_reducer';
-import { Preloader } from 'components/comonComponents/Preloader';
-import { MapDispatchPT } from 'AppHOC';
 
 const News = lazy(() => import('components/News/News'));
 const Login = lazy(() => import('components/Login/Login'));
@@ -17,43 +19,46 @@ const ProfileContainer = lazy(() => import('./components/Profile/ProfileContaine
 const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'));
 
 class App extends Component<MapDispatchPT & UserDataInitialStateType> {
-
-  catchAllUnhandledErrors = () => {
-    console.warn('Внимание: Необработанная ошибка Promise. Позор вам! ');
-  };
-
-  componentDidMount = () => {
-    this.props.initializeTC();
+  componentDidMount(): void {
+    const { initializeTC } = this.props;
+    initializeTC();
     window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
-  };
-
-  componentWillUnmount() {
-    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
   }
 
-  render() {
-    if (!this.props.initialized) {
+  componentWillUnmount(): void {
+    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+  }
+
+  catchAllUnhandledErrors = (): void => {
+    // eslint-disable-next-line no-console
+    console.warn(`Внимание: Необработанная ошибка Promise. Позор вам! ${this}`);
+  };
+
+  render(): ReactElement {
+    const { initialized } = this.props;
+
+    if (!initialized) {
       return <Preloader />;
     }
 
     return (
-      <div className='app-wrapper'>
+      <div className="app-wrapper">
         <HeaderContainer />
         <NavigationContainer />
         <div>
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-              <Route path={'/'} element={<Navigate to={'/profile'} />} />
-              <Route path={'/samurai_way_my/'} element={<Navigate to={'/profile'} />} />
-              <Route path='/profile' element={<ProfileContainer />}>
-                <Route path=':userId' element={<ProfileContainer />} />
+              <Route path="/" element={<Navigate to="/profile" />} />
+              <Route path="/samurai_way_my/" element={<Navigate to="/profile" />} />
+              <Route path="/profile" element={<ProfileContainer />}>
+                <Route path=":userId" element={<ProfileContainer />} />
               </Route>
               <Route path={'/messages/*'} element={<MessagesContainer />} />
-              <Route path={'/users/'} element={<UsersContainer />} />
-              <Route path={'/news'} element={<News />} />
-              <Route path={'/music'} element={<Music />} />
-              <Route path={'/settings'} element={<Settings />} />
-              <Route path={'/login'} element={<Login />} />
+              <Route path="/users/" element={<UsersContainer />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/music" element={<Music />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/login" element={<Login />} />
               <Route path={'/*'} element={<Page404 />} />
             </Routes>
           </Suspense>

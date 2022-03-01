@@ -1,31 +1,28 @@
-import { DataHeaderType, Header } from './Header';
+import { FC, ReactElement } from 'react';
+
 import { connect } from 'react-redux';
+
+import { DataHeaderType, Header } from './Header';
+
 import { setLogoutTC } from 'redux/auth_reducer';
 import { AppStatePT } from 'redux/store_redux';
-import { Component } from 'react';
 
 export type mapDispatchToPropsPT = {
-  setLogoutTC: () => void
-}
-
-export class HeaderContainerAPI extends Component<DataHeaderType & mapDispatchToPropsPT> {
-
-  render() {
-
-    let { data, setLogoutTC } = this.props;
-    return (
-      <Header data={data} setLogoutTC={setLogoutTC}
-      />
-    );
-  }
-}
-
-const mapStateToProps = (state: AppStatePT): DataHeaderType => {
-  return { data: state.auth };
+  setLogoutHandle: () => void;
 };
+
+export const HeaderContainerAPI: FC<DataHeaderType & mapDispatchToPropsPT> = ({
+  setLogoutHandle,
+  data,
+}): ReactElement => <Header data={data} setLogoutHandle={setLogoutHandle} />;
+
+const mapStateToProps = (state: AppStatePT): DataHeaderType => ({ data: state.auth });
 
 const mapDispatchToProps: mapDispatchToPropsPT = {
-  setLogoutTC: setLogoutTC,
+  setLogoutHandle: setLogoutTC,
 };
 
-export const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(HeaderContainerAPI);
+export const HeaderContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HeaderContainerAPI);

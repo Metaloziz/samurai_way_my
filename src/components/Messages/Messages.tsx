@@ -1,42 +1,44 @@
-import React, { FC, memo, useCallback } from 'react';
+import { FC } from 'react';
+
+import { AddMessageForm, MessageReduxInputType } from './AddMessageForm/AddMessageForm';
 import { DialogItem } from './DialogItem/DialogItem';
-import { MessagesItem } from './MessagesItem/MessagesItem';
 import style from './Messages.module.css';
 import {
   mapDispatchToPropsMessageType,
   mapStateToPropsMessageType,
 } from './MessagesContainer';
-import { AddMessageForm, MessageReduxInputType } from './AddMessageForm/AddMessageForm';
+import { MessagesItem } from './MessagesItem/MessagesItem';
 
-export let Messages: FC<Omit<mapStateToPropsMessageType, 'isAuth'>
-  & mapDispatchToPropsMessageType> = memo(({ dialogsPage, addNewMessage }) => {
+export const Messages: FC<mapStateToPropsMessageType & mapDispatchToPropsMessageType> = ({
+  dialogsPage,
+  addNewMessage,
+}) => {
+  const dialogsDataItems = dialogsPage.dialogs.map(item => (
+    <DialogItem key={item.id} id={item.id} name={item.name} ava={item.ava} />
+  ));
 
-  let dialogsDataItems = dialogsPage.dialogs
-    .map((item, index) => <DialogItem key={index} id={item.id} name={item.name}
-                                      ava={item.ava} />);
+  const messagesDataItems = dialogsPage.messages.map(item => (
+    <MessagesItem key={item.id} id={item.id} text={item.text} />
+  ));
 
-  let messagesDataItems = dialogsPage.messages
-    .map((item, index) => <MessagesItem key={index} id={item.id} text={item.text} />);
-
-  let addNewPost = useCallback((data: MessageReduxInputType) => {
+  const addNewPost = (data: MessageReduxInputType): void => {
     console.log(data);
-    if (data.message) {              // check empty
+    if (data.message) {
       addNewMessage(data.message.trim());
     } else {
       console.warn('field is empty');
     }
-  }, []);
+  };
 
   return (
     <div className={style.dialogs}>
-      <div className={style.dialogItems}>
-        {dialogsDataItems}
-      </div>
+      <div className={style.dialogItems}>{dialogsDataItems}</div>
       <div className={style.messages}>
         <div>{messagesDataItems}</div>
         <div>
           <AddMessageForm onSubmit={addNewPost} />
         </div>
       </div>
-    </div>);
-});
+    </div>
+  );
+};

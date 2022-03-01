@@ -1,41 +1,47 @@
 import { ChangeEvent, memo, useEffect, useState } from 'react';
 
 type ProfileStatusPT = {
-  status: string
-  updateUserStatus: (status: string) => void
-}
+  status: string;
+  updateUserStatus: (status: string) => void;
+};
 
 export const ProfileStatusWithHooks = memo((props: ProfileStatusPT) => {
-
-  let [editMod, setEditMod] = useState<boolean>(false);
-  let [statusText, setStatusText] = useState<string>(props.status);
+  const [editMod, setEditMod] = useState<boolean>(false);
+  const [statusText, setStatusText] = useState<string>(props.status);
 
   useEffect(() => {
     setStatusText(props.status);
   }, [props.status]);
 
-  const setEditModTrue = () => {
+  const setEditModTrue = (): void => {
     setEditMod(true);
   };
 
-  const setEditModFalse = () => {
+  const setEditModFalse = (): void => {
     setEditMod(false);
     if (statusText) {
       props.updateUserStatus(statusText);
     }
-
   };
-  const changeTextHandle = (e: ChangeEvent<HTMLInputElement>) => {
+  const changeTextHandle = (e: ChangeEvent<HTMLInputElement>): void => {
     setStatusText(e.currentTarget.value);
   };
 
   if (editMod) {
-    return <div><input onBlur={setEditModFalse}
-                       autoFocus
-                       type={'text'}
-                       onChange={changeTextHandle}
-                       value={statusText} /></div>;
-  } else {
-    return <div><h2 onDoubleClick={setEditModTrue}>{props.status}</h2></div>;
+    return (
+      <div>
+        <input
+          onBlur={setEditModFalse}
+          type="text"
+          onChange={changeTextHandle}
+          value={statusText}
+        />
+      </div>
+    );
   }
+  return (
+    <div>
+      <h2 onDoubleClick={setEditModTrue}>{props.status}</h2>
+    </div>
+  );
 });

@@ -1,62 +1,74 @@
-import { Component, ComponentType } from 'react';
+import { Component, ComponentType, ReactElement } from 'react';
+
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+
+import { Preloader } from '../comonComponents/Preloader';
+
+import { Users } from './Users';
+
+import { withAuthRedirect } from 'hoc/withAuthRedirect';
 import { AppStatePT } from 'redux/store_redux';
 import {
   followThunkCreator,
-  // getUsersThunkCreator,
   setPageThunkCreator,
   unFollowThunkCreator,
 } from 'redux/users_reducer';
-import { Users } from './Users';
-import { Preloader } from '../comonComponents/Preloader';
-import { withAuthRedirect } from 'hoc/withAuthRedirect';
-import { compose } from 'redux';
 import { selectUsersSuper } from 'utils/selectors/selectors';
 
 export class UsersAPIcontainer extends Component<UsersStatePT & mapDispatchToPropsPT> {
+  componentDidMount(): void {
+    const { setPageHandle, currentPage, pageSize } = this.props;
+    setPageHandle(currentPage, pageSize);
+  }
 
-  componentDidMount = () => {
-    this.props.setPageThunkCreator(this.props.currentPage, this.props.pageSize);
+  setPage = (pageID: number): void => {
+    const { setPageHandle, pageSize } = this.props;
+    setPageHandle(pageID, pageSize);
   };
 
-  setPage = (pageID: number) => {
-    this.props.setPageThunkCreator(pageID, this.props.pageSize);
+  unFollow = (userID: number): void => {
+    const { setUnFollowHandle } = this.props;
+    setUnFollowHandle(userID);
   };
 
-  unFollow = (userID: number) => {
-    this.props.unFollowThunkCreator(userID);
+  follow = (userID: number): void => {
+    const { setFollowHandle } = this.props;
+    setFollowHandle(userID);
   };
 
-  follow = (userID: number) => {
-    this.props.followThunkCreator(userID);
-  };
-
-  render() {
-    return <div>
-      {this.props.isFetchingPage
-        ? <Preloader />
-        : <Users items={this.props.items}
-                 setPage={this.setPage}
-                 unFollow={this.unFollow}
-                 follow={this.follow}
-                 pageSize={this.props.pageSize}
-                 totalCount={this.props.totalCount}
-                 currentPage={this.props.currentPage}
-                 error={this.props.error}
-                 isFetchingPage={this.props.isFetchingPage} />}
-    </div>;
+  render(): ReactElement {
+    const { isFetchingPage, items, pageSize, totalCount, currentPage, error } =
+      this.props;
+    return (
+      <div>
+        {isFetchingPage ? (
+          <Preloader />
+        ) : (
+          <Users
+            items={items}
+            setPage={this.setPage}
+            unFollow={this.unFollow}
+            follow={this.follow}
+            pageSize={pageSize}
+            totalCount={totalCount}
+            currentPage={currentPage}
+            error={error}
+            isFetchingPage={isFetchingPage}
+          />
+        )}
+      </div>
+    );
   }
 }
 
-const mapStateToProps = (state: AppStatePT): UsersStatePT => {
-  return selectUsersSuper(state);
-};
+const mapStateToProps = (state: AppStatePT): UsersStatePT => selectUsersSuper(state);
 
-let mapDispatchToProps: mapDispatchToPropsPT = {
+const mapDispatchToProps: mapDispatchToPropsPT = {
   // getUsersThunkCreator,
-  setPageThunkCreator,
-  unFollowThunkCreator,
-  followThunkCreator,
+  setPageHandle: setPageThunkCreator,
+  setUnFollowHandle: unFollowThunkCreator,
+  setFollowHandle: followThunkCreator,
 };
 
 const UsersContainer = compose<ComponentType>(
@@ -68,30 +80,26 @@ export default UsersContainer;
 
 export type mapDispatchToPropsPT = {
   // getUsersThunkCreator: (currentPage: number, pageSize: number) => void
-  setPageThunkCreator: (pageID: number, pageSize: number) => void
-  unFollowThunkCreator: (userID: number) => void
-  followThunkCreator: (userID: number) => void
-}
+  setPageHandle: (pageID: number, pageSize: number) => void;
+  setUnFollowHandle: (userID: number) => void;
+  setFollowHandle: (userID: number) => void;
+};
 export type UsersStatePT = {
-  items: UserPT[]
-  pageSize: number
-  totalCount: number
-  error: string
-  currentPage: number
-  isFetchingPage: boolean
-}
+  items: UserPT[];
+  pageSize: number;
+  totalCount: number;
+  error: string;
+  currentPage: number;
+  isFetchingPage: boolean;
+};
 export type UserPT = {
-  id: number
-  name: string
-  status: string
+  id: number;
+  name: string;
+  status: string;
   photos: {
-    small: string
-    large: string
-  }
-  followed: boolean
-  isFetchingUser: boolean
-}
-
-
-
-
+    small: string;
+    large: string;
+  };
+  followed: boolean;
+  isFetchingUser: boolean;
+};
