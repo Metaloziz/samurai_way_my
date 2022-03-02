@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/components/News/News.module.css"],"names":[],"mappings":"AACA,oBACI,wBAA+B,CAC/B,YAAa,CACb,WAEJ","file":"9.bd861d88.chunk.css","sourcesContent":["\r\n.header {\r\n    background-color: darkslategrey;\r\n    padding: 10px;\r\n    color: beige;\r\n    /*margin: 0.5%;*/\r\n}\r\n"]}
