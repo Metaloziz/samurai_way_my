@@ -1,37 +1,43 @@
-import { memo, useCallback } from 'react';
+import { ReactElement } from 'react';
 
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
-
-import { Input } from 'components/comonComponents/FormsControls/FormsControl';
-import { MaxLengthSymbols } from 'utils/enum/enum';
-import { maxLengthCreator, requiredField } from 'utils/validators/validators';
-
-// let maxLength = maxLengthCreator(2)
+import { useFormik } from 'formik';
 
 export type PostsReduxFormType = {
   textPost: string;
 };
 
-const PostsReduxForm = memo((props: InjectedFormProps<PostsReduxFormType>) => {
-  const maxLength15 = useCallback(maxLengthCreator(MaxLengthSymbols.postForm), []);
+type addNewPostHandleType = {
+  addNewPostHandle: (data: PostsReduxFormType) => void;
+};
+
+export const PostForm = ({ addNewPostHandle }: addNewPostHandleType): ReactElement => {
+  // const maxLength15 = useCallback(maxLengthCreator(MaxLengthSymbols.postForm), []);
+
+  const formik = useFormik({
+    initialValues: {
+      textPost: '',
+    },
+    onSubmit: values => {
+      addNewPostHandle(values);
+      formik.resetForm();
+    },
+  });
 
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       <div>
-        <Field
-          type="text"
+        <input
+          id="textPost"
           name="textPost"
-          typeComponent="textarea"
-          component={Input}
-          placeholder="test"
-          validate={[requiredField, maxLength15]}
+          type="textPost"
+          placeholder="some text"
+          onChange={formik.handleChange}
+          value={formik.values.textPost}
         />
       </div>
       <div>
-        <button type="button">Add post</button>
+        <button type="submit">Add post</button>
       </div>
     </form>
   );
-});
-
-export const PostForm = reduxForm<PostsReduxFormType>({ form: 'POST' })(PostsReduxForm);
+};

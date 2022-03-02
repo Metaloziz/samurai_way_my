@@ -21,7 +21,7 @@ export const selectProfilePageStatus = (state: AppStatePT): string =>
 export const selectAuthorisedUserID = (state: AppStatePT): string =>
   state.auth.data.id.toString();
 export const selectDialogsPage = (state: AppStatePT): dialogsItemsPT => state.dialogsPage;
-export const selectAuth = (state: AppStatePT): boolean => state.auth.isAuth;
+// export const selectAuth = (state: AppStatePT): boolean => state.auth.isAuth;
 export const selectIsAuth = (state: AppStatePT): { isAuth: boolean } => ({
   isAuth: state.auth.isAuth,
 });

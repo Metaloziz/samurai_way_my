@@ -14,13 +14,10 @@ export type NewPostPT = {
 
 export const Posts = memo(({ profilePage, addPostAC, addLikeAC }: NewPostPT) => {
   const addNewItem = (data: PostsReduxFormType): void => {
-    // eslint-disable-next-line no-console
     console.log(data);
     if (data.textPost) {
-      // check empty
       addPostAC(data.textPost.trim());
     } else {
-      // eslint-disable-next-line no-console
       console.warn('field is empty');
     }
   };
@@ -34,7 +31,7 @@ export const Posts = memo(({ profilePage, addPostAC, addLikeAC }: NewPostPT) => 
       <div className={style.item}>
         New Post
         {/* when submit form — call addNewItem  */}
-        <PostForm onSubmit={addNewItem} />
+        <PostForm addNewPostHandle={addNewItem} />
         {profilePage.postData.map(item => (
           <OldPost
             key={item.id}

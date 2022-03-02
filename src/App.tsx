@@ -15,7 +15,7 @@ const Music = lazy(() => import('components/Music/Music'));
 const Page404 = lazy(() => import('components/Page404/Page404'));
 const Settings = lazy(() => import('components/Settings/Settings'));
 const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
-// const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
+const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
 const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'));
 
 class App extends Component<MapDispatchPT & UserDataInitialStateType> {
@@ -50,13 +50,12 @@ class App extends Component<MapDispatchPT & UserDataInitialStateType> {
             <Routes>
               <Route path="/" element={<Navigate to="/profile" />} />
               <Route path="/samurai_way_my/" element={<Navigate to="/profile" />} />
-              {/* <Route path="/profile" element={<ProfileContainer />}> */}
-              {/*   <Route path=":userId" element={<ProfileContainer />} /> */}
-              {/* </Route> */}
+              <Route path="/profile" element={<ProfileContainer />}>
+                <Route path=":userId" element={<ProfileContainer />} />
+              </Route>
               <Route path={'/messages/*'} element={<MessagesContainer />} />
               <Route path="/users/" element={<UsersContainer />} />
-              <Route path="/profile" element={<News />} />
-              {/* <Route path="/news" element={<News />} /> */}
+              <Route path="/news" element={<News />} />
               <Route path="/music" element={<Music />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/login" element={<Login />} />

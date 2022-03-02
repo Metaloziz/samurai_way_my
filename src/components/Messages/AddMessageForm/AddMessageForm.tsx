@@ -22,7 +22,6 @@ export const AddMessageForm: FC<AddMessageFormPropsType> = ({
       message: '',
     },
     onSubmit: values => {
-      // alert(JSON.stringify(values, null, CommonConstants.two));
       addNewMessageHandle(values);
       formik.resetForm();
     },

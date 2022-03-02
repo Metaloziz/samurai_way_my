@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react';
 
 import { connect } from 'react-redux';
-// import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { LoginForm } from './LoginForm/LoginForm';
 
@@ -12,17 +12,19 @@ import { selectCaptcha, selectIsAuth } from 'utils/selectors/selectors';
 
 const LoginContainer: FC<mapDispatchToPropsType & mapStateToPropsType> = ({
   setLoginHandler,
-  // isAuth,
+  isAuth,
   captchaURL,
-}): ReactElement => (
-  // if (isAuth) return <Navigate to="/profile" />;
-  <div>
-    <div>LOGIN</div>
-    <div>Email: free@samuraijs.com</div>
-    <div>Password: free</div>
-    <LoginForm setLoginHandler={setLoginHandler} captchaURL={captchaURL} />
-  </div>
-);
+}): ReactElement => {
+  if (isAuth) return <Navigate to="/profile" />;
+  return (
+    <div>
+      <div>LOGIN</div>
+      <div>Email: free@samuraijs.com</div>
+      <div>Password: free</div>
+      <LoginForm setLoginHandler={setLoginHandler} captchaURL={captchaURL} />
+    </div>
+  );
+};
 // <LoginForm onSubmit={onSubmit}/> так это контейнерная компонента, то в onSubmit автоматом попадают пропсы
 
 // eslint-disable-next-line react/no-unused-prop-types

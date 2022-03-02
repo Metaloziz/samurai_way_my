@@ -1,58 +1,97 @@
-import React, { ReactElement, useCallback } from 'react';
+import { FC, ReactElement } from 'react';
 
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import { useFormik } from 'formik';
 
 import style from './ProfileDataInfoForm.module.css';
 
-import { Input } from 'components/comonComponents/FormsControls/FormsControl';
-import { ProfileDataType } from 'redux/profile_reducer';
-import { MaxLengthSymbols } from 'utils/enum/enum';
-import { FieldsCreator } from 'utils/fieldsCreator/fieldsCreator';
-import { maxLengthCreator } from 'utils/validators/validators';
+import { ContactsType, ProfileDataType, ProfileType } from 'redux/profile_reducer';
 
-const ReduxForm = ({
-  initialValues,
-  handleSubmit,
-  error,
-}: InjectedFormProps<ProfileDataType>): ReactElement => {
-  const maxLength = useCallback(maxLengthCreator(MaxLengthSymbols.profileForm), []);
+export const ProfileDataInfoForm: FC<ProfileDataInfoFormPropsType> = ({
+  initialState,
+  setProfileData,
+}): ReactElement => {
+  const formik = useFormik({
+    initialValues: initialState,
+    onSubmit: values => {
+      setProfileData(values);
+      formik.resetForm();
+    },
+  });
+
+  const arr = Object.keys(initialState.contacts) as Array<keyof ContactsType>;
 
   return (
-    <form onSubmit={handleSubmit}>
+    // const maxLength = useCallback(maxLengthCreator(MaxLengthSymbols.profileForm), []);
+
+    <form onSubmit={formik.handleSubmit}>
       <div>
         <div>
           <b>lookingForAJob:</b>
-          <Field type="checkbox" name="lookingForAJob" component={Input} />
+          <input
+            id="lookingForAJob"
+            name="lookingForAJob"
+            type="checkbox"
+            placeholder="some text"
+            onChange={formik.handleChange}
+            defaultChecked={formik.values.lookingForAJob}
+          />
         </div>
         <div>
           <b>lookingForAJobDescription:</b>
-          <FieldsCreator value="lookingForAJobDescription" maxLength={maxLength} />
+          <input
+            id="lookingForAJobDescription"
+            name="lookingForAJobDescription"
+            type="lookingForAJobDescription"
+            placeholder="some text"
+            onChange={formik.handleChange}
+            value={formik.values.lookingForAJobDescription}
+          />
         </div>
         <div>
           <b>fullName:</b>
-          <FieldsCreator value="fullName" maxLength={maxLength} />
+          <input
+            id="fullName"
+            name="fullName"
+            type="fullName"
+            placeholder="some text"
+            onChange={formik.handleChange}
+            value={formik.values.fullName}
+          />
         </div>
         <div>
           <b>about me:</b>
-          <FieldsCreator value="aboutMe" maxLength={maxLength} />
+          <input
+            id="aboutMe"
+            name="aboutMe"
+            type="aboutMe"
+            placeholder="some text"
+            onChange={formik.handleChange}
+            value={formik.values.aboutMe}
+          />
         </div>
       </div>
       <b>Contacts:</b>
       <div>
-        {Object.keys(initialValues.contacts!).map(el => (
+        {arr.map(el => (
           <div className={style.item} key={el}>
             <b>{el}:</b>
-            <FieldsCreator value={`contacts.${el}`} maxLength={maxLength} />
+            <input
+              id={el.toString()}
+              name={el.toString()}
+              type={el.toString()}
+              placeholder="some text"
+              onChange={formik.handleChange}
+              defaultValue={formik.values.contacts[el]}
+              value={formik.values.contacts[el]}
+            />
           </div>
         ))}
       </div>
-      <div className={style.error}>{error}</div>
-      {/* попадает сюда если сработал stopSubmit AC */}
-      <button type="button">add</button>
+      <button type="submit">add</button>
     </form>
   );
 };
-
-export const ProfileDataInfoForm = reduxForm<ProfileDataType>({ form: 'PROFILE' })(
-  ReduxForm,
-);
+type ProfileDataInfoFormPropsType = {
+  initialState: ProfileType;
+  setProfileData: (props: ProfileDataType) => void;
+};
