@@ -44,10 +44,7 @@ export const authMeAPI = {
     return instance.get<userDataPT>('auth/me').then(response => response.data);
   },
   login(data: loginAPIRequestType) {
-    return instance
-      .post<CommonResponseType<loginAPIResponseType>>('/auth/login', data)
-      .then(response => response)
-      .catch(res => res);
+    return instance.post<CommonResponseType<loginAPIResponseType>>('/auth/login', data);
   },
   logout() {
     return instance.delete<null, AxiosResponse<CommonResponseType>>('/auth/login');

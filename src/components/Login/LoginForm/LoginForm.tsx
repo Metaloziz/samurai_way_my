@@ -1,6 +1,8 @@
 import { FC, ReactElement } from 'react';
 
-import { useFormik } from 'formik';
+import { Formik, Form, Field } from 'formik';
+
+import { CommonConstants } from '../../../utils/enum/enum';
 
 import { loginAPIRequestType } from 'api/api';
 
@@ -16,74 +18,90 @@ export type LoginFormPropsType = {
   captchaURL: string;
 };
 
-// <form onSubmit={props.handleSubmit}>  метод из redux form,
-// который собирает данные из Fields
-
 export const LoginForm: FC<LoginFormPropsType> = ({
   setLoginHandler,
   captchaURL,
 }): ReactElement => {
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      rememberMe: true,
-      captchaURL: '',
-    },
-    onSubmit: values => {
-      console.log(values);
-      // console.log(captchaURL);
-      setLoginHandler(values);
-    },
-  });
+  const validateEmail = (value: string): string | undefined => {
+    console.log(captchaURL);
+    let error;
+    if (!value) {
+      error = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      error = 'Invalid email address';
+    }
+    return error;
+  };
+
+  const validatePassword = (value: string): string | undefined => {
+    let error;
+    if (value.length > CommonConstants.two) {
+      error = 'Nice try!';
+    }
+    return error;
+  };
+
+  // const formik = useFormik({
+  //   initialValues: {
+  //     email: '',
+  //     password: '',
+  //     rememberMe: true,
+  //     captchaURL: '',
+  //   },
+  //   onSubmit: values => {
+  //     console.log(values);
+  //     setLoginHandler(values);
+  //   },
+  // });
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit}>
-        <div>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            // autoComplete={formik.values.email}
-            onChange={formik.handleChange}
-            value={formik.values.email}
-          />
-        </div>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          // autoComplete={formik.values.password}
-          onChange={formik.handleChange}
-          value={formik.values.password}
-        />
-        <div>
-          <input
-            id="checkbox"
-            name="checkbox"
-            type="checkbox"
-            onChange={formik.handleChange}
-            defaultChecked={formik.values.rememberMe}
-          />
-        </div>
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+          rememberMe: true,
+          captchaURL: '',
+        }}
+        onSubmit={values => {
+          console.log(values);
+          setLoginHandler(values);
+        }}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            <form>
+              <Field name="email" validate={validateEmail} />
+              {errors.email && touched.email && <div>{errors.email}</div>}
+              <Field name="password" validate={validatePassword} />
+              {errors && touched.password && <div>{errors}</div>}
+              {/* <div> */}
+              {/*  <input */}
+              {/*    name="checkbox" */}
+              {/*    type="checkbox" */}
+              {/*    onChange={formik.handleChange} */}
+              {/*    defaultChecked={formik.values.rememberMe} */}
+              {/*  /> */}
+              {/* </div> */}
 
-        {captchaURL && (
-          <div>
-            <img alt="captcha" src={captchaURL} />
-            <div>
-              <input
-                id="captchaURL"
-                name="captchaURL"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.captchaURL}
-              />
-            </div>
-          </div>
+              {/* {captchaURL && ( */}
+              {/*  <div> */}
+              {/*    <img alt="captcha" src={captchaURL} /> */}
+              {/*    <div> */}
+              {/*      <input */}
+              {/*        name="captchaURL" */}
+              {/*        type="text" */}
+              {/*        onChange={formik.handleChange} */}
+              {/*        value={formik.values.captchaURL} */}
+              {/*      /> */}
+              {/*    </div> */}
+              {/*  </div> */}
+              {/* )} */}
+              <button type="submit">Login</button>
+            </form>
+          </Form>
         )}
-        <button type="submit">Login</button>
-      </form>
+      </Formik>
     </div>
   );
 };
