@@ -33,7 +33,7 @@ export const Header = memo(
           alt="logo"
           src="https://w7.pngwing.com/pngs/200/945/png-transparent-vitruvian-man-vinci-italian-renaissance-drawing-others-white-hand-monochrome.png"
         />
-        <div>LOGO</div>
+        <div>Blue Oyster</div>
       </div>
       <div className={style.loginBlock}>
         {data.resultCode === CommonConstants.zero ? (
