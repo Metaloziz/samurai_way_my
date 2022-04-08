@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunksamurai_way_my=self.webpackChunksamurai_way_my||[]).push([[798],{8798:function(e,a,i){i.r(a),i.d(a,{default:function(){return r}});var s="Page404_diveImg__k04dx",n="Page404_dive__TTmq2",d=i(184),r=function(){return(0,d.jsxs)("div",{className:n,children:[(0,d.jsx)("div",{children:"404"}),(0,d.jsx)("div",{className:s}),(0,d.jsx)("div",{children:"Page not found!"}),(0,d.jsx)("div",{children:"\u2014\u0e05/\u1420.\u032b .\u141f\\\u0e05\u2014"})]})}}}]);
+//# sourceMappingURL=798.bd265955.chunk.js.map
