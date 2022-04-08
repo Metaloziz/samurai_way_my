@@ -17,37 +17,38 @@ beforeEach(() => {
     captchaURL: '',
   };
 });
+describe('auth-reducer', () => {
+  test('authorised signature test', () => {
+    const newData: userDataPT = {
+      data: {
+        id: 10,
+        login: 'absence',
+        email: 'marriage',
+      },
+      messages: ['buy'],
+      fieldsErrors: ['pump'],
+      resultCode: 439,
+      isAuth: true, // it is not from API
+      captchaURL: '',
+    };
 
-test('authorised signature test', () => {
-  const newData: userDataPT = {
-    data: {
-      id: 10,
-      login: 'absence',
-      email: 'marriage',
-    },
-    messages: ['buy'],
-    fieldsErrors: ['pump'],
-    resultCode: 439,
-    isAuth: true, // it is not from API
-    captchaURL: '',
-  };
+    const action = setUserDataAC({ data: newData, isAuth: true });
 
-  const action = setUserDataAC(newData, true);
+    const endState = authReducer(userDataInitialState, action);
 
-  const endState = authReducer(userDataInitialState, action);
+    expect(endState).not.toBe(userDataInitialState);
+    expect(endState.isAuth).toBe(true);
+    expect(endState.data).toBe(newData.data);
+  });
 
-  expect(endState).not.toBe(userDataInitialState);
-  expect(endState.isAuth).toBe(true);
-  expect(endState.data).toBe(newData.data);
-});
+  test('get captcha url', () => {
+    const captchaURL = 'some url';
 
-test('get captcha url', () => {
-  const captchaURL = 'some url';
+    const action = getCaptchaAC({ url: captchaURL });
 
-  const action = getCaptchaAC(captchaURL);
+    const endState = authReducer(userDataInitialState, action);
 
-  const endState = authReducer(userDataInitialState, action);
-
-  expect(endState).not.toBe(userDataInitialState);
-  expect(endState.captchaURL).toBe(captchaURL);
+    expect(endState).not.toBe(userDataInitialState);
+    expect(endState.captchaURL).toBe(captchaURL);
+  });
 });

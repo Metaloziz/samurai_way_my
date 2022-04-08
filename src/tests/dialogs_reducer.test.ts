@@ -32,12 +32,12 @@ beforeEach(() => {
 test('add text message test', () => {
   const newText = 'court';
 
-  const action = addTextMessageAC(newText);
+  const action = addTextMessageAC({ value: newText });
 
   const endState = dialogsReducer(dialogsInitialState, action);
 
   expect(endState).not.toBe(dialogsInitialState);
-  expect(endState.messages[ZERO]).not.toBe(dialogsInitialState.messages[ZERO]);
+  expect(endState.messages[ZERO]).toBe(dialogsInitialState.messages[ZERO]);
   expect(endState.messages.length).toBe(dialogsInitialState.messages.length + ONE);
   expect(endState.messages[endState.messages.length - ONE].text).toBe(newText);
 });

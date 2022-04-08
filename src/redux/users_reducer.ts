@@ -1,49 +1,11 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'redux';
-
-import { ActionPT } from './store_redux';
 
 import { followAPI, userAPI } from 'api/api';
 import { UserPT, UsersStatePT } from 'components/Users/UsersContainer';
-import {
-  CHANGE_PAGE,
-  FOLLOW,
-  SET_USERS,
-  TOGGLE_IS_FETCHING_PAGE,
-  TOGGLE_IS_FETCHING_USER,
-} from 'redux/constTypeAC/constTypies';
-import { ResultCode } from 'utils/enum/enum';
+import { CommonConstants, ResultCode } from 'utils/enum/enum';
 
 type API_methodType = typeof followAPI.setUnFollow;
-
-export type followATPT = ReturnType<typeof followAC>;
-export type setUsersATPT = ReturnType<typeof setUsersAC>;
-export type changePageACPT = ReturnType<typeof changePageAC>;
-export type toggleIsFetchingPageACPT = ReturnType<typeof toggleIsFetchingPageAC>;
-export type toggleIsFetchingUserACPT = ReturnType<typeof toggleIsFetchingUserAC>;
-
-export const followAC = (userID: number) => ({ type: FOLLOW, userID } as const);
-export const setUsersAC = (users: UserPT[], totalCount: number) =>
-  ({
-    type: SET_USERS,
-    users,
-    totalCount,
-  } as const);
-export const changePageAC = (pageID: number) =>
-  ({
-    type: CHANGE_PAGE,
-    pageID,
-  } as const);
-export const toggleIsFetchingPageAC = (isFetchingPage: boolean) =>
-  ({
-    type: TOGGLE_IS_FETCHING_PAGE,
-    isFetchingPage,
-  } as const);
-export const toggleIsFetchingUserAC = (isFetchingUser: boolean, userID: number) =>
-  ({
-    type: TOGGLE_IS_FETCHING_USER,
-    isFetchingUser,
-    userID,
-  } as const);
 
 const usersState: UsersStatePT = {
   items: [
@@ -63,53 +25,58 @@ const usersState: UsersStatePT = {
   isFetchingPage: true, // add this key  myself
 };
 
-export const usersReducer = (
-  state: UsersStatePT = usersState,
-  action: ActionPT,
-): UsersStatePT => {
-  switch (action.type) {
-    case FOLLOW:
-      return {
-        ...state,
-        items: state.items.map(user =>
-          user.id === action.userID
-            ? {
-                ...user,
-                followed: !user.followed,
-              }
-            : user,
-        ),
-      };
-    case SET_USERS:
-      return { ...state, items: action.users, totalCount: action.totalCount };
-    case CHANGE_PAGE:
-      return { ...state, currentPage: action.pageID };
-    case TOGGLE_IS_FETCHING_PAGE:
-      return { ...state, isFetchingPage: action.isFetchingPage };
-    case TOGGLE_IS_FETCHING_USER:
-      return {
-        ...state,
-        items: state.items.map(user =>
-          user.id === action.userID
-            ? {
-                ...user,
-                isFetchingUser: action.isFetchingUser,
-              }
-            : user,
-        ),
-      };
-    default:
-      return state;
-  }
-};
+const slice = createSlice({
+  name: 'user',
+  initialState: usersState,
+  reducers: {
+    followAC(state, action: PayloadAction<{ userID: number }>) {
+      const { userID } = action.payload;
+      const userIndex = state.items.findIndex(({ id }) => id === userID);
+      if (userIndex !== -CommonConstants.one) {
+        state.items[userIndex].followed = !state.items[userIndex].followed;
+      }
+    },
+    setUsersAC(state, action: PayloadAction<{ users: UserPT[]; totalCount: number }>) {
+      const { users, totalCount } = action.payload;
+
+      state.items = users;
+      state.totalCount = totalCount;
+    },
+    changePageAC(state, action: PayloadAction<{ pageID: number }>) {
+      state.currentPage = action.payload.pageID;
+    },
+    toggleIsFetchingPageAC(state, action: PayloadAction<{ isFetchingPage: boolean }>) {
+      state.isFetchingPage = action.payload.isFetchingPage;
+    },
+    toggleIsFetchingUserAC(
+      state,
+      action: PayloadAction<{ isFetchingUser: boolean; userID: number }>,
+    ) {
+      const { userID, isFetchingUser } = action.payload;
+      const userIndex = state.items.findIndex(({ id }) => id === userID);
+      if (userIndex !== -CommonConstants.one) {
+        state.items[userIndex].isFetchingUser = isFetchingUser;
+      }
+    },
+  },
+});
+
+export const usersReducer = slice.reducer;
+export const {
+  followAC,
+  setUsersAC,
+  toggleIsFetchingPageAC,
+  toggleIsFetchingUserAC,
+  changePageAC,
+} = slice.actions;
 
 export const setPageThunkCreator =
   (pageID: number, pageSize: number) => async (dispatch: Dispatch) => {
-    dispatch(toggleIsFetchingPageAC(true));
-    dispatch(changePageAC(pageID));
+    dispatch(toggleIsFetchingPageAC({ isFetchingPage: true }));
+    dispatch(changePageAC({ pageID }));
     const response = await userAPI.setUserOnPageAPI(pageID, pageSize);
-    dispatch(setUsersAC(response.items, response.totalCount));
-    dispatch(toggleIsFetchingPageAC(false));
+    dispatch(setUsersAC({ users: response.items, totalCount: response.totalCount }));
+    dispatch(toggleIsFetchingPageAC({ isFetchingPage: false }));
   };
 
 const followUnfollowCB = async (
@@ -117,11 +84,11 @@ const followUnfollowCB = async (
   dispatch: Dispatch,
   setFollowMethodFromAPI: API_methodType,
 ): Promise<void> => {
-  dispatch(toggleIsFetchingUserAC(true, userID));
+  dispatch(toggleIsFetchingUserAC({ isFetchingUser: true, userID }));
   const response = await setFollowMethodFromAPI(userID);
   if (response.resultCode === ResultCode.success) {
-    dispatch(followAC(userID));
-    dispatch(toggleIsFetchingUserAC(false, userID));
+    dispatch(followAC({ userID }));
+    dispatch(toggleIsFetchingUserAC({ isFetchingUser: false, userID }));
   }
 };
 
@@ -132,3 +99,9 @@ export const unFollowThunkCreator = (userID: number) => async (dispatch: Dispatc
 export const followThunkCreator = (userID: number) => async (dispatch: Dispatch) => {
   await followUnfollowCB(userID, dispatch, followAPI.setFollow);
 };
+
+export type followATPT = ReturnType<typeof followAC>;
+export type setUsersATPT = ReturnType<typeof setUsersAC>;
+export type changePageACPT = ReturnType<typeof changePageAC>;
+export type toggleIsFetchingPageACPT = ReturnType<typeof toggleIsFetchingPageAC>;
+export type toggleIsFetchingUserACPT = ReturnType<typeof toggleIsFetchingUserAC>;

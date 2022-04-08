@@ -27,7 +27,6 @@ const LoginContainer: FC<mapDispatchToPropsType & mapStateToPropsType> = ({
 };
 // <LoginForm onSubmit={onSubmit}/> так это контейнерная компонента, то в onSubmit автоматом попадают пропсы
 
-// eslint-disable-next-line react/no-unused-prop-types
 type mapStateToPropsType = { isAuth: boolean; captchaURL: string };
 
 const mapStateToProps = (state: AppStatePT): mapStateToPropsType => ({

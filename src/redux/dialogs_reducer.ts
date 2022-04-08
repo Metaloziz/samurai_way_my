@@ -1,16 +1,7 @@
-import { ActionPT } from './store_redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { dialogsItemsPT } from 'components/Messages/MessagesContainer';
-import { ADD_TEXT_MESSAGE } from 'redux/constTypeAC/constTypies';
 import { CommonConstants } from 'utils/enum/enum';
-
-export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>;
-
-export const addTextMessageAC = (value: string) =>
-  ({
-    type: ADD_TEXT_MESSAGE,
-    value,
-  } as const);
 
 const initialState: dialogsItemsPT = {
   dialogs: [
@@ -49,23 +40,21 @@ const initialState: dialogsItemsPT = {
   ],
 };
 
-export const dialogsReducer = (
-  state: dialogsItemsPT = initialState,
-  action: ActionPT,
-): dialogsItemsPT => {
-  const newPost = { id: 0, text: '' };
-  const copyState = {
-    ...state,
-    messages: state.messages.map(el => ({ ...el })),
-  };
+const slice = createSlice({
+  name: 'dialogs',
+  initialState,
+  reducers: {
+    addTextMessageAC(state, action: PayloadAction<{ value: string }>) {
+      const newPost = {
+        id: state.messages.length + CommonConstants.one,
+        text: action.payload.value,
+      };
+      state.messages.push(newPost);
+    },
+  },
+});
 
-  switch (action.type) {
-    case ADD_TEXT_MESSAGE:
-      newPost.text = action.value;
-      newPost.id = state.messages.length + CommonConstants.one;
-      copyState.messages.push(newPost);
-      return copyState;
-    default:
-      return state;
-  }
-};
+export const dialogsReducer = slice.reducer;
+export const { addTextMessageAC } = slice.actions;
+
+export type addTextMessageATPT = ReturnType<typeof addTextMessageAC>;

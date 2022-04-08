@@ -23,7 +23,7 @@ const mapStateToProps = (state: AppStatePT): mapStateToPropsMessageType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsMessageType => ({
-  addNewMessage: (value: string) => dispatch(addTextMessageAC(value)),
+  addNewMessage: (value: string) => dispatch(addTextMessageAC({ value })),
 });
 
 const MessagesContainer = compose<ComponentType>(

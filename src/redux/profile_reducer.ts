@@ -1,94 +1,11 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'redux';
 import { v1 } from 'uuid';
 
-import { ActionPT, NewThunkType } from './store_redux';
+import { NewThunkType } from './store_redux';
 
 import { profileAPI, ResponsePutPhoto } from 'api/api';
-import {
-  ADD_LIKE,
-  ADD_POST,
-  SET_PHOTO,
-  SET_USER_PROFILE,
-  SET_USER_PROFILE_DATA,
-  SET_USER_STATUS,
-} from 'redux/constTypeAC/constTypies';
 import { CommonConstants, ResultCode } from 'utils/enum/enum';
-
-export type addPostATPT = ReturnType<typeof addPostAC>;
-export type addLikeACPT = ReturnType<typeof addLikeAC>;
-export type setUserProfileACPT = ReturnType<typeof setUserProfileAC>;
-export type setUserStatusACPT = ReturnType<typeof setUserStatusAC>;
-export type setPhotoACPT = ReturnType<typeof setPhotoAC>;
-export type setUserProfileDataACPT = ReturnType<typeof setUserProfileDataAC>;
-
-export const addPostAC = (value: string) =>
-  ({
-    type: ADD_POST,
-    value,
-    id: v1(),
-  } as const);
-export const addLikeAC = (postID: string) => ({ type: ADD_LIKE, postID } as const);
-export const setUserProfileAC = (profile: ProfileType) =>
-  ({
-    type: SET_USER_PROFILE,
-    profile,
-  } as const);
-export const setUserStatusAC = (status: string) =>
-  ({
-    type: SET_USER_STATUS,
-    status,
-  } as const);
-export const setPhotoAC = (file: ResponsePutPhoto) =>
-  ({
-    type: SET_PHOTO,
-    file,
-  } as const);
-export const setUserProfileDataAC = (data: ProfileDataType) =>
-  ({
-    type: SET_USER_PROFILE_DATA,
-    data,
-  } as const);
-
-export type initialStateProfileType = {
-  postData: Array<PostDataType>;
-  newPostText: string;
-  profile: ProfileType;
-  status: string; // another request
-};
-
-export type PostDataType = {
-  id: string;
-  message: string;
-  like: number;
-  comment: number;
-};
-
-export type ProfileType = ProfileDataType & {
-  userId: number;
-  photos: {
-    small: string;
-    large: string;
-  };
-};
-
-export type ProfileDataType = {
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-  contacts: ContactsType;
-  aboutMe: string;
-};
-
-export type ContactsType = {
-  github: string;
-  vk: string;
-  facebook: string;
-  instagram: string;
-  twitter: string;
-  website: string;
-  youtube: string;
-  mainLink: string;
-};
 
 const initialState: initialStateProfileType = {
   postData: [
@@ -130,60 +47,105 @@ const initialState: initialStateProfileType = {
   status: 'default status',
 };
 
-export const profileReducer = (
-  state = initialState,
-  action: ActionPT,
-): initialStateProfileType => {
-  const newPost = {
-    id: '',
-    message: '', // action.newText from redux form
-    like: 0,
-    comment: 0,
-  };
-  switch (action.type) {
-    case ADD_POST:
-      newPost.id = action.id;
-      newPost.message = action.value;
-      return { ...state, postData: [newPost, ...state.postData], newPostText: '' };
-    // case CHANGE_POST:
-    //     return {...state, newPostText: action.newText}
-    case ADD_LIKE:
-      return {
-        ...state,
-        postData: state.postData.map(post =>
-          post.id === action.postID
-            ? {
-                ...post,
-                like: post.like + CommonConstants.one,
-              }
-            : post,
-        ),
+const slice = createSlice({
+  name: 'profile',
+  initialState,
+  reducers: {
+    addPostAC(state, action: PayloadAction<{ value: string }>) {
+      const newPost = {
+        id: action.payload.value,
+        message: action.payload.value, // action.newText from redux form
+        like: 0,
+        comment: 0,
       };
-    case SET_USER_PROFILE:
-      return { ...state, profile: action.profile };
-    case SET_USER_STATUS:
-      return { ...state, status: action.status };
-    case SET_PHOTO:
-      return {
-        ...state,
-        profile: { ...state.profile, photos: action.file.photos },
-      };
-    case SET_USER_PROFILE_DATA:
-      return {
-        ...state,
-        profile: {
-          ...state.profile,
-          ...action.data,
-        },
-      };
-    default:
-      return state;
-  }
-};
+      state.postData.unshift(newPost);
+      state.newPostText = '';
+    },
+    addLikeAC(state, action: PayloadAction<{ postID: string }>) {
+      const { postID } = action.payload;
+      const postIndex = state.postData.findIndex(({ id }) => id === postID);
+      state.postData[postIndex].like += 1;
+    },
+    setUserProfileAC(state, action: PayloadAction<{ profile: ProfileType }>) {
+      state.profile = action.payload.profile;
+    },
+    setUserStatusAC(state, action: PayloadAction<{ status: string }>) {
+      state.status = action.payload.status;
+    },
+    setPhotoAC(state, action: PayloadAction<{ file: ResponsePutPhoto }>) {
+      state.profile.photos = action.payload.file.photos;
+    },
+    setUserProfileDataAC(state, action: PayloadAction<{ data: ProfileDataType }>) {
+      state.profile = { ...state.profile, ...action.payload.data };
+    },
+  },
+});
+
+export const profileReducer = slice.reducer;
+
+export const {
+  addPostAC,
+  setPhotoAC,
+  setUserProfileAC,
+  setUserProfileDataAC,
+  setUserStatusAC,
+  addLikeAC,
+} = slice.actions;
+
+// export const profileReducer = (
+//   state = initialState,
+//   action: ActionPT,
+// ): initialStateProfileType => {
+//   const newPost = {
+//     id: '',
+//     message: '', // action.newText from redux form
+//     like: 0,
+//     comment: 0,
+//   };
+//   switch (action.type) {
+//     case ADD_POST:
+//       newPost.id = action.id;
+//       newPost.message = action.value;
+//       return { ...state, postData: [newPost, ...state.postData], newPostText: '' };
+//     // case CHANGE_POST:
+//     //     return {...state, newPostText: action.newText}
+//     case ADD_LIKE:
+//       return {
+//         ...state,
+//         postData: state.postData.map(post =>
+//           post.id === action.postID
+//             ? {
+//                 ...post,
+//                 like: post.like + CommonConstants.one,
+//               }
+//             : post,
+//         ),
+//       };
+//     case SET_USER_PROFILE:
+//       return { ...state, profile: action.profile };
+//     case SET_USER_STATUS:
+//       return { ...state, status: action.status };
+//     case SET_PHOTO:
+//       return {
+//         ...state,
+//         profile: { ...state.profile, photos: action.file.photos },
+//       };
+//     case SET_USER_PROFILE_DATA:
+//       return {
+//         ...state,
+//         profile: {
+//           ...state.profile,
+//           ...action.data,
+//         },
+//       };
+//     default:
+//       return state;
+//   }
+// };
 
 export const setUserTC = (userId: string) => async (dispatch: Dispatch) => {
   const response = await profileAPI.getUserData(userId);
-  dispatch(setUserProfileAC(response));
+  dispatch(setUserProfileAC({ profile: response }));
 };
 
 export const setUserStatusTC = (userId: string) => async (dispatch: Dispatch) => {
@@ -192,7 +154,7 @@ export const setUserStatusTC = (userId: string) => async (dispatch: Dispatch) =>
   if (response) {
     dispatch(setUserStatusAC(response));
   } else {
-    dispatch(setUserStatusAC('status from API is null'));
+    dispatch(setUserStatusAC({ status: 'status from API is null' }));
   }
 };
 
@@ -201,7 +163,7 @@ export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch)
   // eslint-disable-next-line no-console
   console.log(response);
   if (response.resultCode === ResultCode.success) {
-    dispatch(setUserStatusAC(status)); // если запрос успешный, то обнови статус на тот, который отправил
+    dispatch(setUserStatusAC({ status })); // если запрос успешный, то обнови статус на тот, который отправил
   } else {
     // eslint-disable-next-line no-console
     console.warn(response.messages[CommonConstants.zero]);
@@ -211,7 +173,7 @@ export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch)
 export const putPhotoTC = (file: File) => async (dispatch: Dispatch) => {
   const response = await profileAPI.putPhoto(file);
   if (response.resultCode === ResultCode.success) {
-    dispatch(setPhotoAC(response.data));
+    dispatch(setPhotoAC({ file: response.data }));
   }
 };
 
@@ -237,3 +199,79 @@ export const setProfileDataTC =
       // dispatch(action);
     }
   };
+
+// export const addPostAC = (value: string) =>
+//   ({
+//     type: ADD_POST,
+//     value,
+//     id: v1(),
+//   } as const);
+// export const addLikeAC = (postID: string) => ({ type: ADD_LIKE, postID } as const);
+// export const setUserProfileAC = (profile: ProfileType) =>
+//   ({
+//     type: SET_USER_PROFILE,
+//     profile,
+//   } as const);
+// export const setUserStatusAC = (status: string) =>
+//   ({
+//     type: SET_USER_STATUS,
+//     status,
+//   } as const);
+// export const setPhotoAC = (file: ResponsePutPhoto) =>
+//   ({
+//     type: SET_PHOTO,
+//     file,
+//   } as const);
+// export const setUserProfileDataAC = (data: ProfileDataType) =>
+//   ({
+//     type: SET_USER_PROFILE_DATA,
+//     data,
+//   } as const);
+
+export type addPostATPT = ReturnType<typeof addPostAC>;
+export type addLikeACPT = ReturnType<typeof addLikeAC>;
+export type setUserProfileACPT = ReturnType<typeof setUserProfileAC>;
+export type setUserStatusACPT = ReturnType<typeof setUserStatusAC>;
+export type setPhotoACPT = ReturnType<typeof setPhotoAC>;
+export type setUserProfileDataACPT = ReturnType<typeof setUserProfileDataAC>;
+
+export type initialStateProfileType = {
+  postData: Array<PostDataType>;
+  newPostText: string;
+  profile: ProfileType;
+  status: string; // another request
+};
+
+export type PostDataType = {
+  id: string;
+  message: string;
+  like: number;
+  comment: number;
+};
+
+export type ProfileType = ProfileDataType & {
+  userId: number;
+  photos: {
+    small: string;
+    large: string;
+  };
+};
+
+export type ProfileDataType = {
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: ContactsType;
+  aboutMe: string;
+};
+
+export type ContactsType = {
+  github: string;
+  vk: string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  website: string;
+  youtube: string;
+  mainLink: string;
+};

@@ -1,4 +1,5 @@
-import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { compose } from 'redux';
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 
 import { authReducer, getCaptchaACPT, setUserDataACPT } from './auth_reducer';
@@ -12,7 +13,7 @@ import {
   setUserProfileDataACPT,
   setUserStatusACPT,
 } from './profile_reducer';
-import { sidebarReducer, sidebarATPT } from './sidebar_reducer';
+import { sidebarATPT, sidebarReducer } from './sidebar_reducer';
 import {
   changePageACPT,
   followATPT,
@@ -41,12 +42,18 @@ declare global {
   }
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+//
+// export const _store: Store<AppStatePT> = createStore(
+//   reducer,
+//   compose(applyMiddleware(thunkMiddleware), composeEnhancers()),
+// );
 
-export const store: Store<AppStatePT> = createStore(
+export const store = configureStore({
   reducer,
-  compose(applyMiddleware(thunkMiddleware), composeEnhancers()),
-);
+  middleware: (getDefaultMiddleware): any =>
+    getDefaultMiddleware().prepend(thunkMiddleware),
+});
 
 // // @ts-ignore
 // window.store = store;

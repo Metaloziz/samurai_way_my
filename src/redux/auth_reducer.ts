@@ -1,27 +1,11 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'redux';
 
-import { ActionPT, NewThunkType } from './store_redux';
+import { NewThunkType } from './store_redux';
 
 import { authMeAPI, loginAPIRequestType } from 'api/api';
 import { userDataPT } from 'components/Header/Header';
-import { GET_CAPTCHA, SET_USER_DATA } from 'redux/constTypeAC/constTypies';
 import { CommonConstants, ResultCode } from 'utils/enum/enum';
-
-export type setUserDataACPT = ReturnType<typeof setUserDataAC>;
-export type getCaptchaACPT = ReturnType<typeof getCaptchaAC>;
-
-export const setUserDataAC = (data: userDataPT, isAuth: boolean) =>
-  ({
-    type: SET_USER_DATA,
-    data,
-    isAuth,
-  } as const);
-
-export const getCaptchaAC = (url: string) =>
-  ({
-    type: GET_CAPTCHA,
-    url,
-  } as const);
 
 const userDataInitialState: userDataPT = {
   data: {
@@ -36,26 +20,29 @@ const userDataInitialState: userDataPT = {
   captchaURL: '',
 };
 
-export const authReducer = (
-  state = userDataInitialState,
-  action: ActionPT,
-): userDataPT => {
-  switch (action.type) {
-    case SET_USER_DATA:
-      return { ...state, ...action.data, isAuth: action.isAuth, captchaURL: '' };
-    case GET_CAPTCHA:
-      return { ...state, captchaURL: action.url };
-    default:
-      return state;
-  }
-};
+const slice = createSlice({
+  name: 'auth',
+  initialState: userDataInitialState,
+  reducers: {
+    setUserDataAC(state, action: PayloadAction<{ data: userDataPT; isAuth: boolean }>) {
+      const { data, isAuth } = action.payload;
+      return { ...data, isAuth };
+    },
+    getCaptchaAC(state, action: PayloadAction<{ url: string }>) {
+      state.captchaURL = action.payload.url;
+    },
+  },
+});
+
+export const authReducer = slice.reducer;
+export const { setUserDataAC, getCaptchaAC } = slice.actions;
 
 export const setUserDataTC = () => async (dispatch: Dispatch) => {
   const response = await authMeAPI.me();
   if (response.resultCode === ResultCode.success) {
-    dispatch(setUserDataAC(response, true));
+    dispatch(setUserDataAC({ data: response, isAuth: true }));
   } else {
-    dispatch(setUserDataAC(response, false));
+    dispatch(setUserDataAC({ data: response, isAuth: false }));
     // eslint-disable-next-line no-console
     console.warn(` You are not authorised. ResultCode: ${response.resultCode}`);
   }
@@ -63,13 +50,11 @@ export const setUserDataTC = () => async (dispatch: Dispatch) => {
 
 export const getURLCaptchaTC = () => async (dispatch: Dispatch) => {
   const response = await authMeAPI.getCaptchaURL();
-  dispatch(getCaptchaAC(response.data.url));
+  dispatch(getCaptchaAC({ url: response.data.url }));
 };
 
 export const setLoginTC =
   (userData: loginAPIRequestType): NewThunkType =>
-  // eslint-disable-next-line no-alert
-
   async dispatch => {
     const response = await authMeAPI.login(userData);
     if (response.data.resultCode === ResultCode.success) {
@@ -78,13 +63,6 @@ export const setLoginTC =
       if (response.data.resultCode === ResultCode.captcha) {
         await dispatch(getURLCaptchaTC()); // вызов другой санки
       }
-      // const action = stopSubmit('LOGIN', {
-      //   _error: response.data.messages[CommonConstants.zero]
-      //     ? response.data.messages[CommonConstants.zero]
-      //     : 'something is wrong',
-      //
-      // });
-      // dispatch(action);
       // eslint-disable-next-line no-console
       console.warn(response.data.messages[CommonConstants.zero]);
     }
@@ -96,3 +74,6 @@ export const setLogoutTC = (): NewThunkType => async dispatch => {
     await dispatch(setUserDataTC());
   }
 };
+
+export type setUserDataACPT = ReturnType<typeof setUserDataAC>;
+export type getCaptchaACPT = ReturnType<typeof getCaptchaAC>;

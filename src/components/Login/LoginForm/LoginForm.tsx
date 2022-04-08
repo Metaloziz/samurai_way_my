@@ -31,8 +31,6 @@ export const LoginForm: FC<LoginFormPropsType> = ({
       captchaURL: '',
     },
     onSubmit: values => {
-      console.log(values);
-      // console.log(captchaURL);
       setLoginHandler(values);
     },
   });
@@ -87,63 +85,3 @@ export const LoginForm: FC<LoginFormPropsType> = ({
     </div>
   );
 };
-
-// {/* {props.captchaURL && ( */}
-// {/*   <div> */}
-// {/*     <img alt="captcha" src={props.captchaURL} /> */}
-// {/*     <div>Captcha:</div> */}
-// {/*     <div> */}
-// {/*       <Field type="input" name="captcha" component="input" /> */}
-// {/*     </div> */}
-// {/*   </div> */}
-// {/* )} */}
-// {/* <input */}
-// {/*   id="captcha" */}
-// {/*   name="captcha" */}
-// {/*   type="text" */}
-// {/*   onChange={formik.handleChange} */}
-// {/*   value={formik.values.captchaURL} */}
-// {/*   // value={formik.values.rememberMe} */}
-// {/* /> */}
-
-// props: FormDataType, LoginPropsType & LoginPropsType,
-
-// const maxLength = useCallback(maxLengthCreator(MaxLengthSymbols.loginForm), []);
-// <form onSubmit={props.handleSubmit}>
-//   <div>
-//     <Field
-//       type="text"
-//       name="email"
-//       placeholder="login"
-//       component={Input}
-//       validate={[requiredField, maxLength]}
-//     />
-//   </div>
-//   <div>
-//     <Field
-//       type="password"
-//       name="password"
-//       placeholder="password"
-//       component={Input}
-//       validate={[requiredField, maxLength]}
-//     />
-//   </div>
-//   <div>
-//     <Field type="checkbox" name="remember me" component="input" /> remember me
-//   </div>
-//   <div className={style.errorMessage}>
-//     {props.error} {/* попадает сюда если сработал stopSubmit AC */}
-//   </div>
-//   <div>
-//     {props.captchaURL && (
-//       <div>
-//         <img alt="captcha" src={props.captchaURL} />
-//         <div>Captcha:</div>
-//         <div>
-//           <Field type="input" name="captcha" component="input" />
-//         </div>
-//       </div>
-//     )}
-// {/*     <button type="button">Login</button> */}
-// {/*   </div> */}
-// {/* </form> */}

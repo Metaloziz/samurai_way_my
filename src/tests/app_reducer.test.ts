@@ -13,7 +13,7 @@ beforeEach(() => {
 });
 
 test('initialized test', () => {
-  const action = setInitializedAPPAC(true);
+  const action = setInitializedAPPAC({ initialized: true });
 
   const endState = appReducer(userDataInitialState, action);
 

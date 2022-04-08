@@ -58,121 +58,124 @@ beforeEach(() => {
   };
 });
 
-test('add new post', () => {
-  // let newPostId = '3';
-  const newTitle = 'newPostTitle';
+describe('profile-reducer', () => {
+  test('add new post', () => {
+    const newTitle = 'newPostTitle';
 
-  const action = addPostAC(newTitle);
+    const action = addPostAC({ value: newTitle });
 
-  const endState = profileReducer(profileInitialState, action);
+    const endState = profileReducer(profileInitialState, action);
 
-  expect(endState).not.toBe(profileInitialState);
-  expect(endState.postData.length).toBe(profileInitialState.postData.length + ONE);
-  expect(endState.postData.filter(el => el.id === action.id).length).toBe(ONE);
-  expect(endState.postData.filter(el => el.id === action.id)[ZERO].message).toBe(
-    newTitle,
-  );
-});
+    expect(endState).not.toBe(profileInitialState);
+    expect(endState.postData.length).toBe(profileInitialState.postData.length + ONE);
+    expect(endState.postData.filter(el => el.id === action.payload.value).length).toBe(
+      ONE,
+    );
+    expect(
+      endState.postData.filter(el => el.id === action.payload.value)[ZERO].message,
+    ).toBe(newTitle);
+  });
 
-test('add like', () => {
-  const postID = '2';
+  test('add like', () => {
+    const postID = '2';
 
-  const action = addLikeAC(postID);
+    const action = addLikeAC({ postID });
 
-  const endState = profileReducer(profileInitialState, action);
+    const endState = profileReducer(profileInitialState, action);
 
-  expect(endState).not.toBe(profileInitialState);
-  expect(endState.postData.filter(el => el.id === postID)[ZERO].like).toBe(
-    profileInitialState.postData.filter(el => el.id === postID)[ZERO].like + ONE,
-  );
-});
+    expect(endState).not.toBe(profileInitialState);
+    expect(endState.postData.filter(el => el.id === postID)[ZERO].like).toBe(
+      profileInitialState.postData.filter(el => el.id === postID)[ZERO].like + ONE,
+    );
+  });
 
-test('set user profile data', () => {
-  const profile: ProfileType = {
-    userId: 1,
-    lookingForAJob: false,
-    lookingForAJobDescription: 'no',
-    photos: {
-      small: 'proof',
-      large: 'drop',
-    },
-    aboutMe: 'burst',
-    fullName: 'flat',
-    contacts: {
-      instagram: 'instagram',
-      facebook: 'facebook',
-      mainLink: 'mainLink',
-      twitter: 'twitter',
-      website: 'website',
-      youtube: 'youtube',
-      github: 'github',
-      vk: 'vk',
-    },
-  };
+  test('set user profile data', () => {
+    const profile: ProfileType = {
+      userId: 1,
+      lookingForAJob: false,
+      lookingForAJobDescription: 'no',
+      photos: {
+        small: 'proof',
+        large: 'drop',
+      },
+      aboutMe: 'burst',
+      fullName: 'flat',
+      contacts: {
+        instagram: 'instagram',
+        facebook: 'facebook',
+        mainLink: 'mainLink',
+        twitter: 'twitter',
+        website: 'website',
+        youtube: 'youtube',
+        github: 'github',
+        vk: 'vk',
+      },
+    };
 
-  const action = setUserProfileAC(profile);
+    const action = setUserProfileAC({ profile });
 
-  const endState = profileReducer(profileInitialState, action);
+    const endState = profileReducer(profileInitialState, action);
 
-  expect(endState).not.toBe(profileInitialState);
-  expect(endState.profile.contacts.github).toBe(profile.contacts.github);
-  expect(endState.profile.contacts.website).toBe(profile.contacts.website);
-});
+    expect(endState).not.toBe(profileInitialState);
+    expect(endState.profile.contacts.github).toBe(profile.contacts.github);
+    expect(endState.profile.contacts.website).toBe(profile.contacts.website);
+  });
 
-test('set user status', () => {
-  const status = 'shelf';
+  test('set user status', () => {
+    const status = 'shelf';
 
-  const action = setUserStatusAC(status);
+    const action = setUserStatusAC({ status });
 
-  const endState = profileReducer(profileInitialState, action);
+    const endState = profileReducer(profileInitialState, action);
 
-  expect(endState).not.toBe(profileInitialState);
-  expect(endState.status).toBe(status);
-});
+    expect(endState).not.toBe(profileInitialState);
+    expect(endState.status).toBe(status);
+  });
 
-test('set user photo ', () => {
-  const file: ResponsePutPhoto = {
-    photos: {
-      small: 'tree',
-      large: 'radio',
-    },
-  };
+  test('set user photo ', () => {
+    const file: ResponsePutPhoto = {
+      photos: {
+        small: 'tree',
+        large: 'radio',
+      },
+    };
 
-  const action = setPhotoAC(file);
+    const action = setPhotoAC({ file });
 
-  const endState = profileReducer(profileInitialState, action);
+    const endState = profileReducer(profileInitialState, action);
 
-  expect(endState).not.toBe(profileInitialState);
-  expect(endState.profile.photos.small).toBe(file.photos.small);
-  expect(endState.profile.photos.large).toBe(file.photos.large);
-});
+    expect(endState).not.toBe(profileInitialState);
+    expect(endState.profile.photos.small).toBe(file.photos.small);
+    expect(endState.profile.photos.large).toBe(file.photos.large);
+  });
 
-test('set user profile data', () => {
-  const profile: ProfileDataType = {
-    lookingForAJob: true,
-    lookingForAJobDescription: 'bell',
-    aboutMe: 'burst',
-    fullName: 'flat',
-    contacts: {
-      instagram: 'instagram',
-      facebook: 'facebook',
-      mainLink: 'mainLink',
-      twitter: 'twitter',
-      website: 'website',
-      youtube: 'youtube',
-      github: 'github',
-      vk: 'vk',
-    },
-  };
+  test('set user profile data', () => {
+    const profile: ProfileDataType = {
+      lookingForAJob: true,
+      lookingForAJobDescription: 'bell',
+      aboutMe: 'burst',
+      fullName: 'flat',
+      contacts: {
+        instagram: 'instagram',
+        facebook: 'facebook',
+        mainLink: 'mainLink',
+        twitter: 'twitter',
+        website: 'website',
+        youtube: 'youtube',
+        github: 'github',
+        vk: 'vk',
+      },
+    };
 
-  const action = setUserProfileDataAC(profile);
+    const action = setUserProfileDataAC({ data: profile });
 
-  const endState = profileReducer(profileInitialState, action);
+    const endState = profileReducer(profileInitialState, action);
 
-  expect(endState).not.toBe(profileInitialState);
-  expect(endState.profile.lookingForAJobDescription).toBe(
-    profile.lookingForAJobDescription,
-  );
-  expect(endState.profile.lookingForAJob).toBe(profile.lookingForAJob);
-  expect(endState.profile.aboutMe).toBe(profile.aboutMe);
+    expect(endState).not.toBe(profileInitialState);
+    expect(endState.profile.lookingForAJobDescription).toBe(
+      profile.lookingForAJobDescription,
+    );
+    expect(endState.profile.lookingForAJob).toBe(profile.lookingForAJob);
+    expect(endState.profile.aboutMe).toBe(profile.aboutMe);
+  });
 });

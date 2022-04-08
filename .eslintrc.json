@@ -38,6 +38,7 @@
         "max": 1
       }
     ],
+    "no-param-reassign": "off",
     "@typescript-eslint/no-shadow": [
       "error"
     ],

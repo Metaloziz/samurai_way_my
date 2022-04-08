@@ -8,22 +8,22 @@ import { initialStateProfileType } from 'redux/profile_reducer';
 
 export type NewPostPT = {
   profilePage: initialStateProfileType;
-  addPostAC: (value: string) => void;
-  addLikeAC: (postID: string) => void;
+  addPostAC: (value: { value: string }) => void;
+  addLikeAC: (value: { postID: string }) => void;
 };
 
 export const Posts = memo(({ profilePage, addPostAC, addLikeAC }: NewPostPT) => {
   const addNewItem = (data: PostsReduxFormType): void => {
     console.log(data);
     if (data.textPost) {
-      addPostAC(data.textPost.trim());
+      addPostAC({ value: data.textPost.trim() });
     } else {
       console.warn('field is empty');
     }
   };
 
   const addLikeHandle = useCallback((postID: string) => {
-    addLikeAC(postID);
+    addLikeAC({ postID });
   }, []);
 
   return (

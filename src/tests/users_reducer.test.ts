@@ -1,4 +1,4 @@
-import { UserPT, UsersStatePT } from '../components/Users/UsersContainer';
+import { UserPT, UsersStatePT } from 'components/Users/UsersContainer';
 import {
   changePageAC,
   followAC,
@@ -6,7 +6,7 @@ import {
   toggleIsFetchingPageAC,
   toggleIsFetchingUserAC,
   usersReducer,
-} from '../redux/users_reducer';
+} from 'redux/users_reducer';
 
 let usersInitialState: UsersStatePT;
 const ONE = 1;
@@ -32,71 +32,70 @@ beforeEach(() => {
   };
 });
 
-test('fallow user', () => {
-  const action = followAC(ZERO);
+describe('user-reducer', () => {
+  test('fallow user', () => {
+    const action = followAC({ userID: ZERO });
 
-  const endState = usersReducer(usersInitialState, action);
+    const endState = usersReducer(usersInitialState, action);
 
-  expect(endState).not.toBe(usersInitialState);
+    expect(endState.items[ZERO].id).toBe(ZERO);
+    expect(endState.items[ZERO].followed).toBe(!usersInitialState.items[ZERO].followed);
+  });
 
-  expect(endState.items[ZERO].id).toBe(ZERO);
-  expect(endState.items[ZERO].followed).toBe(!usersInitialState.items[ZERO].followed);
-});
-
-test('set users', () => {
-  const users: UserPT[] = [
-    {
-      id: ONE,
-      name: 'song',
-      status: 'rough',
-      photos: {
-        small: 'nowhere',
-        large: 'crack',
+  test('set users', () => {
+    const users: UserPT[] = [
+      {
+        id: ONE,
+        name: 'song',
+        status: 'rough',
+        photos: {
+          small: 'nowhere',
+          large: 'crack',
+        },
+        followed: false,
+        isFetchingUser: true,
       },
-      followed: false,
-      isFetchingUser: true,
-    },
-  ];
+    ];
 
-  const totalCount = ZERO + ZERO;
+    const totalCount = ZERO + ZERO;
 
-  const action = setUsersAC(users, totalCount);
+    const action = setUsersAC({ users, totalCount });
 
-  const endState = usersReducer(usersInitialState, action);
+    const endState = usersReducer(usersInitialState, action);
 
-  expect(endState).not.toBe(usersInitialState);
-  expect(endState.totalCount).toBe(totalCount);
-  expect(endState.items).toBe(users);
-});
+    expect(endState).not.toBe(usersInitialState);
+    expect(endState.totalCount).toBe(totalCount);
+    expect(endState.items).toBe(users);
+  });
 
-test('change page', () => {
-  const currentPage = ONE + ONE;
+  test('change page', () => {
+    const currentPage = ONE + ONE;
 
-  const action = changePageAC(currentPage);
+    const action = changePageAC({ pageID: currentPage });
 
-  const endState = usersReducer(usersInitialState, action);
+    const endState = usersReducer(usersInitialState, action);
 
-  expect(endState).not.toBe(usersInitialState);
-  expect(endState.currentPage).toBe(currentPage);
-});
+    expect(endState).not.toBe(usersInitialState);
+    expect(endState.currentPage).toBe(currentPage);
+  });
 
-test('change toggle IsFetching Page', () => {
-  const IsFetchingPage = true;
-  const action = toggleIsFetchingPageAC(IsFetchingPage);
+  test('change toggle IsFetching Page', () => {
+    const isFetchingPage = true;
+    const action = toggleIsFetchingPageAC({ isFetchingPage });
 
-  const endState = usersReducer(usersInitialState, action);
+    const endState = usersReducer(usersInitialState, action);
 
-  expect(endState).not.toBe(usersInitialState);
-  expect(endState.isFetchingPage).toBeTruthy();
-});
+    expect(endState).not.toBe(usersInitialState);
+    expect(endState.isFetchingPage).toBeTruthy();
+  });
 
-test('change toggle IsFetching User', () => {
-  const IsFetchingUser = true;
-  const userID = ZERO + ZERO;
-  const action = toggleIsFetchingUserAC(IsFetchingUser, userID);
+  test('change toggle IsFetching User', () => {
+    const isFetchingUser = true;
+    const userID = ZERO + ZERO;
+    const action = toggleIsFetchingUserAC({ isFetchingUser, userID });
 
-  const endState = usersReducer(usersInitialState, action);
+    const endState = usersReducer(usersInitialState, action);
 
-  expect(endState).not.toBe(usersInitialState);
-  expect(endState.items[ZERO].isFetchingUser).toBe(IsFetchingUser);
+    expect(endState.items[ZERO].isFetchingUser).toBe(isFetchingUser);
+  });
 });
