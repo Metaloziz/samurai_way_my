@@ -45,8 +45,8 @@ class App extends Component<MapDispatchPT & UserDataInitialStateType> {
       <div className={style.app}>
         <HeaderContainer />
         <NavigationContainer />
-        <div>
-          <Suspense fallback={<div>Loading...</div>}>
+        <div className={style.main}>
+          <Suspense fallback={<Preloader />}>
             <Routes>
               <Route path="/" element={<Navigate to="/profile" />} />
               <Route path="/samurai_way_my/" element={<Navigate to="/profile" />} />

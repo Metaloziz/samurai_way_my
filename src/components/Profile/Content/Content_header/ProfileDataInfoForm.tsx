@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 
 import style from './ProfileDataInfoForm.module.css';
 
+import { Button } from 'components/comonComponents/ButtonNew/Button';
 import { ContactsType, ProfileDataType, ProfileType } from 'redux/profile_reducer';
 
 export const ProfileDataInfoForm: FC<ProfileDataInfoFormPropsType> = ({
@@ -87,7 +88,7 @@ export const ProfileDataInfoForm: FC<ProfileDataInfoFormPropsType> = ({
           </div>
         ))}
       </div>
-      <button type="submit">add</button>
+      <Button name="save" type="submit" />
     </form>
   );
 };

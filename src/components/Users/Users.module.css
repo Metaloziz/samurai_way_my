@@ -35,6 +35,6 @@
 .loader {
     position: absolute;
     opacity: 40%;
-    /*width: 100vw;*/
+    width: auto;
     height: 100vh;
 }

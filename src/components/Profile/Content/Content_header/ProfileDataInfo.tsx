@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import style from 'components/Profile/Content/Content_header/Content_header.module.css';
+import style from 'components/Profile/Content/Content_header/Content_header.module.scss';
 import { ContactsType, ProfileType } from 'redux/profile_reducer';
 
 type ProfileDataInfoType = {

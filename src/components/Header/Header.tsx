@@ -41,7 +41,9 @@ export const Header = memo(
             <Button name="logout" onClick={setLogoutHandle} />
           </div>
         ) : (
-          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/login">
+            <Button name="login" />
+          </NavLink>
         )}
       </div>
     </div>

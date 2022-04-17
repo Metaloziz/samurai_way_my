@@ -1,0 +1,13 @@
+@import "src/style/variables.scss";
+
+.header {
+  background-color: $primary_color;
+  padding-top: 10px;
+  color: $text_color;
+  width: $main_width;
+  height: 20vh;
+
+  h1 {
+    margin-left: 30px;
+  }
+}

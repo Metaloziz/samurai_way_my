@@ -4,10 +4,9 @@ import { Preloader } from '../../../comonComponents/Preloader';
 import stockAva from '../../../Users/imgAva/user.png';
 import { ContentHeaderPT } from '../../Profile';
 
-import style from './Content_header.module.css';
-
-import { Button } from 'components/comonComponents/Button/Button';
+import { Button } from 'components/comonComponents/ButtonNew/Button';
 import { AvatarImage } from 'components/Profile/Content/Content_header/AvatarImage';
+import style from 'components/Profile/Content/Content_header/Content_header.module.scss';
 import { ProfileDataInfo } from 'components/Profile/Content/Content_header/ProfileDataInfo';
 import { ProfileDataInfoForm } from 'components/Profile/Content/Content_header/ProfileDataInfoForm';
 import { ProfileStatusWithHooks } from 'components/Profile/ProfileStatus/ProfileStatusWithHooks';
@@ -36,7 +35,6 @@ export const ContentHeader: FC<ContentHeaderPT> = ({
 
   const setProfileDataCB = (props: ProfileDataType): void => {
     setProfileData(props, `${profile.userId}`, setEditMod);
-    console.log(props);
   };
 
   if (!profile) {
@@ -46,7 +44,7 @@ export const ContentHeader: FC<ContentHeaderPT> = ({
   return (
     <div className={style.content}>
       <div className={style.item}>
-        <span>Title</span>
+        <span>Profile</span>
         <div>
           <img alt="ava" src={profile.photos.large || stockAva} />
         </div>
@@ -55,7 +53,9 @@ export const ContentHeader: FC<ContentHeaderPT> = ({
           <span>Status:</span>
         </div>
         <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus} />
-        {!userId && <Button title=" change editMod" onClickHandler={setEditModHandle} />}
+        {!userId && (
+          <Button name="edit data" disabled={editMod} onClick={setEditModHandle} />
+        )}
         {editMod ? (
           <ProfileDataInfoForm initialState={profile} setProfileData={setProfileDataCB} />
         ) : (

@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 import { ContentHeader } from './Content/Content_header/ContentHeader';
 import { PostsContainer } from './Content/Posts/PostsContainer';
 
+import style from 'components/Profile/Profile.module.scss';
 import { ProfileDataType, ProfileType } from 'redux/profile_reducer';
 
 export type ContentHeaderPT = {
@@ -19,7 +20,7 @@ export type ContentHeaderPT = {
 };
 
 export const Profile = memo((props: ContentHeaderPT) => (
-  <div>
+  <div className={style.main}>
     <ContentHeader
       profile={props.profile}
       savePhoto={props.savePhoto}

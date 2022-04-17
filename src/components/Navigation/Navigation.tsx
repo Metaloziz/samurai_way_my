@@ -19,10 +19,7 @@ export const Navigation = memo(({ sidebarPage }: sidebarPT) => (
     <nav className={style.navigation}>
       {sidebarPage.map(item => (
         <div key={item.path} className={style.item}>
-          <NavLink
-            to={item.path}
-            className={({ isActive }) => (isActive ? style.active : '')}
-          >
+          <NavLink to={item.path}>
             <Button name={item.title} />
           </NavLink>
         </div>

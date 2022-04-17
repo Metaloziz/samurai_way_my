@@ -10,7 +10,11 @@ export const ProfileStatusWithHooks = memo((props: ProfileStatusPT) => {
   const [statusText, setStatusText] = useState<string>(props.status);
 
   useEffect(() => {
-    setStatusText(props.status);
+    if (props.status === '') {
+      setStatusText('default');
+    } else {
+      setStatusText(props.status);
+    }
   }, [props.status]);
 
   const setEditModTrue = (): void => {

@@ -1,7 +1,9 @@
-@import "src/style/mixin";
-@import "src/style/variables";
+@import 'src/style/mixin';
+@import 'src/style/variables';
 
-.item {
+.item ::-webkit-file-upload-button {
+
+
   background: $main_color;
   color: $text_color;
   padding: 8px 25px 6px 25px;

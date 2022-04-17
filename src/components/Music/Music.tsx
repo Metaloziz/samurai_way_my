@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import style from '../News/News.module.css';
+import style from 'components/News/News.module.scss';
 
 const Music = (): ReactElement => (
   <div className={style.header}>

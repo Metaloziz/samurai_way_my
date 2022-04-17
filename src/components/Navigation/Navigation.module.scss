@@ -15,7 +15,6 @@
 
     &:active {
       Button {
-        color: $text_color;
         font-size: 110%;
       }
     }
@@ -31,9 +30,7 @@
 
     &:hover {
       Button {
-        border-bottom: $primary_color 1px solid;
-        border-top: $primary_color 1px solid;
-        color: $text_color;
+        font-size: 15px;
       }
     }
   }
