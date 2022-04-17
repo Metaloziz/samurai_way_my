@@ -2,7 +2,9 @@ import { memo } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import style from './Navigation.module.css';
+import style from './Navigation.module.scss';
+
+import { Button } from 'components/comonComponents/ButtonNew/Button';
 
 export type sidebarPT = {
   sidebarPage: ItemPT[];
@@ -21,8 +23,7 @@ export const Navigation = memo(({ sidebarPage }: sidebarPT) => (
             to={item.path}
             className={({ isActive }) => (isActive ? style.active : '')}
           >
-            {' '}
-            {item.title}{' '}
+            <Button name={item.title} />
           </NavLink>
         </div>
       ))}

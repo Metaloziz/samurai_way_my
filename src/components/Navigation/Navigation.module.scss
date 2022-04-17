@@ -1,0 +1,41 @@
+@import "src/style/variables";
+@import "src/style/mixin";
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: $main_color;
+  padding: 10px;
+  height: auto;
+  width: 180px;
+
+  a {
+    text-decoration: none;
+
+    &:active {
+      Button {
+        color: $text_color;
+        font-size: 110%;
+      }
+    }
+  }
+
+  .item {
+    min-height: 50px;
+    padding-left: 10%;
+    @include DisplayFlexCenter();
+    align-items: flex-start;
+    transition: all linear 0.3s;
+    position: relative;
+
+    &:hover {
+      Button {
+        border-bottom: $primary_color 1px solid;
+        border-top: $primary_color 1px solid;
+        color: $text_color;
+      }
+    }
+  }
+}
+
