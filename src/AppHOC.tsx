@@ -21,7 +21,6 @@ export const AppHoc = (): ReactElement => (
   <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
       {' '}
-      {/* context */}
       <AppContainer />
     </Provider>
   </BrowserRouter>

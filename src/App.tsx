@@ -1,8 +1,8 @@
-import './App.css';
 import { Component, lazy, ReactElement, Suspense } from 'react';
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import style from 'App.module.scss';
 import { MapDispatchPT } from 'AppHOC';
 import { Preloader } from 'components/comonComponents/Preloader';
 import { HeaderContainer } from 'components/Header/HeaderContainer';
@@ -42,7 +42,7 @@ class App extends Component<MapDispatchPT & UserDataInitialStateType> {
     }
 
     return (
-      <div className="app-wrapper">
+      <div className={style.app}>
         <HeaderContainer />
         <NavigationContainer />
         <div>

@@ -30,6 +30,7 @@
     "no-plusplus": "error",
     "no-unused-vars": "off",
     "no-magic-numbers": "off",
+    "no-param-reassign": "off",
     "default-param-last": "off",
     "no-use-before-define": "off",
     "no-multiple-empty-lines": [
@@ -38,7 +39,7 @@
         "max": 1
       }
     ],
-    "no-param-reassign": "off",
+    "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/no-shadow": [
       "error"
     ],

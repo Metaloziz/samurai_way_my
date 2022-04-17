@@ -1,0 +1,23 @@
+@import "src/style/mixin";
+@import "src/style/variables";
+
+.item {
+  background: $main_color;
+  color: $text_color;
+  padding: 8px 25px 6px 25px;
+  border: none;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  line-height: 1.5;
+  transition: all linear 0.8s;
+  position: relative;
+
+  &:hover {
+    color: $primary_color;
+    cursor: pointer;
+  }
+}
+

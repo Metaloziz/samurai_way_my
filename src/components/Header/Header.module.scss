@@ -1,0 +1,42 @@
+@import "src/style/variables";
+@import "src/style/mixin";
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: $main_color;
+  padding: 10px;
+  align-items: center;
+  width: 100%;
+  height: 15vh;
+
+  img {
+    position: relative;
+    top: -20px;
+    height: 150px;
+    padding-left: 3%;
+    color: $text_color;
+    margin-left: 5%;
+  }
+
+
+  .loginBlock {
+    @include DisplayFlexCenter();
+    height: 100%;
+    width: 200px;
+    margin-right: 5%;
+
+    .name {
+      @include DisplayFlexCenter();
+      justify-content: space-evenly;
+      gap: 10px;
+      color: $text_color;
+      text-transform: uppercase;
+
+      Button {
+        min-height: 20px;
+      }
+    }
+  }
+}

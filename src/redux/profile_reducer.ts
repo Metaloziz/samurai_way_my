@@ -200,34 +200,6 @@ export const setProfileDataTC =
     }
   };
 
-// export const addPostAC = (value: string) =>
-//   ({
-//     type: ADD_POST,
-//     value,
-//     id: v1(),
-//   } as const);
-// export const addLikeAC = (postID: string) => ({ type: ADD_LIKE, postID } as const);
-// export const setUserProfileAC = (profile: ProfileType) =>
-//   ({
-//     type: SET_USER_PROFILE,
-//     profile,
-//   } as const);
-// export const setUserStatusAC = (status: string) =>
-//   ({
-//     type: SET_USER_STATUS,
-//     status,
-//   } as const);
-// export const setPhotoAC = (file: ResponsePutPhoto) =>
-//   ({
-//     type: SET_PHOTO,
-//     file,
-//   } as const);
-// export const setUserProfileDataAC = (data: ProfileDataType) =>
-//   ({
-//     type: SET_USER_PROFILE_DATA,
-//     data,
-//   } as const);
-
 export type addPostATPT = ReturnType<typeof addPostAC>;
 export type addLikeACPT = ReturnType<typeof addLikeAC>;
 export type setUserProfileACPT = ReturnType<typeof setUserProfileAC>;
