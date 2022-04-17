@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunksamurai_way_my=self.webpackChunksamurai_way_my||[]).push([[218],{5218:function(e,a,s){s.r(a);var n=s(2732),r=s(184);a.default=function(){return(0,r.jsx)("div",{className:n.Z.header,children:(0,r.jsx)("h1",{children:"Settings"})})}},2732:function(e,a){a.Z={header:"News_header__DyWae"}}}]);
+//# sourceMappingURL=218.80d7a74c.chunk.js.map

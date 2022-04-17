@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunksamurai_way_my=self.webpackChunksamurai_way_my||[]).push([[739],{3739:function(e,a,s){s.r(a);var r=s(9467),u=s(184);a.default=function(){return(0,u.jsx)("div",{className:r.Z.header,children:(0,u.jsx)("h1",{children:"Music"})})}},9467:function(e,a){a.Z={header:"News_header__GZgAU"}}}]);
-//# sourceMappingURL=739.74ba1cac.chunk.js.map

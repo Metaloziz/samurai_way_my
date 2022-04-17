@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/739.c2a0f0a9.chunk.css","mappings":"AACA,oBACI,wBAA+B,CAE/B,WAAY,CADZ,YAGJ","sources":["components/News/News.module.css"],"sourcesContent":["\n.header {\n    background-color: darkslategrey;\n    padding: 10px;\n    color: beige;\n    /*margin: 0.5%;*/\n}\n"],"names":[],"sourceRoot":""}
