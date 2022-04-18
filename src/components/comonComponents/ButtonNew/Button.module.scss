@@ -1,9 +1,8 @@
-@import "src/style/mixin";
-@import "src/style/variables";
+@use 'src/style';
 
 .item {
-  background: $main_color;
-  color: $text_color;
+  background: style.$main_color;
+  color: style.$text_color;
   padding: 8px 25px 6px 25px;
   border: none;
   text-align: center;
@@ -19,12 +18,12 @@
     background-color: gray;
 
     &:hover {
-      color: $text_color;
+      color: style.$text_color;
     }
   }
 
   &:hover {
-    color: $primary_color;
+    color: style.$primary_color;
     cursor: pointer;
   }
 }

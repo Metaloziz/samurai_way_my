@@ -1,51 +1,56 @@
-import { ChangeEvent, memo, useEffect, useState } from 'react';
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react';
 
 type ProfileStatusPT = {
   status: string;
   updateUserStatus: (status: string) => void;
 };
 
-export const ProfileStatusWithHooks = memo((props: ProfileStatusPT) => {
-  const [editMod, setEditMod] = useState<boolean>(false);
-  const [statusText, setStatusText] = useState<string>(props.status);
+export const ProfileStatusWithHooks: FC<ProfileStatusPT> = memo(
+  ({ status, updateUserStatus }) => {
+    const defaultStatus = status || 'default';
 
-  useEffect(() => {
-    if (props.status === '') {
-      setStatusText('default');
-    } else {
-      setStatusText(props.status);
-    }
-  }, [props.status]);
+    const [editMod, setEditMod] = useState<boolean>(false);
+    const [statusText, setStatusText] = useState<string>(defaultStatus);
 
-  const setEditModTrue = (): void => {
-    setEditMod(true);
-  };
+    useEffect(() => {
+      if (status === '') {
+        setStatusText('default');
+      } else {
+        setStatusText(status);
+      }
+    }, [status]);
 
-  const setEditModFalse = (): void => {
-    setEditMod(false);
-    if (statusText) {
-      props.updateUserStatus(statusText);
-    }
-  };
-  const changeTextHandle = (e: ChangeEvent<HTMLInputElement>): void => {
-    setStatusText(e.currentTarget.value);
-  };
+    const setEditModTrue = (): void => {
+      setEditMod(true);
+    };
 
-  if (editMod) {
+    const setEditModFalse = (): void => {
+      setEditMod(false);
+      if (statusText) {
+        updateUserStatus(statusText);
+      }
+    };
+    const changeTextHandle = (e: ChangeEvent<HTMLInputElement>): void => {
+      setStatusText(e.currentTarget.value);
+    };
+
     return (
       <div>
-        <input
-          onBlur={setEditModFalse}
-          type="text"
-          onChange={changeTextHandle}
-          value={statusText}
-        />
+        <span>Status (onDoubleClick - change it):</span>
+        <div>
+          {editMod ? (
+            <input
+              maxLength={20}
+              onBlur={setEditModFalse}
+              type="text"
+              onChange={changeTextHandle}
+              value={statusText}
+            />
+          ) : (
+            <h4 onDoubleClick={setEditModTrue}>{defaultStatus}</h4>
+          )}
+        </div>
       </div>
     );
-  }
-  return (
-    <div>
-      <h2 onDoubleClick={setEditModTrue}>{props.status}</h2>
-    </div>
-  );
-});
+  },
+);

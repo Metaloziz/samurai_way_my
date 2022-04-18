@@ -1,18 +1,27 @@
+@use "src/style";
+
 .content {
-  /*margin: 0.5%;*/
-  //padding: 0.5%;
-  background-color: darkslategray;
+  @include style.DisplayFlexCenter();
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: style.$primary_color;
+
+  img {
+    width: 200px;
+  }
+
+  .avatar {
+    @include style.DisplayFlexCenter();
+    align-items: flex-start;
+    gap: 30px;
+    width: 40%;
+  }
+
+  .contacts {
+    width: 60%;
+  }
 }
 
-.item {
-  background-color: darkcyan;
-  //padding: 1%;
-  //margin: 0.5%;
-}
-
-.item img {
-  width: 100px;
-}
 
 .contacts {
   padding-left: 20px;

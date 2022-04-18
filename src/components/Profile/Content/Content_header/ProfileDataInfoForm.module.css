@@ -1,7 +1,12 @@
+.main {
+
+}
+
+
 .item {
     display: flex;
     flex-direction: row;
-    width: 90vh;
+    width: auto;
     justify-content: space-between;
 }
 

@@ -1,6 +1,9 @@
-@import "src/style/variables";
+@use "src/style";
 
 .main {
+  @include style.DisplayFlexCenter();
+  align-items: stretch;
+  gap: 5px;
   width: auto;
   height: auto;
 }

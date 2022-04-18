@@ -2,6 +2,8 @@ import React, { memo } from 'react';
 
 import style from './Old_Post.module.css';
 
+import { Button } from 'components/comonComponents/ButtonNew/Button';
+
 type OldPostPT = {
   id: string;
   message: string;
@@ -24,11 +26,9 @@ export const OldPost = memo(({ message, like, comment, addLike, id }: OldPostPT)
         <span className={style.item}>{message}</span>
       </div>
       <div className={style.contentButtons}>
-        <button type="button" onClick={addLikeHandle}>
-          Like
-        </button>
+        <Button name="Like" type="button" onClick={addLikeHandle} />
         <span>{like}</span>
-        <button type="button">Comment</button>
+        <Button name="Comment" type="button" />
         <span>{comment}</span>
       </div>
     </div>

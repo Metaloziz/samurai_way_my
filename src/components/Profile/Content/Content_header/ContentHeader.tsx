@@ -1,14 +1,13 @@
-import { ChangeEvent, FC, ReactElement, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useState } from 'react';
 
-import { Preloader } from '../../../comonComponents/Preloader';
 import stockAva from '../../../Users/imgAva/user.png';
 import { ContentHeaderPT } from '../../Profile';
 
 import { Button } from 'components/comonComponents/ButtonNew/Button';
-import { AvatarImage } from 'components/Profile/Content/Content_header/AvatarImage';
+import { Preloader } from 'components/comonComponents/Preloader';
 import style from 'components/Profile/Content/Content_header/Content_header.module.scss';
-import { ProfileDataInfo } from 'components/Profile/Content/Content_header/ProfileDataInfo';
-import { ProfileDataInfoForm } from 'components/Profile/Content/Content_header/ProfileDataInfoForm';
+import { ProfileData } from 'components/Profile/Content/Content_header/ProfileData/ProfileData';
+import { SetAvatarImage } from 'components/Profile/Content/Content_header/SetAvatarImage';
 import { ProfileStatusWithHooks } from 'components/Profile/ProfileStatus/ProfileStatusWithHooks';
 import { ProfileDataType } from 'redux/profile_reducer';
 import { CommonConstants } from 'utils/enum/enum';
@@ -20,14 +19,14 @@ export const ContentHeader: FC<ContentHeaderPT> = ({
   userId,
   savePhoto,
   setProfileData,
-}): ReactElement => {
+}) => {
   const [editMod, setEditMod] = useState<boolean>(false);
 
-  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>): void => {
+  const onMainPhotoSelected = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files) {
       savePhoto(e.target.files[CommonConstants.zero]);
     }
-  };
+  }, []);
 
   const setEditModHandle = (): void => {
     setEditMod(!editMod);
@@ -43,24 +42,22 @@ export const ContentHeader: FC<ContentHeaderPT> = ({
 
   return (
     <div className={style.content}>
-      <div className={style.item}>
-        <span>Profile</span>
+      <div className={style.avatar}>
         <div>
           <img alt="ava" src={profile.photos.large || stockAva} />
-        </div>
-        <AvatarImage userId={userId} onChangeHandler={onMainPhotoSelected} />
-        <div>
-          <span>Status:</span>
+          <SetAvatarImage userId={userId} onChangeHandler={onMainPhotoSelected} />
         </div>
         <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus} />
+      </div>
+      <div className={style.contacts}>
         {!userId && (
           <Button name="edit data" disabled={editMod} onClick={setEditModHandle} />
         )}
-        {editMod ? (
-          <ProfileDataInfoForm initialState={profile} setProfileData={setProfileDataCB} />
-        ) : (
-          <ProfileDataInfo profile={profile} />
-        )}
+        <ProfileData
+          editMod={editMod}
+          initialState={profile}
+          profileData={setProfileDataCB}
+        />
       </div>
     </div>
   );

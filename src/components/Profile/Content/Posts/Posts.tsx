@@ -14,11 +14,8 @@ export type NewPostPT = {
 
 export const Posts = memo(({ profilePage, addPostAC, addLikeAC }: NewPostPT) => {
   const addNewItem = (data: PostsReduxFormType): void => {
-    console.log(data);
     if (data.textPost) {
       addPostAC({ value: data.textPost.trim() });
-    } else {
-      console.warn('field is empty');
     }
   };
 
@@ -30,7 +27,6 @@ export const Posts = memo(({ profilePage, addPostAC, addLikeAC }: NewPostPT) => 
     <div className={style.content}>
       <div className={style.item}>
         New Post
-        {/* when submit form — call addNewItem  */}
         <PostForm addNewPostHandle={addNewItem} />
         {profilePage.postData.map(item => (
           <OldPost

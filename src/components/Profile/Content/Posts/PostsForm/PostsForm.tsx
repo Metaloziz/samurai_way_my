@@ -2,6 +2,8 @@ import { ReactElement } from 'react';
 
 import { useFormik } from 'formik';
 
+import { Button } from 'components/comonComponents/ButtonNew/Button';
+
 export type PostsReduxFormType = {
   textPost: string;
 };
@@ -11,8 +13,6 @@ type addNewPostHandleType = {
 };
 
 export const PostForm = ({ addNewPostHandle }: addNewPostHandleType): ReactElement => {
-  // const maxLength15 = useCallback(maxLengthCreator(MaxLengthSymbols.postForm), []);
-
   const formik = useFormik({
     initialValues: {
       textPost: '',
@@ -36,7 +36,7 @@ export const PostForm = ({ addNewPostHandle }: addNewPostHandleType): ReactEleme
         />
       </div>
       <div>
-        <button type="submit">Add post</button>
+        <Button name="Add post" type="submit" />
       </div>
     </form>
   );
