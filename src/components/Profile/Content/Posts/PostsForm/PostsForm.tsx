@@ -30,7 +30,7 @@ export const PostForm = ({ addNewPostHandle }: addNewPostHandleType): ReactEleme
           id="textPost"
           name="textPost"
           type="textPost"
-          placeholder="some text"
+          placeholder="your thoughts"
           onChange={formik.handleChange}
           value={formik.values.textPost}
         />

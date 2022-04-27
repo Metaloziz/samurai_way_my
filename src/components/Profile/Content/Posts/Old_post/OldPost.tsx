@@ -26,10 +26,8 @@ export const OldPost = memo(({ message, like, comment, addLike, id }: OldPostPT)
         <span className={style.item}>{message}</span>
       </div>
       <div className={style.contentButtons}>
-        <Button name="Like" type="button" onClick={addLikeHandle} />
-        <span>{like}</span>
-        <Button name="Comment" type="button" />
-        <span>{comment}</span>
+        <Button name={`Like ${like}`} type="button" onClick={addLikeHandle} />
+        <Button name={`Comment ${comment}`} type="button" />
       </div>
     </div>
   );

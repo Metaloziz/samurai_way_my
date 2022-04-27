@@ -1,9 +1,9 @@
 import React, { memo, useCallback } from 'react';
 
 import { OldPost } from './Old_post/OldPost';
-import style from './Posts.module.css';
 import { PostForm, PostsReduxFormType } from './PostsForm/PostsForm';
 
+import style from 'components/Profile/Content/Posts/Posts.module.scss';
 import { initialStateProfileType } from 'redux/profile_reducer';
 
 export type NewPostPT = {
@@ -25,20 +25,17 @@ export const Posts = memo(({ profilePage, addPostAC, addLikeAC }: NewPostPT) => 
 
   return (
     <div className={style.content}>
-      <div className={style.item}>
-        New Post
-        <PostForm addNewPostHandle={addNewItem} />
-        {profilePage.postData.map(item => (
-          <OldPost
-            key={item.id}
-            id={item.id}
-            addLike={addLikeHandle}
-            message={item.message}
-            like={item.like}
-            comment={item.comment}
-          />
-        ))}
-      </div>
+      <PostForm addNewPostHandle={addNewItem} />
+      {profilePage.postData.map(({ id, like, comment, message }) => (
+        <OldPost
+          key={id}
+          id={id}
+          addLike={addLikeHandle}
+          message={message}
+          like={like}
+          comment={comment}
+        />
+      ))}
     </div>
   );
 });

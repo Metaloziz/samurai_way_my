@@ -36,8 +36,8 @@ export const ProfileStatusWithHooks: FC<ProfileStatusPT> = memo(
 
     return (
       <div>
-        <span>Status (onDoubleClick - change it):</span>
         <div>
+          Status:
           {editMod ? (
             <input
               maxLength={20}
@@ -49,6 +49,7 @@ export const ProfileStatusWithHooks: FC<ProfileStatusPT> = memo(
           ) : (
             <h4 onDoubleClick={setEditModTrue}>{defaultStatus}</h4>
           )}
+          <div>double click - change it</div>
         </div>
       </div>
     );

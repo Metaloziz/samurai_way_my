@@ -3,10 +3,10 @@
 .app {
   display: flex;
   width: 1000px;
-  margin: 10px auto;
+  margin: $gap auto;
   flex-wrap: wrap;
-  gap: 10px;
-  row-gap: 10px;
+  gap: $gap;
+  row-gap: $gap;
 }
 
 .main {

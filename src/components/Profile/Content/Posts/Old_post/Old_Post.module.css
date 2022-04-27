@@ -13,8 +13,8 @@
 
 .contentButtons {
     display: flex;
+    margin-top: 1%;
     gap: 1%;
-
 }
 
 .avatar {

@@ -24,6 +24,8 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "no-this-before-super": "warn",
+    "no-invalid-this": "warn",
     "no-shadow": "off",
     "no-alert": "error",
     "no-debugger": "error",

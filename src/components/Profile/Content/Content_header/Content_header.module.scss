@@ -5,6 +5,7 @@
   flex-direction: row;
   align-items: flex-start;
   background-color: style.$primary_color;
+  padding: style.$gap;
 
   img {
     width: 200px;

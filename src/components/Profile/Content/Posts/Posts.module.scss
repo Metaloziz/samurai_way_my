@@ -1,0 +1,19 @@
+@use "src/style";
+
+.content {
+  background-color: style.$primary_color;
+  padding: style.$gap;
+
+  color: style.$text_color;
+
+
+  input {
+    font-size: 20px;
+    width: 320px;
+    height: 50px;
+  }
+
+}
+
+
+
