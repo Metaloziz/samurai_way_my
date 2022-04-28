@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react';
 
 import { useFormik } from 'formik';
 
-// import { CommonConstants } from 'utils/enum/enum';
+import { Button } from 'components/comonComponents/ButtonNew/Button';
 
 export type MessageFormikInputType = {
   message: string;
@@ -15,8 +15,6 @@ type AddMessageFormPropsType = {
 export const AddMessageForm: FC<AddMessageFormPropsType> = ({
   addNewMessageHandle,
 }): ReactElement => {
-  // const maxLength15 = useCallback(maxLengthCreator(MaxLengthSymbols.messageForm), []);
-
   const formik = useFormik({
     initialValues: {
       message: '',
@@ -26,11 +24,6 @@ export const AddMessageForm: FC<AddMessageFormPropsType> = ({
       formik.resetForm();
     },
   });
-  // const resetForm = (): void => {
-  //   setTimeout(() => {
-  //     formik.resetForm();
-  //   }, CommonConstants.two);
-  // };
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -41,9 +34,8 @@ export const AddMessageForm: FC<AddMessageFormPropsType> = ({
         placeholder="some text"
         onChange={formik.handleChange}
         value={formik.values.message}
-        // validate={[requiredField, maxLength15]}
       />
-      <button type="submit">Add</button>
+      <Button name="Add" type="submit" />
     </form>
   );
 };

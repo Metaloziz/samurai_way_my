@@ -1,0 +1,41 @@
+@use "src/style";
+
+.content {
+  background-color: style.$primary_color_second;
+  padding: 1%;
+  margin: 0.5%;
+  width: auto;
+  border-radius: 10px;
+}
+
+.content button {
+  border-radius: 5px;
+  font-size: 10px;
+}
+
+.contentButtons {
+  display: flex;
+  margin-top: 1%;
+  gap: 1%;
+}
+
+.avatar {
+  width: 70px;
+  border-radius: 100px;
+  margin-left: 1%;
+}
+
+.items {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1% 0 1% 0;
+  background-color: rgba(0, 0, 0, 0.21);
+  border-radius: 10px;
+}
+
+.item {
+  align-content: center;
+  color: beige;
+  margin-left: 50px;
+}

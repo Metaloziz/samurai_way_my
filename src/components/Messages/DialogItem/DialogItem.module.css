@@ -14,8 +14,9 @@
 }
 
 .navLink {
-
+    text-decoration: none;
     align-content: end;
+    color: beige;
 }
 
 

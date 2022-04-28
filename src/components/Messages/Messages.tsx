@@ -2,12 +2,13 @@ import { FC } from 'react';
 
 import { AddMessageForm, MessageFormikInputType } from './AddMessageForm/AddMessageForm';
 import { DialogItem } from './DialogItem/DialogItem';
-import style from './Messages.module.css';
 import {
   mapDispatchToPropsMessageType,
   mapStateToPropsMessageType,
 } from './MessagesContainer';
 import { MessagesItem } from './MessagesItem/MessagesItem';
+
+import style from 'components/Messages/Messages.module.scss';
 
 export const Messages: FC<mapStateToPropsMessageType & mapDispatchToPropsMessageType> = ({
   dialogsPage,

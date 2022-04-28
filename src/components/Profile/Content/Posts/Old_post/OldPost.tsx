@@ -1,8 +1,7 @@
 import React, { memo } from 'react';
 
-import style from './Old_Post.module.css';
-
 import { Button } from 'components/comonComponents/ButtonNew/Button';
+import style from 'components/Profile/Content/Posts/Old_post/Old_Post.module.scss';
 
 type OldPostPT = {
   id: string;
