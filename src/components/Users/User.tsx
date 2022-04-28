@@ -3,8 +3,9 @@ import { memo } from 'react';
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 
+import { Button } from 'components/comonComponents/ButtonNew/Button';
 import stockImage from 'components/Users/imgAva/user.png';
-import style from 'components/Users/Users.module.css';
+import style from 'components/Users/Users.module.scss';
 import { UserPT } from 'components/Users/UsersContainer';
 
 type UserType = {
@@ -20,7 +21,7 @@ export const User = memo(({ user, followCB }: UserType) => {
   return (
     <div
       id={String(user.id)}
-      className={cn(style.main_div, user.followed && style.main_div2)}
+      className={cn(style.general, user.followed && style.general_followed)}
     >
       <div>
         <NavLink to={`/profile/${user.id}`}>
@@ -30,9 +31,12 @@ export const User = memo(({ user, followCB }: UserType) => {
       <div>{user.name}</div>
       <div>{user.status}</div>
       {user.followed ? <span>followed</span> : <span>unfollowed</span>}
-      <button type="button" disabled={user.isFetchingUser} onClick={followToggle}>
-        {user.followed ? 'unFollowed' : 'followed'}
-      </button>
+      <Button
+        name={user.followed ? 'unFollowed' : 'followed'}
+        type="button"
+        disabled={user.isFetchingUser}
+        onClick={followToggle}
+      />
     </div>
   );
 });

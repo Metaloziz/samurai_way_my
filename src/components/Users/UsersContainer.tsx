@@ -65,7 +65,6 @@ export class UsersAPIcontainer extends Component<UsersStatePT & mapDispatchToPro
 const mapStateToProps = (state: AppStatePT): UsersStatePT => selectUsersSuper(state);
 
 const mapDispatchToProps: mapDispatchToPropsPT = {
-  // getUsersThunkCreator,
   setPageHandle: setPageThunkCreator,
   setUnFollowHandle: unFollowThunkCreator,
   setFollowHandle: followThunkCreator,
@@ -79,7 +78,6 @@ const UsersContainer = compose<ComponentType>(
 export default UsersContainer;
 
 export type mapDispatchToPropsPT = {
-  // getUsersThunkCreator: (currentPage: number, pageSize: number) => void
   setPageHandle: (pageID: number, pageSize: number) => void;
   setUnFollowHandle: (userID: number) => void;
   setFollowHandle: (userID: number) => void;
