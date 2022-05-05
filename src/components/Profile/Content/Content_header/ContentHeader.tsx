@@ -3,7 +3,7 @@ import { ChangeEvent, FC, useCallback, useState } from 'react';
 import stockAva from '../../../Users/imgAva/user.png';
 import { ContentHeaderPT } from '../../Profile';
 
-import { Button } from 'components/comonComponents/ButtonNew/Button';
+import { Button } from 'components/comonComponents/Button/Button';
 import { Preloader } from 'components/comonComponents/Preloader';
 import style from 'components/Profile/Content/Content_header/Content_header.module.scss';
 import { ProfileData } from 'components/Profile/Content/Content_header/ProfileData/ProfileData';

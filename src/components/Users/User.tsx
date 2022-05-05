@@ -3,7 +3,7 @@ import { memo } from 'react';
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-import { Button } from 'components/comonComponents/ButtonNew/Button';
+import { Button } from 'components/comonComponents/Button/Button';
 import stockImage from 'components/Users/imgAva/user.png';
 import style from 'components/Users/Users.module.scss';
 import { UserPT } from 'components/Users/UsersContainer';

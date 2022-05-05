@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import style from './Header.module.scss';
 
-import { Button } from 'components/comonComponents/ButtonNew/Button';
+import { Button } from 'components/comonComponents/Button/Button';
 import { mapDispatchToPropsPT } from 'components/Header/HeaderContainer';
 import { CommonConstants } from 'utils/enum/enum';
 

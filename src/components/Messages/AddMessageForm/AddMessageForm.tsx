@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react';
 
 import { useFormik } from 'formik';
 
-import { Button } from 'components/comonComponents/ButtonNew/Button';
+import { Button } from 'components/comonComponents/Button/Button';
 
 export type MessageFormikInputType = {
   message: string;

@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 
 import style from './ProfileDataInfoForm.module.css';
 
-import { Button } from 'components/comonComponents/ButtonNew/Button';
+import { Button } from 'components/comonComponents/Button/Button';
 import { ContactsType, ProfileDataType, ProfileType } from 'redux/profile_reducer';
 
 export const ProfileDataInfoForm: FC<ProfileDataInfoFormPropsType> = ({

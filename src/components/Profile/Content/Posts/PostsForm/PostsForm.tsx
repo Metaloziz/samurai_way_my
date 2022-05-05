@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useFormik } from 'formik';
 
-import { Button } from 'components/comonComponents/ButtonNew/Button';
+import { Button } from 'components/comonComponents/Button/Button';
 
 export type PostsReduxFormType = {
   textPost: string;

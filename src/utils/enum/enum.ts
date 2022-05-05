@@ -17,3 +17,11 @@ export enum MaxLengthSymbols {
   messageForm = 30,
   loginForm = 30,
 }
+
+export enum ButtonsPagination {
+  Zero,
+  One,
+  Two,
+  Three,
+  Four,
+}

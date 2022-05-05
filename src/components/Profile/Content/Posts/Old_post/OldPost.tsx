@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { Button } from 'components/comonComponents/ButtonNew/Button';
+import { Button } from 'components/comonComponents/Button/Button';
 import style from 'components/Profile/Content/Posts/Old_post/Old_Post.module.scss';
 
 type OldPostPT = {

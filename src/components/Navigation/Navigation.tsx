@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import style from './Navigation.module.scss';
 
-import { Button } from 'components/comonComponents/ButtonNew/Button';
+import { Button } from 'components/comonComponents/Button/Button';
 
 export type sidebarPT = {
   sidebarPage: ItemPT[];

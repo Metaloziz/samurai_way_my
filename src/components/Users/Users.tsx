@@ -1,8 +1,9 @@
+/* eslint-disable */
 import { memo } from 'react';
 
 import { UsersStatePT } from './UsersContainer';
 
-import { Paginator } from 'components/comonComponents/Paginator/Paginator';
+import { Pagination } from 'components/Pagination';
 import { User } from 'components/Users/User';
 
 type UsersFuncPT = {
@@ -22,12 +23,12 @@ export const Users = memo((props: UsersStatePT & UsersFuncPT) => {
 
   return (
     <div>
-      <Paginator
+      <Pagination
         currentPage={props.currentPage}
-        pageSize={props.pageSize}
-        setPage={props.setPage}
+        pagesCount={props.pageSize}
+        setCurrentPage={props.setPage}
         totalCount={props.totalCount}
-        portionSize={10}
+        countDecksOnPage={[10]}
       />
       {props.items.map(user => (
         <User key={user.id} user={user} followCB={followToggle} />
